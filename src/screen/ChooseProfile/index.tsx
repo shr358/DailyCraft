@@ -15,6 +15,17 @@ const { width } = Dimensions.get('window');
 const ChooseProfileType = ({ navigation }) => {
   const [selected, setSelected] = useState('personal');
 
+  const handleContinue = () => {
+if( selected === 'personal'){
+  navigation.navigate('PersonalProfile');
+}else if( selected === 'business'){
+  navigation.navigate('BusinessProfile');
+
+}
+
+
+  };
+
   return (
     <View style={styles.container}>
 
@@ -70,6 +81,7 @@ const ChooseProfileType = ({ navigation }) => {
             selected === 'business' && styles.selectedCard,
           ]}
           onPress={() => setSelected('business')}
+
         >
           <View style={styles.circle} />
           <Text style={styles.cardTitle}>Business</Text>
@@ -88,8 +100,7 @@ const ChooseProfileType = ({ navigation }) => {
       </View>
 <View style={styles.bottomContainer}>
   <Button
-    title="Continue"
-    onPress={() => navigation.navigate('ChooseLanguage')}
+    title="Continue"  onPress = {handleContinue}
   />
 </View>
     </View>

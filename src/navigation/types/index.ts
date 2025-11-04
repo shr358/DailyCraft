@@ -5,4 +5,6 @@ export type RootStackParamList = {
  ChooseProfileType : undefined,
  BusinessProfile: undefined,
  PersonalProfile: undefined,
+ UnlockPremiumFeatures:undefined,
+ HomeScreen:undefined,
 };

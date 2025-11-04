@@ -5,10 +5,12 @@ import styles from './styles';
 import Button from '../../components/Button';
 
 
+
 const { width } = Dimensions.get('window');
 
 const ChooseLanguage = ({ navigation }) => {
   const [selected, setSelected] = useState('English');
+
 
   return (
 
@@ -84,7 +86,7 @@ const ChooseLanguage = ({ navigation }) => {
       <View style={styles.bottomContainer}>
        <Button
     title="Continue"
-    onPress={() => navigation.navigate('BusinessProfile')}
+    onPress={() => navigation.navigate('ChooseProfileType')}
   />
 </View>
     </View>

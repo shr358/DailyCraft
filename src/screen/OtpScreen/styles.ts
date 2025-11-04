@@ -61,8 +61,8 @@ export default StyleSheet.create({
   },
 
   otpBox: {
-    width: width * 0.15,
-    height: width * 0.15,
+    width: width * 0.13,
+    height: width * 0.13,
     borderRadius: width * 0.02,
     borderWidth: 1.2,
     borderColor: '#E2E8F0',
@@ -104,4 +104,13 @@ export default StyleSheet.create({
     fontSize: width * 0.045,
     fontWeight: '600',
   },
+
+  errorText: {
+  color: 'red',
+  fontSize: width * 0.033,
+  marginTop: width * 0.03,
+  fontWeight: '500',
+
+  alignSelf:'center',
+},
 });

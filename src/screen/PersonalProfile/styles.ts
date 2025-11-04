@@ -4,10 +4,10 @@ const { width } = Dimensions.get('window');
  export default StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#fff',
        backgroundColor: '#fff',
     paddingHorizontal: width * 0.05,
-    paddingTop: width * 0.1,
+
+      paddingTop: width * 0.04,
   },
   header: {
     flexDirection: 'row',
@@ -29,23 +29,26 @@ const { width } = Dimensions.get('window');
   width: '80%',
   },
   logoBox: {
-     alignSelf: 'center',
-    width: '40%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 2,
-    borderStyle: 'dashed',
-    borderColor: '#ccc',
-    borderRadius: width * 0.05,
-    // padding: width * 0.01,
-    marginVertical: width * 0.01,
-    // paddingHorizontal: width * 0.050,
-     padding: width * 0.03,
+marginTop: width * 0.06,
+  alignSelf: 'center',
+  width: '35%',
+  aspectRatio: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderWidth: 2,
+  borderStyle: 'dashed',
+  borderColor: '#ccc',
+  borderRadius: width * 0.05,
+  padding: width * 0.01,
+  marginVertical: width * 0.050,
+  marginBottom: width * 0.01,
+  // backgroundColor:'red',
   },
   logoText: {
     color: '#777',
     marginVertical: width * 0.05,
-      fontSize: width * 0.035,
+      fontSize: width * 0.030,
+      alignSelf:'center',
   },
 
   textlarge:{
@@ -58,11 +61,12 @@ const { width } = Dimensions.get('window');
     paddingVertical: width * 0.01,
     paddingHorizontal: width * 0.01,
     borderRadius: width * 0.02,
-    width:'100%',
+    width:'90%',
     // height:'30%',
+       marginBottom: width * 0.06,
   },
   uploadIcon: {
-    // marginRight: width * 0.07,
+
   },
   uploadText: {
     color: '#FFFFFF',
@@ -77,7 +81,7 @@ const { width } = Dimensions.get('window');
   },
   label: {
     fontSize: width * 0.035,
-    marginTop: width * 0.03,
+    marginTop: width * 0.07,
     marginBottom: width * 0.01,
     color: '#444',
        marginLeft: width * 0.02,
@@ -92,7 +96,8 @@ const { width } = Dimensions.get('window');
     color: '#000',
   },
  bottomContainer:{
-
+// paddingBottom: width * 0.09,
+marginTop: width * 0.09,
  },
   continueText: {
     marginTop: width * 0.09,
@@ -101,7 +106,7 @@ const { width } = Dimensions.get('window');
     fontSize: width * 0.04,
       marginBottom: width * 0.01,
   },switchBtn:{
-   marginTop: width * 0.04,
+  //  marginTop: width * 0.04,
     marginBottom: width * 0.02,
     alignItems: 'center',
   },
@@ -119,5 +124,13 @@ const { width } = Dimensions.get('window');
   switchtext2: {
     color: '#FF8C32',
 
+  },
+   logoImage:{
+  marginTop: width * 0.03,
+//  paddingTop: width * 0.06,
+
+  },
+  uploadimageicon:{
+paddingTop:width * 0.02,
   },
 });

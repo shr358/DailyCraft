@@ -141,7 +141,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: width * 0.04,
-
   },
 
   checkbox: {
@@ -154,14 +153,9 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginRight: width * 0.03,
     backgroundColor: '#FF8C32',
+
   },
 
-  checkmark: {
-    color: '#FFFFFF',
-    fontSize: width * 0.04,
-    fontWeight: '800',
-    marginTop: -2,
-  },
 
   checkboxLabel: {
     flex: 1,
@@ -182,7 +176,7 @@ export default StyleSheet.create({
     fontSize: width * 0.049,
     textDecorationLine: 'underline',
       marginBottom: width * 0.05,
-      fontWeight: '600',
+      fontWeight: '500',
   },
   waveBottom: {
   width: '100%',
@@ -191,5 +185,13 @@ export default StyleSheet.create({
   marginTop: -1,
     borderColor: '#FFFFFF',
 },
+
+errorText: {
+  color: 'red',
+  fontSize: width * 0.033,
+  marginTop: width * 0.02,
+  fontWeight: '500',
+},
+
 
 });

@@ -1,34 +1,67 @@
 
-
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, Image } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import Button from '../../components/Button';
+import ImagePicker from 'react-native-image-crop-picker';
 
 const PersonalProfile = ({ navigation }) => {
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImagePick = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 300,
+      cropping: true,
+      includeBase64: true,
+    })
+      .then(image => {
+        console.log('📸 Image selected:', image);
+        setSelectedImage(image.path);
+      })
+      .catch(error => {
+        if (error.code !== 'E_PICKER_CANCELLED') {
+          console.warn('Image Picker Error:', error);
+        }
+      });
+  };
+
   return (
     <View style={styles.container}>
-
-
       <View style={styles.header}>
         <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
           <Ionicons name="chevron-back" size={24} color="#FFFFFF" />
         </TouchableOpacity>
-
         <Text style={styles.headerText}>Personal Profile</Text>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
 
-        <View style={styles.logoBox}>
+        <TouchableOpacity style={styles.logoBox} onPress={handleImagePick} activeOpacity={0.8}>
+          <View style={styles.uploadimageicon}>
+            {selectedImage ? (
+              <Image
+                source={{ uri: selectedImage }}
+                style={styles.logoImage}
+                resizeMode="cover"
+              />
+            ) : (
+              <Image
+                source={require('../../assets/images/uploadicon.png')}
+                style={styles.logoImage}
+                resizeMode="contain"
+              />
+            )}
+          </View>
+
           <Text style={styles.logoText}>Please Upload A Business Logo</Text>
 
-          <TouchableOpacity style={styles.uploadBtn}>
+          <TouchableOpacity style={styles.uploadBtn} onPress={handleImagePick}>
             <Ionicons name="image-outline" size={24} color="#FFFFFF" style={styles.uploadIcon} />
             <Text style={styles.uploadText}>Upload File</Text>
           </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
 
 
         <Text style={styles.label}>Enter Name</Text>
@@ -57,21 +90,21 @@ const PersonalProfile = ({ navigation }) => {
           style={[styles.input, styles.textlarge]}
           placeholder="Type Here"
           placeholderTextColor="#777"
+          multiline
         />
 
 
-
         <View style={styles.bottomContainer}>
-          <Button title="Continue" onPress={() => navigation.navigate('PersonalProfile')} />
+          <Button title="Continue" onPress={() => navigation.navigate('HomeScreen')} />
         </View>
 
 
         <TouchableOpacity style={styles.switchBtn}>
           <Text style={styles.switchText}>
-             <Text style={styles.switchtext1}>Switch to
-               <Text style={styles.switchtext2}> Personal Profile</Text>
-                 </Text>
-                 </Text>
+            <Text style={styles.switchtext1}>
+              Switch to <Text style={styles.switchtext2}> Personal Profile</Text>
+            </Text>
+          </Text>
         </TouchableOpacity>
       </ScrollView>
     </View>

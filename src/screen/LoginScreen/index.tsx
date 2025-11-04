@@ -11,16 +11,19 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Platform,
-  Dimensions,
-} from 'react-native';
+  Dimensions} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-//  import Icon from '@react-native-vector-icons/ionicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import CountryPicker from 'react-native-country-picker-modal';
 import Button from '../../components/Button';
+import axios from 'axios';
 import styles from './styles';
+
 const { width } = Dimensions.get('window');
+
+
+const indianMobileRegex = /^(?!.*(\d)\1{9})[6-9]\d{9}$/;
+
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [checked, setChecked] = useState(false);
@@ -28,14 +31,40 @@ const LoginScreen = () => {
   const [countryCode, setCountryCode] = useState('IN');
   const [callingCode, setCallingCode] = useState('91');
   const [visible, setVisible] = useState(false);
+  const [error, setError] = useState('');
 
+
+  const isFormValid = indianMobileRegex.test(mobile) && checked;
 
   const handleMobileChange = (text) => {
     const numericText = text.replace(/[^0-9]/g, '');
     if (numericText.length <= 10) {
       setMobile(numericText);
     }
+
+    if (numericText.length === 10 && !indianMobileRegex.test(numericText)) {
+      setError('Please enter a valid Indian mobile number');
+    } else {
+      setError('');
+    }
   };
+
+  const handleGetOTP = () => {
+    if (mobile.trim() === '') {
+      setError('Please enter mobile number');
+      return;
+    } else if (!indianMobileRegex.test(mobile)) {
+      setError('Please enter a valid Indian mobile number');
+      return;
+    } else if (!checked) {
+      setError('Please accept Terms & Conditions');
+      return;
+    }
+
+    setError('');
+    navigation.navigate('OtpScreen');
+  };
+
 
   return (
     <KeyboardAvoidingView
@@ -55,17 +84,12 @@ const LoginScreen = () => {
             resizeMode="cover"
           >
             <View style={styles.header}>
-
               <TouchableOpacity
                 style={styles.backBtn}
                 onPress={() => navigation.goBack()}
               >
-
                 <Ionicons name="chevron-back" size={width * 0.07} color="#FFFFFF" />
-
               </TouchableOpacity>
-
-              <Text style={styles.skip}>Skip</Text>
             </View>
 
             <View style={styles.banner}>
@@ -79,8 +103,12 @@ const LoginScreen = () => {
           <View style={styles.inputSection}>
             <Text style={styles.label}>Mobile Number</Text>
 
-            <View style={styles.inputBox}>
-
+            <View
+              style={[
+                styles.inputBox,
+                error ? { borderColor: 'red', borderWidth: 1 } : null,
+              ]}
+            >
               <TouchableOpacity
                 onPress={() => setVisible(true)}
                 style={{ flexDirection: 'row', alignItems: 'center' }}
@@ -119,6 +147,8 @@ const LoginScreen = () => {
               </TouchableOpacity>
             </View>
 
+            {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
             <Text style={styles.helperText}>
               You will receive an SMS verification that may apply message and data rates.
             </Text>
@@ -129,10 +159,20 @@ const LoginScreen = () => {
           <View style={styles.checkboxContainer}>
             <TouchableOpacity
               onPress={() => setChecked(!checked)}
-              style={styles.checkbox}
+              style={[
+                styles.checkbox,
+                { backgroundColor: checked ? '#FF8C32' : '#FFFFFF' },
+              ]}
               activeOpacity={0.7}
             >
-              {checked && <Text style={styles.checkmark}>✓</Text>}
+              {checked && (
+                <Ionicons
+                  name="checkmark"
+                  size={width * 0.06}
+                  color="#FFFFFF"
+                  style={{ fontWeight: '900',}}
+                />
+              )}
             </TouchableOpacity>
 
             <Text style={styles.checkboxLabel}>
@@ -142,11 +182,7 @@ const LoginScreen = () => {
           </View>
 
 
-          <Button
-            title="Get OTP"
-            onPress={() => navigation.navigate('OtpScreen')}
-            disabled={!checked || mobile.length < 10}
-          />
+          <Button title="Get OTP" onPress={handleGetOTP} disabled={!isFormValid} />
 
           <TouchableOpacity>
             <Text style={styles.privacyText}>Privacy Policy</Text>
@@ -158,3 +194,4 @@ const LoginScreen = () => {
 };
 
 export default LoginScreen;
+

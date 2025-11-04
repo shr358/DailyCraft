@@ -8,22 +8,37 @@ import ChooseProfileType from '../../screen/ChooseProfile';
 import ChooseLanguage from '../../screen/ChooseLanguage';
 import BusinessProfile from '../../screen/BusinessProfile';
 import PersonalProfile from '../../screen/PersonalProfile';
+import UnlockPremiumFeatures from '../../UnlockPremiumFeatures';
+import HomeScreen from '../../screen/HomeScreen';
+import Download from '../../screen/Download';
+import Profile from '../../screen/Profile/Profile';
+import EditProfile from '../../screen/EditProfile';
+import ProfileDetails from '../../screen/Recommend';
+import Recommend from '../../screen/Recommend';
 export type RootNavigationprop = NativeStackNavigationProp<RootStackParamList>
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
   return (
-
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="OtpScreen" component={OtpScreen} />
-   <Stack.Screen name="ChooseProfileType" component={ChooseProfileType} />
+ <NavigationContainer>
+<Stack.Navigator screenOptions={{ headerShown: false }}>
+<Stack.Screen name="LoginScreen" component={LoginScreen} />
+<Stack.Screen name="OtpScreen" component={OtpScreen} />
+<Stack.Screen name="ChooseProfileType" component={ChooseProfileType} />
 <Stack.Screen name="ChooseLanguage" component={ChooseLanguage}/>
 <Stack.Screen name="BusinessProfile" component={BusinessProfile}/>
 <Stack.Screen name="PersonalProfile" component={PersonalProfile}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+<Stack.Screen name="UnlockPremiumFeatures" component={UnlockPremiumFeatures} />
+<Stack.Screen name="HomeScreen" component={HomeScreen}/>
+<Stack.Screen name="Download" component={Download} />
+<Stack.Screen name="Profile" component={Profile} />
+<Stack.Screen name="Recommend" component={Recommend} />
+<Stack.Screen name="EditProfile" component={EditProfile} />
+<Stack.Screen name="ProfileDetails" component={ProfileDetails} />
+
+
+</Stack.Navigator>
+</NavigationContainer>
 
 
   );
