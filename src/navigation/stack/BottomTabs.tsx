@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../../screen/HomeScreen';
-import Recommend from '../../screen/ProfileDeatils';
+import Recommend from '../../screen/Recommend';
 import Download from '../../screen/Download';
 import Profile from '../../screen/Profile/Profile';
 import styles from '../../screen/HomeScreen/styles';
@@ -10,43 +10,31 @@ import styles from '../../screen/HomeScreen/styles';
 const Tab = createBottomTabNavigator();
 
 const CustomTabBar = ({ state, descriptors, navigation }) => {
-  const activeTab = state.index;
-
   return (
     <View style={styles.bottomNav}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
-        const label = options.tabBarLabel ?? route.name;
-        const isFocused = activeTab === index;
+        const label =
+          options.tabBarLabel !== undefined
+            ? options.tabBarLabel
+            : options.title !== undefined
+            ? options.title
+            : route.name;
 
-        let iconSource;
-        switch (route.name) {
-          case 'HomeScreen':
-            iconSource = require('../../assets/images/Homeicon.png');
-            break;
-          case 'Recommend':
-            iconSource = require('../../assets/images/recommendicon.png');
-            break;
-          case 'Downloads':
-            iconSource = require('../../assets/images/DownLoad.png');
-            break;
-          case 'Profile':
-            iconSource = require('../../assets/images/Profileicon.png');
-            break;
-          default:
-            iconSource = require('../../assets/images/Homeicon.png');
-        }
+        const isFocused = state.index === index;
 
-        const onPress = () => {
-          if (!isFocused) navigation.navigate(route.name);
+        const icons = {
+          Home: require('../../assets/images/Homeicon.png'),
+          Recommend: require('../../assets/images/recommendicon.png'),
+          Downloads: require('../../assets/images/DownLoad.png'),
+          Profile: require('../../assets/images/profileicon.png'),
         };
 
         return (
           <TouchableOpacity
-            key={route.key}
-            onPress={onPress}
+            key={label}
+            onPress={() => navigation.navigate(route.name)}
             style={styles.navItem}
-            activeOpacity={0.8}
           >
             <View
               style={[
@@ -55,20 +43,23 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
               ]}
             >
               <Image
-                source={iconSource}
+                source={icons[route.name]}
                 style={[
                   styles.navIcon,
                   isFocused && { tintColor: '#fff' },
                 ]}
+                resizeMode="contain"
               />
             </View>
+
+
             <Text
               style={[
                 styles.navLabel,
-                isFocused && { color: '#FF7B54' },
+                { color: isFocused ? '#fff' : '#252525' },
               ]}
             >
-              {label === 'HomeScreen' ? 'Home' : label}
+              {label}
             </Text>
           </TouchableOpacity>
         );
@@ -77,13 +68,13 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
   );
 };
 
-const BottomTabNavigator = () => {
+const BottomTabs = () => {
   return (
     <Tab.Navigator
-      screenOptions={{ headerShown: false }}
       tabBar={(props) => <CustomTabBar {...props} />}
+      screenOptions={{ headerShown: false }}
     >
-      <Tab.Screen name="HomeScreen" component={HomeScreen} />
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Recommend" component={Recommend} />
       <Tab.Screen name="Downloads" component={Download} />
       <Tab.Screen name="Profile" component={Profile} />
@@ -91,4 +82,5 @@ const BottomTabNavigator = () => {
   );
 };
 
-export default BottomTabNavigator;
+export default BottomTabs;
+

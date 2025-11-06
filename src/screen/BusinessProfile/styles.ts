@@ -3,7 +3,7 @@ const { width } = Dimensions.get('window');
 
  export default StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     // backgroundColor: '#fff',
        backgroundColor: '#fff',
     paddingHorizontal: width * 0.05,
@@ -12,7 +12,7 @@ const { width } = Dimensions.get('window');
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: width * 0.06,
+    marginBottom: width * 0.02,
   },
   backBtn: {
     justifyContent: 'center',
@@ -95,7 +95,7 @@ paddingTop:width * 0.02,
   },
   label: {
     fontSize: width * 0.035,
-    marginTop: width * 0.03,
+    marginTop: width * 0.02,
     marginBottom: width * 0.01,
     color: '#444',
        marginLeft: width * 0.03,
@@ -120,7 +120,7 @@ marginTop:width * 0.03,
     fontSize: width * 0.04,
       marginBottom: width * 0.01,
   },switchBtn:{
-   marginTop: width * 0.03,
+   marginTop: width * 0.01,
     marginBottom: width * 0.02,
     alignItems: 'center',
   },

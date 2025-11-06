@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import {
   View,
@@ -11,17 +12,16 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Platform,
-  Dimensions} from 'react-native';
+  Dimensions,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CountryPicker from 'react-native-country-picker-modal';
 import Button from '../../components/Button';
-import axios from 'axios';
+import { sendOtp } from '../services/Apiconfig';
 import styles from './styles';
 
 const { width } = Dimensions.get('window');
-
-
 const indianMobileRegex = /^(?!.*(\d)\1{9})[6-9]\d{9}$/;
 
 const LoginScreen = () => {
@@ -32,15 +32,13 @@ const LoginScreen = () => {
   const [callingCode, setCallingCode] = useState('91');
   const [visible, setVisible] = useState(false);
   const [error, setError] = useState('');
-
+  const [loading, setLoading] = useState(false);
 
   const isFormValid = indianMobileRegex.test(mobile) && checked;
 
   const handleMobileChange = (text) => {
     const numericText = text.replace(/[^0-9]/g, '');
-    if (numericText.length <= 10) {
-      setMobile(numericText);
-    }
+    if (numericText.length <= 10) setMobile(numericText);
 
     if (numericText.length === 10 && !indianMobileRegex.test(numericText)) {
       setError('Please enter a valid Indian mobile number');
@@ -49,21 +47,53 @@ const LoginScreen = () => {
     }
   };
 
-  const handleGetOTP = () => {
-    if (mobile.trim() === '') {
-      setError('Please enter mobile number');
-      return;
-    } else if (!indianMobileRegex.test(mobile)) {
-      setError('Please enter a valid Indian mobile number');
-      return;
-    } else if (!checked) {
-      setError('Please accept Terms & Conditions');
-      return;
-    }
 
+
+  // const handleGetOTP = () => {
+  //   if (mobile.trim() === '') {
+  //     setError('Please enter mobile number');
+  //     return;
+  //   } else if (!indianMobileRegex.test(mobile)) {
+  //     setError('Please enter a valid Indian mobile number');
+  //     return;
+  //   } else if (!checked) {
+  //     setError('Please accept Terms & Conditions');
+  //     return;
+  //   }
+
+  //   setError('');
+  //   navigation.navigate('OtpScreen');
+  // };
+
+
+const handleGetOTP = async () => {
+  if (!mobile.trim()) {
+    setError('Please enter mobile number');
+    return;
+  }
+  if (!indianMobileRegex.test(mobile)) {
+    setError('Please enter a valid Indian mobile number');
+    return;
+  }
+  if (!checked) {
+    setError('Please accept Terms & Conditions');
+    return;
+  }
+
+  try {
+    setLoading(true);
     setError('');
-    navigation.navigate('OtpScreen');
-  };
+    const res = await sendOtp(mobile);
+    console.log('OTP Response:', res);
+
+    navigation.navigate('OtpScreen', { phone_number: mobile  ,otp: res.otp});
+  } catch (err) {
+    console.log('Send OTP error:', err);
+    setError(err.response?.data?.message || 'Failed to send OTP. Please try again.');
+  } finally {
+    setLoading(false);
+  }
+};
 
 
   return (
@@ -170,7 +200,7 @@ const LoginScreen = () => {
                   name="checkmark"
                   size={width * 0.06}
                   color="#FFFFFF"
-                  style={{ fontWeight: '900',}}
+                  style={{ fontWeight: '900' }}
                 />
               )}
             </TouchableOpacity>
@@ -181,8 +211,11 @@ const LoginScreen = () => {
             </Text>
           </View>
 
-
-          <Button title="Get OTP" onPress={handleGetOTP} disabled={!isFormValid} />
+          <Button
+            title={loading ? 'Sending...' : 'Get OTP'}
+            onPress={handleGetOTP}
+            disabled={!isFormValid || loading}
+          />
 
           <TouchableOpacity>
             <Text style={styles.privacyText}>Privacy Policy</Text>
@@ -194,4 +227,3 @@ const LoginScreen = () => {
 };
 
 export default LoginScreen;
-

@@ -125,14 +125,13 @@ const styles = StyleSheet.create({
   },
 
   bottomContainer: {
-    paddingHorizontal: 2,
+    paddingHorizontal: 10,
     marginLeft:10,
-    // paddingLeft:30,
-    // paddingRight:35,
-    marginTop: 10,
+    paddingLeft:35,
+    paddingRight:35,
+    // marginTop: 10,
     // marginLeft:10,
     // marginRight:10,
-    // width:'90%',
   },
 
   switchContainer: {

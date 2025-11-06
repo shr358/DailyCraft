@@ -158,32 +158,25 @@ export default StyleSheet.create({
     fontSize: 16,
   },
   bottomNav: {
-    position: 'absolute',
-    bottom: 0,
-    left: 10,
-    right: 10,
-    height: 70,
-    borderRadius:50,
-    backgroundColor: '#FFF0ED',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    borderTopWidth: 1,
-    borderTopColor: '#eee',
-    marginTop:10,
-    marginBottom:5,
-
-
+     position: 'absolute',
+  bottom: 0,
+  left: 10,
+  right: 10,
+  height: 80,
+  borderRadius: 50,
+  backgroundColor: '#FFF0ED',
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  alignItems: 'center',
+  borderTopWidth: 1,
+  borderTopColor: '#eee',
+  marginBottom: 10,
   },
   navItem: {
     alignItems: 'center',
   },
   iconWrapper: {
-    // width: 40,
-    // height: 40,
-    // borderRadius: 20,
-    // justifyContent: 'center',
-    // alignItems: 'center',
+
      backgroundColor: '#FFF',
   borderWidth: 1,
   borderColor: '#E0E0E0',
@@ -219,6 +212,7 @@ export default StyleSheet.create({
   },
   activeIconBg: {
     backgroundColor: '#FF984F',
+      borderRadius: 30,
   },
   navIcon: {
     width: 32,
@@ -245,56 +239,26 @@ export default StyleSheet.create({
   borderRadius: 8,
 },
 
-modalOverlay: {
-  flex: 1,
-  backgroundColor: 'rgba(0,0,0,0.5)',
-  justifyContent: 'center',
-  alignItems: 'center',
-},
-modalContent: {
-  backgroundColor: '#fff',
-  width: '80%',
-  borderRadius: 10,
-  padding: 20,
-},
-modalTitle: {
-  fontSize: 18,
-  fontWeight: '700',
-  marginBottom: 15,
-  textAlign: 'center',
-},
-modalOption: {
-  padding: 12,
-  borderWidth: 1,
-  borderColor: '#ccc',
-  borderRadius: 8,
-  marginVertical: 5,
-},
-modalOptionSelected: {
-  backgroundColor: '#FF7B54',
-  borderColor: '#FF7B54',
-},
-modalOptionText: {
-  fontSize: 16,
-  textAlign: 'center',
-},
-closeBtn: {
-  backgroundColor: '#FF7B54',
-  marginTop: 15,
-  borderRadius: 8,
-  paddingVertical: 10,
-},
+
+// closeBtn: {
+//   backgroundColor: '#FF7B54',
+//   marginTop: 15,
+//   borderRadius: 8,
+//   paddingVertical: 10,
+// },
 closeBtnText: {
   color: '#fff',
   textAlign: 'center',
   fontWeight: '600',
 },
 headericon:{
- width: 25,
-    height: 25,
+ width: 20,
+    height: 20,
     // marginLeft: 15,
     // tintColor: '#EEA83D',
     backgroundColor:'#fff',
+    // marginTop:10,
+    padding:13,
 },
 navIconWrapper: {
   justifyContent: 'center',
@@ -303,14 +267,143 @@ navIconWrapper: {
   height: 44,
   borderRadius: 26,
   // marginBottom:5,
+  // backgroundColor:'red'
 },
 
 activeNavCircle: {
   backgroundColor: '#FF984F',
   elevation: 5,
+   borderRadius: 45,
+   padding:10,
+   width:60,
+   height:60,
 },
 
 
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    padding:20,
+  },
+
+  modalContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    backgroundColor: 'rgba(255,255,255,0.95)',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingHorizontal: 20,
+    paddingTop: 15,
+    // paddingBottom: 25,
+    padding:60,
+  },
+
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#000',
+  },
+
+  closeBtn: {
+     position: 'absolute',
+    top: -25,
+    right: 15,
+    backgroundColor: '#fff',
+    borderRadius: 25,
+    padding: 10,
+    elevation: 5,
+    // zIndex: 10,
+  },
+
+  profileCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 15,
+    marginBottom: 10,
+    // borderLeftWidth: 4,
+    // borderLeftColor: '#FF984F',
+    elevation: 3,
+  },
+
+
+  avatarBorderBox: {
+  borderRightWidth: 3,
+  borderBottomWidth: 3,
+  borderColor: '#FF984F',
+  borderRadius: 10,
+  padding: 2,
+  marginRight: 12,
+},
+
+  profileAvatarContainer: {
+  borderLeftWidth: 4,
+  borderBottomWidth: 4,
+  borderColor: '#FF984F',
+  borderRadius: 12,
+  // padding: 2,
+  // marginRight: 10,
+},
+
+  profileAvatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 10,
+    // marginRight: 10,
+
+  },
+
+  profileInfo: {
+    flex: 1,
+  },
+
+  profileName: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#000',
+  },
+
+  profileTag: {
+    backgroundColor: '#FF984F',
+    // borderRadius: 8,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    alignSelf: 'flex-start',
+    marginTop: 3,
+  },
+
+  profileTagText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: '500',
+  },
+
+  createProfileBtn: {
+    backgroundColor: '#FF984F',
+    borderRadius: 8,
+    paddingVertical: 16,
+    marginTop: 90,
+    // paddingTop:40,
+    alignItems: 'center',
+    // position:'absolute',
+    // marginBottom:6,
+  },
+
+  createProfileText: {
+    color: '#fff',
+    fontSize: 19,
+    fontWeight: '600',
+  },
 });
+
 
 

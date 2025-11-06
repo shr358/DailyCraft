@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   title: {
-    fontSize: 22,
+    fontSize: 28,
     fontWeight: '700',
     color: '#000',
     textAlign: 'center',
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 5,
     width: '80%',
-    lineHeight: 20,
+    lineHeight: 25,
   },
 
 

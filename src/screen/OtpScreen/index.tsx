@@ -1,5 +1,4 @@
 
-
 import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
@@ -10,96 +9,131 @@ import {
   ImageBackground,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import styles from './styles';
+import { verifyOtp, sendOtp } from '../services/Apiconfig';
 
 const { width } = Dimensions.get('window');
 
-const OtpScreen = ({ navigation }) => {
-  const [otp, setOtp] = useState(['', '', '', '','','']);
+const OtpScreen = () => {
+  const route = useRoute();
+  const navigation = useNavigation();
+  const phoneNumber = route.params?.phone_number || '';
+  const backendOtp = route.params?.otp || '';
+
+  const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [error, setError] = useState('');
-  const [timer, setTimer] = useState(0);
+  const [timer, setTimer] = useState(60);
+  const [loading, setLoading] = useState(false);
   const inputs = useRef([]);
 
 
-  const handleChange = (text, index) => {
-    const newOtp = [...otp];
-    newOtp[index] = text;
-    setOtp(newOtp);
-
-
-    if (error) setError('');
-
-    if (text && index < 5) {
-      inputs.current[index + 1].focus();
-    }
-  };
-
   const otpValue = otp.join('');
 
-
   useEffect(() => {
+    setTimer(60);
     let interval = null;
     if (timer > 0) {
       interval = setInterval(() => {
-        setTimer(prev => prev - 1);
+        setTimer(prev => {
+          if (prev <= 1) {
+            clearInterval(interval);
+            return 0;
+          }
+          return prev - 1;
+        });
       }, 1000);
-    } else {
-      clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [timer]);
 
+  }, []);
 
-  const handleResend = () => {
-    setOtp(['', '', '', '','','']);
-    setError('');
-    setTimer(60);
+  const handleChange = (text, index) => {
+
+    const char = text.replace(/[^0-9]/g, '').slice(-1);
+    const newOtp = [...otp];
+    newOtp[index] = char;
+    setOtp(newOtp);
+
+    if (error) setError('');
+
+    if (char && index < 5) {
+      inputs.current[index + 1]?.focus();
+    }
+    // if user clears (backspace) move focus back
+    if (!char && index > 0) {
+      inputs.current[index - 1]?.focus();
+    }
   };
 
-
-  const validateOtp = () => {
-    if (!otpValue) {
-      setError('Please enter OTP');
-      return false;
-    }
-    if (otpValue.length < 6) {
-      setError('Please enter 4-digit OTP');
-      return false;
-    }
-    if (otpValue !== '123456') {
-      setError('Invalid OTP. Please try again.');
-      return false;
-    }
-    return true;
+  const clearOtp = () => {
+    setOtp(['', '', '', '', '', '']);
+    inputs.current[0]?.focus();
   };
 
-
-  const handleVerify = () => {
-    const isValid = validateOtp();
-    if (isValid) {
+  const handleResend = async () => {
+    try {
       setError('');
-      navigation.navigate('ChooseLanguage');
+      setTimer(60);
+      clearOtp();
+      // call API to resend OTP
+      const res = await sendOtp(phoneNumber);
+      console.log('Resend OTP Response:', res);
+      // optionally show alert
+      Alert.alert('OTP Sent', res.message || 'OTP has been resent');
+    } catch (err) {
+      console.log('Resend OTP error:', err);
+      setError(err.response?.data?.message || 'Failed to resend OTP');
     }
   };
 
 
-  const isButtonDisabled = otpValue.length < 6;
+  const handleVerify = async () => {
+  if (!otpValue || otpValue.length < 6) {
+    setError('Please enter the 6-digit OTP');
+    return;
+  }
+
+  try {
+    setLoading(true);
+    setError('');
+    const response = await verifyOtp(phoneNumber, otpValue);
+    console.log('Verify OTP Response:', response);
+
+    if (response.status) {
+      navigation.navigate('ChooseLanguage', { phone_number: phoneNumber });
+    } else {
+      setError(response.message || 'Invalid OTP. Please try again.');
+    }
+  } catch (err) {
+    console.log('Verify OTP error:', err);
+    setError(err.response?.data?.message || 'Verification failed. Try again.');
+  } finally {
+    setLoading(false);
+  }
+};
+
+  const isButtonDisabled = otpValue.length < 6 || loading;
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
       <ImageBackground
         source={require('../../assets/images/wavyheader.png')}
         style={styles.headerBackground}
-        resizeMode="cover">
+        resizeMode="cover"
+      >
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.backBtn}
             onPress={() => navigation.goBack()}
-            activeOpacity={0.7}>
+            activeOpacity={0.7}
+          >
             <Ionicons name="chevron-back" size={width * 0.07} color="#fff" />
           </TouchableOpacity>
         </View>
@@ -107,11 +141,10 @@ const OtpScreen = ({ navigation }) => {
         <View style={styles.banner}>
           <Text style={styles.title}>Welcome to the Creative Circle! 🤝</Text>
           <Text style={styles.subtitle}>
-            Enter the <Text style={{ color: '#fff', fontWeight: '600' }}>OTP</Text> to confirm your spot in the DailyCraft community.
+            Enter the <Text style={{ color: '#fff', fontWeight: '600' }}>OTP</Text> sent to +91 {phoneNumber}
           </Text>
         </View>
       </ImageBackground>
-
 
       <View style={styles.otpContainer}>
         {otp.map((value, index) => (
@@ -119,35 +152,44 @@ const OtpScreen = ({ navigation }) => {
             key={index}
             ref={(el) => (inputs.current[index] = el)}
             style={[styles.otpBox, error ? { borderColor: 'red' } : null]}
-            keyboardType="numeric"
+            keyboardType="number-pad"
             maxLength={1}
             value={value}
             onChangeText={(text) => handleChange(text, index)}
+            returnKeyType="done"
+            textContentType="oneTimeCode"
+            autoFocus={index === 0}
           />
         ))}
       </View>
 
-
       {error ? <Text style={styles.errorText}>{error}</Text> : null}
-
 
       <Text style={styles.resendText}>
         Didn’t receive code?{' '}
-        <Text style={styles.resendLink} onPress={handleResend}>
+        <Text
+          style={[styles.resendLink, timer > 0 ? { opacity: 0.6 } : null]}
+          onPress={() => {
+            if (timer === 0) handleResend();
+          }}
+        >
           {timer > 0 ? `Resend in ${timer}s` : 'Resend'}
         </Text>
       </Text>
- 
 
       <TouchableOpacity
-        style={[styles.verifyButton, isButtonDisabled && { opacity: 0.5 }]}
+        style={[styles.verifyButton, isButtonDisabled && { opacity: 0.6 }]}
         onPress={handleVerify}
+        disabled={isButtonDisabled}
         activeOpacity={0.8}
-        disabled={isButtonDisabled}>
-        <Text style={styles.verifyButtonText}>Verify & Proceed</Text>
+      >
+        <Text style={styles.verifyButtonText}>
+          {loading ? 'Verifying...' : 'Verify & Proceed'}
+        </Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );
 };
 
 export default OtpScreen;
+

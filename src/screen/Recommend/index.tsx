@@ -15,7 +15,7 @@ const Recommend = ({ navigation }) => {
           <View style={styles.header}>
             <Text style={styles.title}>Discover What Makes Your Heart Beat</Text>
             <Text style={styles.subtitle}>
-              From flirty moments to heartfelt stories, explore love in every color.
+  From flirty moments to heartfelt stories, explore{"\n"}love in every color.
             </Text>
           </View>
 

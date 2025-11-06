@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
   backgroundImage: { width: '100%', height: '100%' },
 
   headerContainer: { alignItems: 'center', marginTop: 15 },
-  title: { fontSize: 22, fontWeight: '700', color: '#000' },
+  title: { fontSize: 27, fontWeight: '700', color: '#000' },
 
   profileCard: {
     flexDirection: 'row',
@@ -113,6 +113,13 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
   },
   footerText: { fontSize: 15, fontWeight: '600', color: '#000' },
+    optionIcon: {
+    width: 20,
+    height: 20,
+    tintColor: '#ff914d',
+  },
+
+
 });
 
 export default styles;

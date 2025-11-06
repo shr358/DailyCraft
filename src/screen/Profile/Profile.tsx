@@ -73,20 +73,34 @@ const Profile = ({ navigation }) => {
 
               <TouchableOpacity style={styles.optionRow}>
                 <View style={styles.optionLeft}>
-                  <Ionicons name="cloud-download-outline" size={20} color="#ff914d" />
+                  {/* <Ionicons name="cloud-download-outline" size={20} color="#ff914d" /> */}
+                   <Image
+                    source={require('../../assets/images/appupdate.png')}
+                    style={styles.optionIcon}
+                  />
+
                   <Text style={styles.optionText}>App Update</Text>
                 </View>
                 <Ionicons name="chevron-forward" size={18} color="#999" />
+
+
               </TouchableOpacity>
 
               <View style={styles.divider} />
 
               <TouchableOpacity style={styles.optionRow}>
                 <View style={styles.optionLeft}>
-                  <Ionicons name="trash-outline" size={20} color="#ff914d" />
+                  {/* <Ionicons name="trash-outline" size={20} color="#ff914d" /> */}
+                   <Image
+                    source={require('../../assets/images/deleteacc.png')}
+                    style={styles.optionIcon}
+                  />
+
                   <Text style={styles.optionText}>Delete Account</Text>
                 </View>
                 <Ionicons name="chevron-forward" size={18} color="#999" />
+
+
               </TouchableOpacity>
             </View>
           </View>
@@ -98,30 +112,48 @@ const Profile = ({ navigation }) => {
 
               <TouchableOpacity style={styles.optionRow}>
                 <View style={styles.optionLeft}>
-                  <Ionicons name="help-circle-outline" size={20} color="#ff914d" />
+                  {/* <Ionicons name="help-circle-outline" size={20} color="#ff914d" /> */}
+                   <Image
+                    source={require('../../assets/images/FAQ.png')}
+                    style={styles.optionIcon}
+                  />
+
                   <Text style={styles.optionText}>FAQ</Text>
                 </View>
                 <Ionicons name="chevron-forward" size={18} color="#999" />
+
               </TouchableOpacity>
 
               <View style={styles.divider} />
 
               <TouchableOpacity style={styles.optionRow}>
                 <View style={styles.optionLeft}>
-                  <Ionicons name="call-outline" size={20} color="#ff914d" />
+                  {/* <Ionicons name="call-outline" size={20} color="#ff914d" /> */}
+                  <Image
+                    source={require('../../assets/images/callIcon.png')}
+                    style={styles.optionIcon}
+                  />
+
                   <Text style={styles.optionText}>Call us</Text>
                 </View>
                 <Ionicons name="chevron-forward" size={18} color="#999" />
+
               </TouchableOpacity>
 
               <View style={styles.divider} />
 
               <TouchableOpacity style={styles.optionRow}>
                 <View style={styles.optionLeft}>
-                  <Ionicons name="logo-whatsapp" size={20} color="#ff914d" />
+                  {/* <Ionicons name="logo-whatsapp" size={20} color="#ff914d" /> */}
+                   <Image
+                    source={require('../../assets/images/whtppicon.png')}
+                    style={styles.optionIcon}
+                  />
+
                   <Text style={styles.optionText}>Whatsapp Support</Text>
                 </View>
                 <Ionicons name="chevron-forward" size={18} color="#999" />
+
               </TouchableOpacity>
             </View>
           </View>
