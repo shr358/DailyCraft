@@ -12,9 +12,16 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ImagePicker from 'react-native-image-crop-picker';
 import styles from './styles';
 import Button from '../../components/Button';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/types';
 
-const PersonalEditProfile = ({ navigation }) => {
-  const [selectedImage, setSelectedImage] = useState(null);
+
+type PersonalEditProfileProps = {
+  navigation: NativeStackNavigationProp<RootStackParamList>;
+};
+
+const PersonalEditProfile = ({ navigation }: PersonalEditProfileProps) => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const handleImagePick = () => {
     ImagePicker.openPicker({

@@ -46,20 +46,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
 
+
   },
   logoBox: {
+    // borderWidth: 2,
+    // borderColor: '#f5a15d',
+    // borderStyle: 'dashed',
+    // borderRadius: 13,
+    // padding: 10,
+    // alignItems: 'center',
+    // width: '35%',
+    // // paddingHorizontal:22,
+    // // height:'44%',
+    // backgroundColor: '#FFFFFF',
+    //   //  backgroundColor:'red',
+    //    paddingVertical:1,
+
     borderWidth: 2,
-    borderColor: '#f5a15d',
-    borderStyle: 'dashed',
-    borderRadius: 13,
-    padding: 10,
-    alignItems: 'center',
-    width: '35%',
-    // paddingHorizontal:22,
-    // height:'44%',
-    backgroundColor: '#FFFFFF',
-      //  backgroundColor:'red',
-       paddingVertical:1,
+  borderColor: '#f5a15d',
+  borderStyle: 'dashed',
+  borderRadius: 13,
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '40%',
+  aspectRatio: 1,
+  backgroundColor: '#FFFFFF',
+  overflow: 'hidden',
 
 
 
@@ -73,9 +85,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   logoImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 10,
+    // width: 60,
+    // height: 60,
+    // borderRadius: 10,
+     width: '100%',
+  height: '100%',
+  resizeMode: 'cover', // fills the box
+  borderRadius: 13,
+
   },
   uploadText: {
     fontSize: 12,

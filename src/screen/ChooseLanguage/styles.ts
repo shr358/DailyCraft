@@ -44,7 +44,7 @@ export default StyleSheet.create({
   },
 
   subtitle: {
-    fontSize: width * 0.033,
+    fontSize: width * 0.039,
     color: '#fff',
     marginTop: height * 0.02,
     lineHeight: width * 0.05,

@@ -32,17 +32,23 @@ const { width } = Dimensions.get('window');
   logoBox: {
       marginTop: width * 0.06,
   alignSelf: 'center',
-  width: '35%',
+  width: '45%',
   aspectRatio: 1,
   alignItems: 'center',
   justifyContent: 'center',
   borderWidth: 2,
   borderStyle: 'dashed',
   borderColor: '#ccc',
-  borderRadius: width * 0.04,
-  padding: width * 0.030,
-  marginVertical: width * 0.03,
-  marginBottom: width * 0.04,
+  // borderRadius: width * 0.04,
+  // padding: width * 0.030,
+  // marginVertical: width * 0.03,
+  // marginBottom: width * 0.04,
+   borderRadius: width * 0.05,
+  padding: width * 0.01,
+  marginVertical: width * 0.055,
+  marginBottom: width * 0.01,
+  // backgroundColor:'red',
+   height: width * 0.37,
 },
 
   logoText: {
@@ -60,21 +66,21 @@ const { width } = Dimensions.get('window');
     textAlignVertical: 'top',
   },
   uploadBtn: {
-      flexDirection: 'row',
-    backgroundColor: '#FF984F',
-    paddingVertical: width * 0.01,
-    // paddingHorizontal: width * 0.01,
-    borderRadius: width * 0.02,
-    width:'100%',
-    // height:'30%',
-      marginBottom: width * 0.04,
-        marginLeft: width * 0.06,
-         marginRight: width * 0.06,
-          //  paddingTop: width * 0.04,
+    //   flexDirection: 'row',
+    // backgroundColor: '#FF984F',
+    // paddingVertical: width * 0.01,
+
+    // borderRadius: width * 0.02,
+    // width:'100%',
+
+    //   marginBottom: width * 0.04,
+    //     marginLeft: width * 0.06,
+    //      marginRight: width * 0.06,
+
   },
 
   uploadimageicon:{
-paddingTop:width * 0.02,
+paddingTop:width * 0.01,
   },
   uploadIcon: {
     marginRight: width * 0.01,
@@ -86,7 +92,7 @@ paddingTop:width * 0.02,
     fontWeight: '600',
        fontSize: width * 0.03,
       //  marginRight: width * 0.07,
-        // marginLeft: width * 0.01,
+        marginLeft: width * 0.02,
   },
   logoImage:{
   marginTop: width * 0.03,
@@ -95,7 +101,7 @@ paddingTop:width * 0.02,
   },
   label: {
     fontSize: width * 0.035,
-    marginTop: width * 0.02,
+    marginTop: width * 0.01,
     marginBottom: width * 0.01,
     color: '#444',
        marginLeft: width * 0.03,
@@ -105,12 +111,12 @@ paddingTop:width * 0.02,
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: width * 0.02,
-    padding: width * 0.04,
+    padding: width * 0.03,
     fontSize: width * 0.035,
     color: '#000',
   },
  bottomContainer:{
-marginTop:width * 0.03,
+marginTop:width * 0.02,
 //  marginBottom: width * 0.01,
  },
   continueText: {
@@ -139,4 +145,45 @@ marginTop:width * 0.03,
     color: '#FF8C32',
 
   },
+
+   emptyBox: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: width * 0.02,
+},
+
+uploadIconImage: {
+},
+
+pickButtons: {
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: 3,
+  marginTop: width * 0.01,
+width:  width * 0.2,
+},
+
+pickBtn: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  backgroundColor: '#FF8C32',
+  paddingVertical: width * 0.02,
+  paddingHorizontal: width * 0.01,
+  borderRadius: width * 0.02,
+},
+
+pickTxt: {
+  color: '#FFF',
+  marginLeft: 6,
+  fontSize: width * 0.03,
+  fontWeight: '500',
+},
+
+fullImage: {
+  width: '100%',
+  height: '100%',
+  borderRadius: width * 0.05,
+},
 });

@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import {View,Text,TouchableOpacity,ImageBackground,Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import Button from '../../components/Button';
-
+import { RootStackParamList } from '../../navigation/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 
 const { width } = Dimensions.get('window');
 
-const ChooseLanguage = ({ navigation }) => {
-  const [selected, setSelected] = useState('English');
+type ChooseLanguageProps = {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'ChooseLanguage'>;
+};
 
+const ChooseLanguage = ({ navigation } : ChooseLanguageProps) => {
+
+  const [selected, setSelected] = useState('English');
 
   return (
 

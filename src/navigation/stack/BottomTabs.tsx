@@ -68,6 +68,8 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
   );
 };
 
+
+
 const BottomTabs = () => {
   return (
     <Tab.Navigator
@@ -83,4 +85,3 @@ const BottomTabs = () => {
 };
 
 export default BottomTabs;
-

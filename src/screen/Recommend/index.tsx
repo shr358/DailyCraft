@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, SafeAreaView, ImageBackground } from 'react-native';
 import styles from './styles';
 
-const Recommend = ({ navigation }) => {
+const Recommend = () => {
   return (
     <ImageBackground
       source={require('../../assets/images/homebackground.png')}

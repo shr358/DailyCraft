@@ -12,15 +12,24 @@ import {
   Alert,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useRoute, useNavigation } from '@react-navigation/native';
+import {RouteProp, useRoute, useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import { verifyOtp, sendOtp } from '../services/Apiconfig';
-
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/types';
 const { width } = Dimensions.get('window');
 
+type OtpRouteProp = RouteProp<RootStackParamList, 'Otpscreen'>;
+
+
+type OtpNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Otpscreen'
+>;
+
 const OtpScreen = () => {
-  const route = useRoute();
-  const navigation = useNavigation();
+  const route = useRoute<OtpRouteProp>();
+  const navigation = useNavigation<OtpNavigationProp>();
   const phoneNumber = route.params?.phone_number || '';
   const backendOtp = route.params?.otp || '';
 
@@ -28,7 +37,7 @@ const OtpScreen = () => {
   const [error, setError] = useState('');
   const [timer, setTimer] = useState(60);
   const [loading, setLoading] = useState(false);
-  const inputs = useRef([]);
+  const inputs = useRef<Array<TextInput | null>>([]);
 
 
   const otpValue = otp.join('');
@@ -51,7 +60,7 @@ const OtpScreen = () => {
 
   }, []);
 
-  const handleChange = (text, index) => {
+  const handleChange = (text:string, index:number) => {
 
     const char = text.replace(/[^0-9]/g, '').slice(-1);
     const newOtp = [...otp];
@@ -63,7 +72,7 @@ const OtpScreen = () => {
     if (char && index < 5) {
       inputs.current[index + 1]?.focus();
     }
-    // if user clears (backspace) move focus back
+
     if (!char && index > 0) {
       inputs.current[index - 1]?.focus();
     }
@@ -79,12 +88,12 @@ const OtpScreen = () => {
       setError('');
       setTimer(60);
       clearOtp();
-      // call API to resend OTP
+
       const res = await sendOtp(phoneNumber);
       console.log('Resend OTP Response:', res);
-      // optionally show alert
+
       Alert.alert('OTP Sent', res.message || 'OTP has been resent');
-    } catch (err) {
+    } catch (err:any) {
       console.log('Resend OTP error:', err);
       setError(err.response?.data?.message || 'Failed to resend OTP');
     }
@@ -103,12 +112,13 @@ const OtpScreen = () => {
     const response = await verifyOtp(phoneNumber, otpValue);
     console.log('Verify OTP Response:', response);
 
-    if (response.status) {
+    if (response?.status === true)
+      {
       navigation.navigate('ChooseLanguage', { phone_number: phoneNumber });
     } else {
       setError(response.message || 'Invalid OTP. Please try again.');
     }
-  } catch (err) {
+  } catch (err:any) {
     console.log('Verify OTP error:', err);
     setError(err.response?.data?.message || 'Verification failed. Try again.');
   } finally {

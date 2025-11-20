@@ -403,6 +403,63 @@ activeNavCircle: {
     fontSize: 19,
     fontWeight: '600',
   },
+
+loadingContainer: {
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: 40,
+},
+loadingText: {
+  marginTop: 12,
+  fontSize: 16,
+  color: '#666',
+},
+templateContainer: {
+  alignItems: 'center',
+
+},
+templateImage: {
+  width: '100%',
+  height: 500,
+  borderRadius: 12,
+  backgroundColor: '#f5f5f5',
+},
+placeholderImage: {
+  width: '100%',
+  height: 200,
+  backgroundColor: '#e0e0e0',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: 12,
+},
+templateInfo: {
+  marginTop: 16,
+  width: '100%',
+  paddingHorizontal: 8,
+},
+templateTitle: {
+  fontSize: 20,
+  fontWeight: 'bold',
+  color: '#333',
+  textAlign: 'center',
+  marginBottom: 8,
+},
+templateDescription: {
+  fontSize: 14,
+  color: '#666',
+  textAlign: 'center',
+  lineHeight: 20,
+},
+noTemplateContainer: {
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: 40,
+},
+noTemplateText: {
+  fontSize: 16,
+  color: '#999',
+  textAlign: 'center',
+},
 });
 
 

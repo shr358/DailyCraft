@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 
   gridItem: {
     width: ITEM_SIZE,
-    height: ITEM_SIZE * 1.2,
+    height: ITEM_SIZE * 1.1,
     backgroundColor: '#FFE6E0',
     // borderRadius: 15,
     borderColor: '#FFFFFF',
@@ -64,8 +64,13 @@ const styles = StyleSheet.create({
   posterImage: {
     width: '100%',
     height: '100%',
-    borderRadius: 10,
+    borderRadius: 8,
   },
+
+  noDataText: {
+
+},
+
 });
 
 export default styles;

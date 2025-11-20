@@ -1,6 +1,5 @@
 
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -13,19 +12,24 @@ import {
   KeyboardAvoidingView,
   Platform,
   Dimensions,
+  ActivityIndicator,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CountryPicker from 'react-native-country-picker-modal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Button from '../../components/Button';
 import { sendOtp } from '../services/Apiconfig';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/types';
 import styles from './styles';
 
 const { width } = Dimensions.get('window');
 const indianMobileRegex = /^(?!.*(\d)\1{9})[6-9]\d{9}$/;
 
 const LoginScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   const [checked, setChecked] = useState(false);
   const [mobile, setMobile] = useState('');
   const [countryCode, setCountryCode] = useState('IN');
@@ -33,13 +37,30 @@ const LoginScreen = () => {
   const [visible, setVisible] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
 
   const isFormValid = indianMobileRegex.test(mobile) && checked;
 
-  const handleMobileChange = (text) => {
+
+useEffect(() => { const checkLoginStatus = async () => {
+   try {
+     const token = await AsyncStorage.getItem('token');
+    if (token) {
+       console.log('User already logged in');
+       navigation.reset({ index: 0, routes: [{ name: 'MainTabs' }] });
+        return;
+      } } catch (err)
+      {
+         console.log('Error checking login:', err);
+        } finally {
+          setInitialLoading(false);
+        } };
+        checkLoginStatus();
+      }, []);
+
+  const handleMobileChange = (text:string) => {
     const numericText = text.replace(/[^0-9]/g, '');
     if (numericText.length <= 10) setMobile(numericText);
-
     if (numericText.length === 10 && !indianMobileRegex.test(numericText)) {
       setError('Please enter a valid Indian mobile number');
     } else {
@@ -47,54 +68,55 @@ const LoginScreen = () => {
     }
   };
 
+  const handleGetOTP = async () => {
+    if (!mobile.trim()) {
+      setError('Please enter mobile number');
+      return;
+    }
+    if (!indianMobileRegex.test(mobile)) {
+      setError('Please enter a valid Indian mobile number');
+      return;
+    }
+    if (!checked) {
+      setError('Please accept Terms & Conditions');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setError('');
+      const res = await sendOtp(mobile);
+      console.log('OTP Response:', res);
+      navigation.navigate('OtpScreen', { phone_number: mobile, otp: res.otp });
+        // navigation.navigate('MainTabs');
+    } catch (err:any) {
+      console.log('Send OTP error:', err);
+      setError(
+        err.response?.data?.message || 'Failed to send OTP. Please try again.'
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
-  // const handleGetOTP = () => {
-  //   if (mobile.trim() === '') {
-  //     setError('Please enter mobile number');
-  //     return;
-  //   } else if (!indianMobileRegex.test(mobile)) {
-  //     setError('Please enter a valid Indian mobile number');
-  //     return;
-  //   } else if (!checked) {
-  //     setError('Please accept Terms & Conditions');
-  //     return;
-  //   }
-
-  //   setError('');
-  //   navigation.navigate('OtpScreen');
-  // };
-
-
-const handleGetOTP = async () => {
-  if (!mobile.trim()) {
-    setError('Please enter mobile number');
-    return;
+  if (initialLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#fff',
+        }}
+      >
+        <ActivityIndicator size="large" color="#FF984F" />
+        <Text style={{ marginTop: 12, fontSize: 16, color: '#333' }}>
+          Checking login status...
+        </Text>
+      </View>
+    );
   }
-  if (!indianMobileRegex.test(mobile)) {
-    setError('Please enter a valid Indian mobile number');
-    return;
-  }
-  if (!checked) {
-    setError('Please accept Terms & Conditions');
-    return;
-  }
-
-  try {
-    setLoading(true);
-    setError('');
-    const res = await sendOtp(mobile);
-    console.log('OTP Response:', res);
-
-    navigation.navigate('OtpScreen', { phone_number: mobile  ,otp: res.otp});
-  } catch (err) {
-    console.log('Send OTP error:', err);
-    setError(err.response?.data?.message || 'Failed to send OTP. Please try again.');
-  } finally {
-    setLoading(false);
-  }
-};
-
 
   return (
     <KeyboardAvoidingView
@@ -180,7 +202,8 @@ const handleGetOTP = async () => {
             {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
             <Text style={styles.helperText}>
-              You will receive an SMS verification that may apply message and data rates.
+              You will receive an SMS verification that may apply message and data
+              rates.
             </Text>
           </View>
         </ScrollView>

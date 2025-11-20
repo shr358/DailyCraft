@@ -1,5 +1,4 @@
 
-
 import React, { useState, useEffect } from 'react';
 import {
   View,
@@ -16,42 +15,182 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getProfileDetails } from '../services/Apiconfig';
+import { getProfileDetails, getAllProfiles, gethomescreenTemplate } from '../services/Apiconfig';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList , ProfileDataType} from '../../navigation/types';
 
-const HomeScreen = ({ navigation }) => {
+import RNFS from 'react-native-fs';
+import Share from 'react-native-share';
+import { Platform, PermissionsAndroid, Alert } from 'react-native';
+
+
+type HomeScreenprops = {
+  navigation : NativeStackNavigationProp<RootStackParamList,'HomeScreen'>
+}
+
+export type ProfileItemType = {
+  id: string;
+  name?: string;
+  avatar?: string;
+  profile_type?: string;
+};
+
+
+export type TemplateType = {
+  id?: string;
+  title?: string;
+  image_url?: string;
+  description?: string;
+
+};
+
+const HomeScreen = ({ navigation }: HomeScreenprops) => {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [profileData, setProfileData] = useState(null);
+  const [profileData, setProfileData] = useState<ProfileDataType | null>(null);
+  const [allProfiles, setAllProfiles] = useState<ProfileItemType[]>([]);
+  const [templateData, setTemplateData] = useState<TemplateType | null>(null);
   const [loading, setLoading] = useState(true);
+  const [profilesLoading, setProfilesLoading] = useState(false);
+  const [templateLoading, setTemplateLoading] = useState(false);
 
-  const toggleModal = () => setModalVisible(!isModalVisible);
-  const profiles = [1, 2, 3];
+const fetchTemplateData = async () => {
+  try {
+    setTemplateLoading(true);
 
+    const profileId = await AsyncStorage.getItem('profile_id');
+    if (!profileId) return;
+
+    const templateId = '18';
+    const response = await gethomescreenTemplate(profileId, templateId);
+
+    // console.log('Template Data:>>>>>>>', response);
+
+    if (response?.status) {
+      setTemplateData({ image_url: response.image_url });
+    } else {
+      setTemplateData(null);
+    }
+
+  } catch (error) {
+    console.log('Error fetching template data:>>>>>>>', error);
+    setTemplateData(null);
+  } finally {
+    setTemplateLoading(false);
+  }
+};
+
+
+  const fetchAllProfiles = async () => {
+    try {
+      setProfilesLoading(true);
+      const response = await getAllProfiles();
+      console.log('All Profiles:>>>>>>>>', response);
+
+      if (response?.status && Array.isArray(response.data)) {
+        setAllProfiles(response.data);
+      } else {
+        setAllProfiles([]);
+      }
+    } catch (error) {
+      console.log('Error fetching all profiles:>>>>>>>', error);
+      setAllProfiles([]);
+    } finally {
+      setProfilesLoading(false);
+    }
+  };
+
+  const fetchProfileData = async () => {
+    try {
+      const profileId = await AsyncStorage.getItem('profile_id');
+      if (!profileId) {
+        console.log('No profile_id found in storage');
+        return;
+      }
+
+      const response = await getProfileDetails(profileId);
+      if (response?.status && response.data) {
+        setProfileData(response.data);
+      }
+    } catch (error) {
+      console.log('Error fetching profile data:>>>>>>>', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const profileId = await AsyncStorage.getItem('profile_id');
-        if (!profileId) {
-          console.log(' No profile_id found in AsyncStorage');
-          setLoading(false);
-          return;
-        }
-
-        const response = await getProfileDetails(profileId);
-        if (response?.status && response.data) {
-          setProfileData(response.data);
-        } else {
-          console.log(' Invalid profile response:', response);
-        }
-      } catch (error) {
-        console.log(' Error fetching profile:', error);
-      } finally {
-        setLoading(false);
-      }
+    const initializeData = async () => {
+      setLoading(true);
+      await fetchProfileData();
+      await fetchAllProfiles();
+      await fetchTemplateData();
+      setLoading(false);
     };
-
-    fetchProfile();
+    initializeData();
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchProfileData();
+      fetchAllProfiles();
+      fetchTemplateData();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
+
+
+
+const downloadimage = async () => {
+  try {
+    if (!templateData?.image_url) return;
+
+
+    const base64Data = templateData.image_url.replace(/^data:image\/\w+;base64,/, "");
+    const fileName = `template_${Date.now()}.png`;
+
+    if (Platform.OS === 'android') {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES
+      );
+
+      if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+        Alert.alert('Permission Required", "Please allow media permission');
+        return;
+      }
+    }
+
+
+    if (Platform.OS === 'android') {
+      const path = `${RNFS.DownloadDirectoryPath}/${fileName}`;
+      await RNFS.writeFile(path, base64Data, 'base64');
+
+      Alert.alert('Success', 'Image downloaded to Downloads folder!');
+      console.log('Saved at:', path);
+
+      return;
+    }
+
+    await Share.open({
+      url: templateData.image_url,
+      type: 'image/png',
+      filename: fileName,
+    });
+
+    return 'shared';
+
+  } catch (error) {
+    console.log('Download error:', error);
+    Alert.alert('Error', 'Could not download image');
+  }
+};
+
+  const toggleModal = async () => {
+    const newState = !isModalVisible;
+    setModalVisible(newState);
+    if (newState) {
+      await fetchAllProfiles();
+    }
+  };
 
   return (
     <ImageBackground
@@ -60,9 +199,9 @@ const HomeScreen = ({ navigation }) => {
       resizeMode="cover"
     >
       <View style={styles.container}>
+
         <View style={styles.header}>
           <View style={styles.profileSection}>
-
             {loading ? (
               <ActivityIndicator size="small" color="#000" />
             ) : (
@@ -78,12 +217,8 @@ const HomeScreen = ({ navigation }) => {
 
             <TouchableOpacity onPress={toggleModal} activeOpacity={0.8}>
               <Text style={styles.welcomeText}>Welcome Back</Text>
-
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-
-                <Text style={styles.userName}>
-                  {profileData?.name || 'User'}
-                </Text>
+                <Text style={styles.userName}>{profileData?.name || 'User'}</Text>
                 <Ionicons
                   name="chevron-down"
                   size={18}
@@ -110,7 +245,6 @@ const HomeScreen = ({ navigation }) => {
             </View>
           </View>
         </View>
-
 
         <View style={styles.searchBar}>
           <Ionicons name="search" size={25} color="#252525" />
@@ -144,14 +278,50 @@ const HomeScreen = ({ navigation }) => {
 
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.posterCard}>
-            <Image
-              source={require('../../assets/images/posterimage.png')}
-              style={styles.posterImg}
-            />
+
+            {templateLoading ? (
+              <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" color="#000" />
+                <Text style={styles.loadingText}>Loading Template...</Text>
+              </View>
+            ) : templateData ? (
+              <View style={styles.templateContainer}>
+
+               {templateData?.image_url ? (
+  <Image
+    source={{ uri: templateData.image_url }}
+    style={styles.templateImage}
+    resizeMode="contain"
+  />
+
+                ) : (
+                  <View style={styles.placeholderImage}>
+                    <Text>No Template Image Available</Text>
+                  </View>
+                )}
+
+                <View style={styles.templateInfo}>
+                  {/* <Text style={styles.templateTitle}>
+                    {templateData.title || 'Template Title'}
+                  </Text> */}
+                  {templateData.description && (
+                    <Text style={styles.templateDescription}>
+                      {templateData.description}
+                    </Text>
+                  )}
+                </View>
+              </View>
+            ) : (
+              <View style={styles.noTemplateContainer}>
+                <Text style={styles.noTemplateText}>
+                  No template data available
+                </Text>
+              </View>
+            )}
           </View>
 
           <View style={styles.actionRow}>
-            <TouchableOpacity style={styles.downloadBtn}>
+            <TouchableOpacity style={styles.downloadBtn} onPress={downloadimage}>
               <Text style={styles.downloadText}>Download</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.nextBtn}>
@@ -179,48 +349,66 @@ const HomeScreen = ({ navigation }) => {
             </View>
 
             <ScrollView showsVerticalScrollIndicator={false}>
-              {profiles.map((_, index) => (
-                <TouchableOpacity
-                  key={index}
-                  style={styles.profileCard}
-                  activeOpacity={0.8}
-                  onPress={() => {
-                    toggleModal();
-                    navigation.navigate('EditProfile', {
-                      profileType: 'personal',
-                    });
+              {profilesLoading ? (
+                <ActivityIndicator
+                  size="large"
+                  color="#000"
+                  style={{ marginVertical: 20 }}
+                />
+              ) : allProfiles.length > 0 ? (
+                allProfiles.map((item) => (
+                  <TouchableOpacity
+                    key={item.id}
+                    style={styles.profileCard}
+                    activeOpacity={0.8}
+                    onPress={() => {
+                      toggleModal();
+                      navigation.navigate('EditProfile', {
+                        profileType: item.profile_type,
+                        profileId: item.id,
+                      });
+                    }}
+                  >
+                    <View style={styles.avatarBorderBox}>
+                      <Image
+                        source={
+                          item.avatar
+                            ? { uri: item.avatar }
+                            : require('../../assets/images/shubhamicon.png')
+                        }
+                        style={styles.profileAvatar}
+                      />
+                    </View>
+                    <View style={styles.profileInfo}>
+                      <Text style={styles.profileName}>{item.name || 'User'}</Text>
+                      <View style={styles.profileTag}>
+                        <Text style={styles.profileTagText}>
+                          {item.profile_type || 'Personal'}
+                        </Text>
+                      </View>
+                    </View>
+                    <Ionicons name="chevron-forward" size={20} color="#000" />
+                  </TouchableOpacity>
+                ))
+              ) : (
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    color: '#999',
+                    marginTop: 15,
+                    fontSize: 14,
                   }}
                 >
-                  <View style={styles.avatarBorderBox}>
-                    <Image
-                      source={
-                        profileData?.avatar
-                          ? { uri: profileData.avatar }
-                          : require('../../assets/images/shubhamicon.png')
-                      }
-                      style={styles.profileAvatar}
-                    />
-                  </View>
-                  <View style={styles.profileInfo}>
-                    <Text style={styles.profileName}>
-                      {profileData?.name || 'User'}
-                    </Text>
-                    <View style={styles.profileTag}>
-                      <Text style={styles.profileTagText}>
-                        {profileData?.profile_type || 'Personal'}
-                      </Text>
-                    </View>
-                  </View>
-                  <Ionicons name="chevron-forward" size={20} color="#000" />
-                </TouchableOpacity>
-              ))}
+                  No profiles available
+                </Text>
+              )}
             </ScrollView>
 
             <TouchableOpacity
               style={styles.createProfileBtn}
               onPress={() => {
                 toggleModal();
-                navigation.navigate('BusinessProfile');
+                navigation.navigate('ChooseProfileType');
               }}
             >
               <Text style={styles.createProfileText}>Create New Profile</Text>

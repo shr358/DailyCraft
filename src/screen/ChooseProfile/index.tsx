@@ -10,9 +10,15 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import Button from '../../components/Button';
 
-const { width } = Dimensions.get('window');
+import { RootStackParamList } from '../../navigation/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-const ChooseProfileType = ({ navigation }) => {
+const { width } = Dimensions.get('window');
+type ChooseProfileTypeProps = {
+  navigation : NativeStackNavigationProp<RootStackParamList,'ChooseProfileType'>
+}
+
+const ChooseProfileType = ({ navigation } : ChooseProfileTypeProps) => {
   const [selected, setSelected] = useState('personal');
 
   const handleContinue = () => {

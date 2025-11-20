@@ -20,9 +20,15 @@ import Button from '../../components/Button';
 import ImagePicker from 'react-native-image-crop-picker';
 import { createProfile } from '../services/Apiconfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { RootStackParamList } from '../../navigation/types';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const PersonalProfile = ({ navigation }) => {
-  const [selectedImage, setSelectedImage] = useState(null);
+
+
+type Props = NativeStackScreenProps<RootStackParamList, 'PersonalProfile'>;
+
+const PersonalProfile : React.FC<Props> = ({ navigation }) => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [contact, setContact] = useState('');
@@ -35,6 +41,27 @@ const PersonalProfile = ({ navigation }) => {
     contact: '',
     bio: '',
   });
+
+
+const handleCameraPick = () => {
+  ImagePicker.openCamera({
+    width: 200,
+    height: 200,
+    cropping: true,
+    includeBase64: false,
+  })
+    .then(image => {
+      const imageUri = image.path.startsWith('file://')
+        ? image.path
+        : `file://${image.path}`;
+      setSelectedImage(imageUri);
+    })
+    .catch(error => {
+      if (error.code !== 'E_PICKER_CANCELLED') {
+        console.warn('Camera Error:', error);
+      }
+    });
+};
 
 
   const handleImagePick = () => {
@@ -121,12 +148,12 @@ const PersonalProfile = ({ navigation }) => {
       console.log(' Create Profile Response:', response);
 
       if (response.status) {
-        Alert.alert('Success', 'Profile created successfully!');
+        // Alert.alert('Success', 'Profile created successfully!');
         navigation.replace('MainTabs');
       } else {
         Alert.alert('Error', response.message || 'Profile creation failed');
       }
-    } catch (error) {
+    } catch (error:any) {
       console.error(' Create Profile Error:', error);
       Alert.alert('Error', error.message || 'Something went wrong');
     } finally {
@@ -154,42 +181,48 @@ const PersonalProfile = ({ navigation }) => {
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: 40 }}>
 
-            <TouchableOpacity
-              style={styles.logoBox}
-              onPress={handleImagePick}
-              activeOpacity={0.8}>
-              <View style={styles.uploadimageicon}>
-                {selectedImage ? (
-                  <Image
-                    source={{ uri: selectedImage }}
-                    style={styles.logoImage}
-                    resizeMode="cover"
-                  />
-                ) : (
-                  <Image
-                    source={require('../../assets/images/uploadicon.png')}
-                    style={styles.logoImage}
-                    resizeMode="contain"
-                  />
-                )}
-              </View>
 
-              <Text style={styles.logoText}>
-                Please Upload A Profile Picture
-              </Text>
 
-              <TouchableOpacity
-                style={styles.uploadBtn}
-                onPress={handleImagePick}>
-                <Ionicons
-                  name="image-outline"
-                  size={24}
-                  color="#FFFFFF"
-                  style={styles.uploadIcon}
-                />
-                <Text style={styles.uploadText}>Upload File</Text>
-              </TouchableOpacity>
-            </TouchableOpacity>
+<TouchableOpacity style={styles.logoBox} activeOpacity={0.9}>
+
+  {selectedImage ? (
+
+    <Image
+      source={{ uri: selectedImage }}
+      style={styles.fullImage}
+      resizeMode="cover"
+    />
+  ) : (
+
+    <View style={styles.emptyBox}>
+
+
+      <Image
+        source={require('../../assets/images/uploadicon.png')}
+        style={styles.uploadimageicon}
+        resizeMode="contain"
+      />
+
+
+      <Text style={styles.logoText}>Please Upload A Profile Picture</Text>
+
+
+      <View style={styles.pickButtons}>
+        <TouchableOpacity style={styles.pickBtn} onPress={handleImagePick}>
+          <Ionicons name="image-outline" size={13} color="#FFF" />
+          <Text style={styles.pickTxt}>Gallery</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.pickBtn} onPress={handleCameraPick}>
+          <Ionicons name="camera-outline" size={13} color="#FFF" />
+          <Text style={styles.pickTxt}>Camera</Text>
+        </TouchableOpacity>
+      </View>
+
+    </View>
+  )}
+
+</TouchableOpacity>
 
 
             <Text style={styles.label}>Enter Name</Text>

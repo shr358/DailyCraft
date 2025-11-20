@@ -31,7 +31,7 @@ const { width } = Dimensions.get('window');
   logoBox: {
 marginTop: width * 0.06,
   alignSelf: 'center',
-  width: '35%',
+  width: '45%',
   aspectRatio: 1,
   alignItems: 'center',
   justifyContent: 'center',
@@ -40,15 +40,21 @@ marginTop: width * 0.06,
   borderColor: '#ccc',
   borderRadius: width * 0.05,
   padding: width * 0.01,
-  marginVertical: width * 0.050,
+  marginVertical: width * 0.055,
   marginBottom: width * 0.01,
   // backgroundColor:'red',
+   height: width * 0.37,
+
+
+
+
   },
   logoText: {
     color: '#777',
     marginVertical: width * 0.05,
       fontSize: width * 0.030,
       alignSelf:'center',
+      alignItems:'center',
   },
 
   textlarge:{
@@ -56,14 +62,14 @@ marginTop: width * 0.06,
     textAlignVertical: 'top',
   },
   uploadBtn: {
-      flexDirection: 'row',
-    backgroundColor: '#FF984F',
-    paddingVertical: width * 0.01,
-    paddingHorizontal: width * 0.01,
-    borderRadius: width * 0.02,
-    width:'90%',
-    // height:'30%',
-       marginBottom: width * 0.06,
+    //   flexDirection: 'row',
+    // backgroundColor: '#FF984F',
+    // paddingVertical: width * 0.01,
+    // paddingHorizontal: width * 0.01,
+    // borderRadius: width * 0.02,
+    // width:'90%',
+    // // height:'30%',
+    //    marginBottom: width * 0.06,
   },
   uploadIcon: {
 
@@ -127,10 +133,54 @@ marginTop: width * 0.09,
   },
    logoImage:{
   marginTop: width * 0.03,
-//  paddingTop: width * 0.06,
+
 
   },
   uploadimageicon:{
-paddingTop:width * 0.02,
+paddingTop:width * 0.01,
+
+
   },
+  emptyBox: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: width * 0.02,
+},
+
+uploadIconImage: {
+},
+
+pickButtons: {
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: 3,
+  marginTop: width * 0.01,
+width:  width * 0.2,
+},
+
+pickBtn: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  backgroundColor: '#FF8C32',
+  paddingVertical: width * 0.02,
+  paddingHorizontal: width * 0.01,
+  borderRadius: width * 0.02,
+},
+
+pickTxt: {
+  color: '#FFF',
+  marginLeft: 6,
+  fontSize: width * 0.03,
+  fontWeight: '500',
+},
+
+fullImage: {
+  width: '100%',
+  height: '100%',
+  borderRadius: width * 0.05,
+},
+
 });
+
