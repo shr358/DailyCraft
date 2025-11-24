@@ -135,6 +135,17 @@ export default StyleSheet.create({
     paddingBottom: width * 0.06,
     borderTopWidth: 1,
     borderTopColor: '#eee',
+
+  // width: '100%',
+  // backgroundColor: '#FFF0ED',
+  // paddingHorizontal: width * 0.06,
+  // paddingTop: width * 0.04,
+  // paddingBottom: width * 0.06,
+  // borderTopWidth: 1,
+  // borderTopColor: '#eee',
+  // marginTop: 20,
+
+
   },
 
   checkboxContainer: {

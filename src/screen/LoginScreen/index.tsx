@@ -13,6 +13,8 @@ import {
   Platform,
   Dimensions,
   ActivityIndicator,
+  TouchableWithoutFeedback,
+  Keyboard,SafeAreaView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -23,6 +25,8 @@ import { sendOtp } from '../services/Apiconfig';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigation/types';
 import styles from './styles';
+
+
 
 const { width } = Dimensions.get('window');
 const indianMobileRegex = /^(?!.*(\d)\1{9})[6-9]\d{9}$/;
@@ -118,17 +122,24 @@ useEffect(() => { const checkLoginStatus = async () => {
     );
   }
 
-  return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      style={{ flex: 1 }}
-    >
+return (
+  <SafeAreaView style={{ flex: 1, backgroundColor: '#FFF0ED' }}>
+  <KeyboardAvoidingView
+    enabled={true}
+    behavior={Platform.OS === "ios" ? "padding" : 'height'}
+    keyboardVerticalOffset={Platform.OS === "ios" ? 40 : 0}
+    style={{ flex: 1 }}
+  >
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <StatusBar backgroundColor="#FF984F" barStyle="light-content" />
 
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 180 }}
+          contentContainerStyle={{flexGrow: 1, paddingBottom: 260 }}
+          keyboardShouldPersistTaps="handled"
+          automaticallyAdjustKeyboardInsets={true}
+          nestedScrollEnabled={true}
         >
           <ImageBackground
             source={require('../../assets/images/wavyheader.png')}
@@ -158,12 +169,12 @@ useEffect(() => { const checkLoginStatus = async () => {
             <View
               style={[
                 styles.inputBox,
-                error ? { borderColor: 'red', borderWidth: 1 } : null,
+                error ? { borderColor: "red", borderWidth: 1 } : null,
               ]}
             >
               <TouchableOpacity
                 onPress={() => setVisible(true)}
-                style={{ flexDirection: 'row', alignItems: 'center' }}
+                style={{ flexDirection: "row", alignItems: "center" }}
               >
                 <CountryPicker
                   countryCode={countryCode}
@@ -192,7 +203,7 @@ useEffect(() => { const checkLoginStatus = async () => {
 
               <TouchableOpacity>
                 <Image
-                  source={require('../../assets/images/callIcon.png')}
+                  source={require("../../assets/images/callIcon.png")}
                   style={styles.callIcon}
                   resizeMode="contain"
                 />
@@ -202,19 +213,20 @@ useEffect(() => { const checkLoginStatus = async () => {
             {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
             <Text style={styles.helperText}>
-              You will receive an SMS verification that may apply message and data
-              rates.
+              You will receive an SMS verification that may apply message and
+              data rates.
             </Text>
           </View>
-        </ScrollView>
+        {/* </ScrollView> */}
 
+        {/* Bottom Section */}
         <View style={styles.bottomContainer}>
           <View style={styles.checkboxContainer}>
             <TouchableOpacity
               onPress={() => setChecked(!checked)}
               style={[
                 styles.checkbox,
-                { backgroundColor: checked ? '#FF8C32' : '#FFFFFF' },
+                { backgroundColor: checked ? "#FF8C32" : "#FFFFFF" },
               ]}
               activeOpacity={0.7}
             >
@@ -223,7 +235,6 @@ useEffect(() => { const checkLoginStatus = async () => {
                   name="checkmark"
                   size={width * 0.06}
                   color="#FFFFFF"
-                  style={{ fontWeight: '900' }}
                 />
               )}
             </TouchableOpacity>
@@ -235,7 +246,7 @@ useEffect(() => { const checkLoginStatus = async () => {
           </View>
 
           <Button
-            title={loading ? 'Sending...' : 'Get OTP'}
+            title={loading ? "Sending..." : "Get OTP"}
             onPress={handleGetOTP}
             disabled={!isFormValid || loading}
           />
@@ -244,9 +255,14 @@ useEffect(() => { const checkLoginStatus = async () => {
             <Text style={styles.privacyText}>Privacy Policy</Text>
           </TouchableOpacity>
         </View>
+        </ScrollView>
       </View>
-    </KeyboardAvoidingView>
-  );
-};
 
+    </TouchableWithoutFeedback>
+  </KeyboardAvoidingView>
+  </SafeAreaView>
+);
+
+
+};
 export default LoginScreen;

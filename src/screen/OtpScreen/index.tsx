@@ -17,6 +17,7 @@ import styles from './styles';
 import { verifyOtp, sendOtp } from '../services/Apiconfig';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigation/types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const { width } = Dimensions.get('window');
 
 type OtpRouteProp = RouteProp<RootStackParamList, 'Otpscreen'>;
@@ -112,12 +113,37 @@ const OtpScreen = () => {
     const response = await verifyOtp(phoneNumber, otpValue);
     console.log('Verify OTP Response:', response);
 
-    if (response?.status === true)
-      {
-      navigation.navigate('ChooseLanguage', { phone_number: phoneNumber });
+    // if (response?.status === true)
+    //   {
+    //   navigation.navigate('ChooseLanguage', { phone_number: phoneNumber });
+    // } else {
+    //   setError(response.message || 'Invalid OTP. Please try again.');
+    // }
+
+    if (response?.status === true) {
+      const token = response?.data?.accessToken;
+      const isRegistered = response?.data?.user?.is_register;
+
+
+      if (token) {
+        await AsyncStorage.setItem('token', token);
+      }
+
+      if (isRegistered) {
+
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'MainTabs' }],
+        });
+      } else {
+        navigation.navigate('ChooseLanguage', { phone_number: phoneNumber });
+      }
+
     } else {
       setError(response.message || 'Invalid OTP. Please try again.');
     }
+
+
   } catch (err:any) {
     console.log('Verify OTP error:', err);
     setError(err.response?.data?.message || 'Verification failed. Try again.');

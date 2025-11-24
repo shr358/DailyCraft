@@ -165,7 +165,7 @@ pickBtn: {
   alignItems: 'center',
   backgroundColor: '#FF8C32',
   paddingVertical: width * 0.02,
-  paddingHorizontal: width * 0.01,
+  paddingHorizontal: width * 0.03,
   borderRadius: width * 0.02,
 },
 
@@ -181,6 +181,52 @@ fullImage: {
   height: '100%',
   borderRadius: width * 0.05,
 },
+
+sheetOverlay: {
+  flex: 1,
+  backgroundColor: 'rgba(0,0,0,0.4)',
+},
+
+sheetContainer: {
+  position: 'absolute',
+  bottom: 0,
+  width: '100%',
+  backgroundColor: '#fff',
+  padding: 20,
+  borderTopLeftRadius: 20,
+  borderTopRightRadius: 20,
+  elevation: 10,
+},
+
+sheetTitle: {
+  fontSize: 16,
+  fontWeight: '600',
+  marginBottom: 15,
+},
+
+sheetButton: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: 10,
+  paddingVertical: 12,
+},
+
+sheetButtonText: {
+  fontSize: 15,
+},
+
+sheetCancel: {
+  marginTop: 10,
+  alignItems: 'center',
+  paddingVertical: 12,
+  backgroundColor:'#FF8C32',
+},
+
+sheetCancelText: {
+  fontSize: 16,
+  color: 'red',
+},
+
 
 });
 

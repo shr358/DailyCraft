@@ -16,7 +16,9 @@ import EditProfile from '../../screen/EditProfile';
 
 import Recommend from '../../screen/Recommend';
 import BottomTabNavigator from './BottomTabs';
-import PersonalEditProfile from '../../screen/PersonalEditProfile';
+// import PersonalEditProfile from '../../screen/PersonalEditProfile';
+import EditBusinessProfile from '../../screen/EditBusinessProfile';
+import EditPersonalProfile from '../../screen/EditPersonalProfile';
 export type RootNavigationprop = NativeStackNavigationProp<RootStackParamList>
 
 const Stack = createNativeStackNavigator();
@@ -38,7 +40,9 @@ const AppNavigator = () => {
 <Stack.Screen name="EditProfile" component={EditProfile} />
 
 <Stack.Screen name="MainTabs" component={BottomTabNavigator} />
-<Stack.Screen name="PersonalEditProfile" component={PersonalEditProfile}/>
+{/* <Stack.Screen name="PersonalEditProfile" component={PersonalEditProfile}/> */}
+<Stack.Screen name="EditPersonalProfile" component={EditPersonalProfile} />
+<Stack.Screen name="EditBusinessProfile" component={EditBusinessProfile} />
 
 </Stack.Navigator>
 </NavigationContainer>

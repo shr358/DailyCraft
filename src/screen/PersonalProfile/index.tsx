@@ -13,6 +13,8 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  Modal,
+  Animated
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
@@ -29,6 +31,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'PersonalProfile'>;
 
 const PersonalProfile : React.FC<Props> = ({ navigation }) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [pickerVisible, setPickerVisible] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [contact, setContact] = useState('');
@@ -42,6 +45,29 @@ const PersonalProfile : React.FC<Props> = ({ navigation }) => {
     bio: '',
   });
 
+ const slideAnim = useState(new Animated.Value(0))[0];
+const openPickerSheet = ()=>{
+  setPickerVisible(true);
+  Animated.timing(slideAnim , {
+    toValue:1,
+    duration:250,
+    useNativeDriver:true,
+  }).start();
+};
+
+const closePickerSheet = () =>{
+  Animated.timing(slideAnim,{
+toValue:0,
+duration:200,
+useNativeDriver:true,
+  }).start(()=> setPickerVisible(false));
+};
+
+
+  const sheetTranslateY = slideAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [300, 0],
+  });
 
 const handleCameraPick = () => {
   ImagePicker.openCamera({
@@ -183,7 +209,7 @@ const handleCameraPick = () => {
 
 
 
-<TouchableOpacity style={styles.logoBox} activeOpacity={0.9}>
+<TouchableOpacity style={styles.logoBox} activeOpacity={0.9} onPress={openPickerSheet}>
 
   {selectedImage ? (
 
@@ -208,16 +234,115 @@ const handleCameraPick = () => {
 
 
       <View style={styles.pickButtons}>
-        <TouchableOpacity style={styles.pickBtn} onPress={handleImagePick}>
-          <Ionicons name="image-outline" size={13} color="#FFF" />
-          <Text style={styles.pickTxt}>Gallery</Text>
-        </TouchableOpacity>
+  <TouchableOpacity
+    style={styles.pickBtn} onPress={openPickerSheet}>
+    <Ionicons name="image-outline" size={22} color="#FFF" />
+    <Text style={styles.pickTxt}>Gallery</Text>
+  </TouchableOpacity>
+</View>
 
-        <TouchableOpacity style={styles.pickBtn} onPress={handleCameraPick}>
-          <Ionicons name="camera-outline" size={13} color="#FFF" />
-          <Text style={styles.pickTxt}>Camera</Text>
-        </TouchableOpacity>
-      </View>
+
+<Modal
+  visible={pickerVisible}
+  transparent
+  animationType="fade"
+  onRequestClose={closePickerSheet}
+>
+  <TouchableOpacity
+    activeOpacity={1}
+    onPress={closePickerSheet}
+    style={{
+      flex: 1,
+      backgroundColor: 'rgba(0,0,0,0.4)',
+      justifyContent: 'flex-end',
+    }}
+  >
+    <Animated.View
+      style={{
+        backgroundColor: '#fff',
+        paddingTop: 15,
+        paddingBottom: 30,
+        paddingHorizontal: 20,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        transform: [{ translateY: sheetTranslateY }],
+      }}
+    >
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: 16,
+          fontWeight: '600',
+          marginBottom: 15,
+        }}
+      >
+        Select Image
+      </Text>
+
+
+      <TouchableOpacity
+        style={{
+           width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      borderColor: '#ddd',
+      borderRadius: 10,
+      marginBottom: 10,
+        }}
+        onPress={() => {
+          closePickerSheet();
+          handleCameraPick();
+        }}
+      >
+        <Ionicons name="camera-outline" size={22} color="#000" />
+        <Text style={{ marginLeft: 10, fontSize: 16 }}>Open Camera</Text>
+      </TouchableOpacity>
+
+
+      <TouchableOpacity
+        style={{
+          width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      borderColor: '#ddd',
+      borderRadius: 10,
+        }}
+        onPress={() => {
+          closePickerSheet();
+          handleImagePick();
+        }}
+      >
+        <Ionicons name="images-outline" size={22} color="#000" />
+        <Text style={{ marginLeft: 10, fontSize: 16 }}>Choose From Gallery</Text>
+      </TouchableOpacity>
+
+
+      <TouchableOpacity
+        onPress={closePickerSheet}
+        style={{
+          marginTop: 12,
+          paddingVertical: 12,
+          backgroundColor: '#f2f2f2',
+          borderRadius: 10,
+        }}
+      >
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize: 16,
+            fontWeight: '600',
+          }}
+        >
+          Cancel
+        </Text>
+      </TouchableOpacity>
+    </Animated.View>
+  </TouchableOpacity>
+</Modal>
 
     </View>
   )}
@@ -299,7 +424,7 @@ const handleCameraPick = () => {
             </View>
 
 
-            <TouchableOpacity style={styles.switchBtn}>
+            <TouchableOpacity style={styles.switchBtn}   onPress={() => navigation.navigate('BusinessProfile')}>
               <Text style={styles.switchText}>
                 Switch to <Text style={styles.switchtext2}>Business Profile</Text>
               </Text>
@@ -312,3 +437,4 @@ const handleCameraPick = () => {
 };
 
 export default PersonalProfile;
+

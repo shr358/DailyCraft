@@ -1,9 +1,20 @@
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, ScrollView, SafeAreaView, ImageBackground, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  SafeAreaView,
+  ImageBackground,
+  ActivityIndicator,
+  Modal,
+  TouchableOpacity} from 'react-native';
 import { getTemplates } from '../services/Apiconfig';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 
+import { downloadImage } from '../services/Downloadhelper';
 
 type TemplateItem = {
   file_path: string;
@@ -13,6 +24,8 @@ type TemplateItem = {
 const Download = () => {
   const [templates, setTemplates] = useState<TemplateItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const fetchTemplates = async () => {
@@ -32,6 +45,11 @@ const Download = () => {
 
     fetchTemplates();
   }, []);
+
+  const openPreview = (image_url: string) => {
+    setSelectedImage(image_url);
+    setShowModal(true);
+  };
 
   return (
     <ImageBackground
@@ -53,21 +71,19 @@ const Download = () => {
           ) : (
             <View style={styles.gridContainer}>
               {templates.length > 0 ? (
-                templates.map((item, index) => {
-                  console.log('Image URL:', item?.file_path);
-                  return (
-                    <View style={styles.gridItem} key={index}>
-                      <Image
-                        source={{ uri: item?.file_path }}
-                        style={styles.posterImage}
-                        resizeMode="cover"
-                      />
-                      {/* {item?.template_name && (
-                        <Text style={styles.templateTitle}>{item?.template_name}</Text>
-                      )} */}
-                    </View>
-                  );
-                })
+                templates.map((item, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    style={styles.gridItem}
+                    onPress={() => openPreview(item.file_path)}
+                  >
+                    <Image
+                      source={{ uri: item?.file_path }}
+                      style={styles.posterImage}
+                      resizeMode="cover"
+                    />
+                  </TouchableOpacity>
+                ))
               ) : (
                 <Text style={styles.noDataText}>No templates available</Text>
               )}
@@ -75,6 +91,54 @@ const Download = () => {
           )}
         </ScrollView>
       </SafeAreaView>
+
+
+      <Modal visible={showModal} transparent animationType="fade">
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0,0,0,0.9)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+
+          <TouchableOpacity
+            onPress={() => setShowModal(false)}
+            style={{ position: 'absolute', top: 40, right: 20, zIndex: 10 }}
+          >
+            <Ionicons name="close" size={35} color="#fff" />
+          </TouchableOpacity>
+
+
+          {selectedImage && (
+            <Image
+              source={{ uri: selectedImage }}
+              style={{ width: '90%', height: '70%', borderRadius: 10 }}
+              resizeMode="contain"
+            />
+          )}
+
+
+          <TouchableOpacity
+            onPress={() => selectedImage && downloadImage(selectedImage)}
+            style={{
+              marginTop: 20,
+              backgroundColor: '#fff',
+              paddingVertical: 10,
+              paddingHorizontal: 40,
+              borderRadius: 10,
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
+          >
+            <Ionicons name="download-outline" size={24} color="#000" />
+            <Text style={{ marginLeft: 10, fontSize: 18, fontWeight: '600' }}>
+              Download
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </ImageBackground>
   );
 };

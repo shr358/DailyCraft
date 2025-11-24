@@ -72,34 +72,6 @@ try{
 
  };
 
-// const handleDelete = async () => {
-//   try {
-//     const profileId = await AsyncStorage.getItem('profile_id');
-//     if (!profileId) {
-//       console.log('No profile id found');
-//       return;
-//     }
-
-//     const response = await DeleteProfile(profileId);
-//     console.log('Delete Response:', response);
-
-//     if (response?.status === true) {
-
-
-//       await AsyncStorage.removeItem('profile_id');
-
-//       // await AsyncStorage.removeItem('token');
-
-//   navigation.reset({
-//         index: 0,
-//         routes: [{ name: 'MainTabs' }],
-//       });
-//     }
-//   } catch (error) {
-//     console.log('Delete Error:', error);
-//   }
-// };
-
 const handleDelete = async () => {
   try {
     const profileId = await AsyncStorage.getItem('profile_id');
@@ -190,6 +162,10 @@ const handleDelete = async () => {
                 >
                   <Text style={styles.editText}>Edit Profile</Text>
                 </TouchableOpacity>
+
+
+
+
               </>
             )}
           </View>
@@ -316,3 +292,4 @@ const handleDelete = async () => {
 };
 
 export default Profile;
+
