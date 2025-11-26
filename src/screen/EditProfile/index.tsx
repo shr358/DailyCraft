@@ -1,16 +1,6 @@
 
-
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-  ImageBackground,
-  Alert,
-} from 'react-native';
+import { View,Text,TextInput,TouchableOpacity,ScrollView,Image,ImageBackground,Alert} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ImagePicker from 'react-native-image-crop-picker';
 import styles from './styles';
@@ -20,8 +10,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RootStackParamList } from '../../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { updateProfile } from '../services/Apiconfig';
-
-
 type EditProfileProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'EditProfile'>;
 };
@@ -217,7 +205,7 @@ const handleUpdateProfile = async () => {
 
 
           <View style={styles.bottomContainer}>
-            {/* <Button title="Continue" onPress={() => navigation.navigate('LoginScreen')} /> */}
+            {/* <Button title="Continue" onPress={() => navigation.navigate('SplashScreen')} /> */}
               <Button title="Continue" onPress={handleUpdateProfile} />
           </View>
 

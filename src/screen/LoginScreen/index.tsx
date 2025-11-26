@@ -25,9 +25,7 @@ import { sendOtp } from '../services/Apiconfig';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigation/types';
 import styles from './styles';
-
-
-
+import { deviceWidth } from '../../utils/dimensions';
 const { width } = Dimensions.get('window');
 const indianMobileRegex = /^(?!.*(\d)\1{9})[6-9]\d{9}$/;
 
@@ -146,14 +144,7 @@ return (
             style={styles.headerBackground}
             resizeMode="cover"
           >
-            <View style={styles.header}>
-              <TouchableOpacity
-                style={styles.backBtn}
-                onPress={() => navigation.goBack()}
-              >
-                <Ionicons name="chevron-back" size={width * 0.07} color="#FFFFFF" />
-              </TouchableOpacity>
-            </View>
+
 
             <View style={styles.banner}>
               <Text style={styles.title}>Join the DailyCraft Community! 🤝</Text>
@@ -174,7 +165,7 @@ return (
             >
               <TouchableOpacity
                 onPress={() => setVisible(true)}
-                style={{ flexDirection: "row", alignItems: "center" }}
+                style={{ flexDirection: "row", alignItems: "center" ,paddingRight: 8}}
               >
                 <CountryPicker
                   countryCode={countryCode}
@@ -192,6 +183,21 @@ return (
                 <Text style={styles.countryCode}>+{callingCode}</Text>
               </TouchableOpacity>
 
+
+
+
+<View
+  style={{
+        width: 1,
+    height: "60%",
+    backgroundColor: "#ccc",
+    marginHorizontal: 8,
+    marginRight: 10,
+    // marginLeft:10,
+    alignSelf: "center",
+  }}
+/>
+
               <TextInput
                 value={mobile}
                 onChangeText={handleMobileChange}
@@ -203,7 +209,7 @@ return (
 
               <TouchableOpacity>
                 <Image
-                  source={require("../../assets/images/callIcon.png")}
+                  source={require('../../assets/images/logincallicon.png')}
                   style={styles.callIcon}
                   resizeMode="contain"
                 />
@@ -212,14 +218,20 @@ return (
 
             {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
-            <Text style={styles.helperText}>
-              You will receive an SMS verification that may apply message and
+            {/* <Text style={styles.helperText}>
+              You will receive an SMS verification that may apply {"/n"} message and
               data rates.
-            </Text>
+            </Text> */}
+
+            <Text style={styles.helperText}>
+  You will receive an SMS verification that may apply{"\n"}
+  message and data rates.
+</Text>
+
           </View>
         {/* </ScrollView> */}
 
-        {/* Bottom Section */}
+
         <View style={styles.bottomContainer}>
           <View style={styles.checkboxContainer}>
             <TouchableOpacity
@@ -231,11 +243,14 @@ return (
               activeOpacity={0.7}
             >
               {checked && (
+
                 <Ionicons
-                  name="checkmark"
-                  size={width * 0.06}
-                  color="#FFFFFF"
-                />
+  name="checkmark-sharp"
+  size={deviceWidth * 0.05}
+  color="#FFF"
+  style={{ marginTop: 1, transform: [{ scaleX: 1.32 }, { scaleY: 1.32}], }}
+/>
+
               )}
             </TouchableOpacity>
 
@@ -249,6 +264,8 @@ return (
             title={loading ? "Sending..." : "Get OTP"}
             onPress={handleGetOTP}
             disabled={!isFormValid || loading}
+              textStyle={{ fontSize: 32,
+    fontWeight: '900',  }}
           />
 
           <TouchableOpacity>

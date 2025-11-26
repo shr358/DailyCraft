@@ -33,3 +33,4 @@ export const downloadImage = async (imagePath: string) => {
     Alert.alert('Error', 'Could not download image');
   }
 };
+

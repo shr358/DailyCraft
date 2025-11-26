@@ -1,125 +1,124 @@
 
-import { StyleSheet, Dimensions } from 'react-native';
-const { width } = Dimensions.get('window');
+
+import { StyleSheet } from 'react-native';
+import { px, deviceWidth } from '../../utils/dimensions';
+
+const FOOTER_BUTTON_WIDTH = (deviceWidth - px(60)) / 2;
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  backgroundImage: { width: '100%', height: '100%' },
+  backgroundImage: { width: deviceWidth, height: '100%' },
 
-  headerContainer: { alignItems: 'center', marginTop: 15 },
-  title: { fontSize: 27, fontWeight: '700', color: '#000' },
+  headerContainer: { alignItems: 'center', marginTop: px(15) },
+  title: { fontSize: px(27), fontWeight: '700', color: '#000' },
 
   profileCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginHorizontal: 20,
-    marginTop: 20,
+    marginHorizontal: px(20),
+    marginTop: px(20),
   },
-  profileImage: { width: 60, height: 60, borderRadius: 10 },
-  profileInfo: { flex: 1, marginLeft: 10 },
-  profileName: { fontSize: 16, fontWeight: '700', color: '#000' },
+  profileImage: { width: px(60), height: px(60), borderRadius: px(10) },
+  profileInfo: { flex: 1, marginLeft: px(10) },
+  profileName: { fontSize: px(16), fontWeight: '700', color: '#000' },
 
   roleBadge: {
     backgroundColor: '#FF984F',
-    paddingHorizontal: 10,
-    paddingVertical: 3,
-    borderRadius: 6,
+    paddingHorizontal: px(10),
+    paddingVertical: px(3),
+    borderRadius: px(6),
     alignSelf: 'flex-start',
-    marginTop: 4,
+    marginTop: px(4),
   },
-  roleText: { color: '#fff', fontSize: 12, fontWeight: '600' },
+  roleText: { color: '#fff', fontSize: px(12), fontWeight: '600' },
 
   editButton: {
     backgroundColor: '#5C5FFF',
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 8,
+    paddingVertical: px(6),
+    paddingHorizontal: px(12),
+    borderRadius: px(8),
   },
-  editText: { color: '#fff', fontSize: 13, fontWeight: '600' },
+  editText: { color: '#fff', fontSize: px(13), fontWeight: '600' },
 
   premiumCard: {
     flexDirection: 'row',
     backgroundColor: '#F38612',
-    marginHorizontal: 20,
-    marginTop: 20,
-    borderRadius: 13,
-    padding: 12,
+    marginHorizontal: px(20),
+    marginTop: px(20),
+    borderRadius: px(13),
+    padding: px(9),
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   premiumLeft: { flexDirection: 'row', alignItems: 'center', flex: 1 },
-  premiumIcon: { width: 40, height: 40, marginRight: 10 },
-  premiumTitle: { fontSize: 15, fontWeight: '700', color: '#fff' },
-  premiumSubtitle: { fontSize: 13, color: '#fff', marginTop: 2 },
+  premiumIcon: { width: px(40), height: px(40), marginRight: px(10) },
+  premiumTitle: { fontSize: px(15), fontWeight: '700', color: '#fff' },
+  premiumSubtitle: { fontSize: px(13), color: '#fff', marginTop: px(2) },
   upgradeButton: {
     backgroundColor: '#fff',
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    borderRadius: 8,
+    paddingVertical: px(5),
+    paddingHorizontal: px(10),
+    borderRadius: px(8),
   },
-  upgradeText: { color: '#F38612', fontSize: 12, fontWeight: '600' },
+  upgradeText: { color: '#F38612', fontSize: px(12), fontWeight: '600' },
 
   // Section Styling
   sectionOuter: {
     backgroundColor: '#FFEFE3',
-    borderRadius: 15,
-    marginHorizontal: 20,
-    marginTop: 20,
-    padding: 4,
+    borderRadius: px(15),
+    marginHorizontal: px(20),
+    marginTop: px(20),
+    // padding: px(4),
   },
   section: {
     backgroundColor: '#fff',
-    borderRadius: 12,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+    borderRadius: px(12),
+    paddingHorizontal: px(15),
+    paddingVertical: px(10),
   },
   sectionTitle: {
-    fontSize: 15,
+    fontSize: px(15),
     fontWeight: '700',
     color: '#000',
-    marginBottom: 8,
+    marginBottom: px(8),
   },
   optionRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 12,
+    paddingVertical: px(8),
   },
   optionLeft: { flexDirection: 'row', alignItems: 'center' },
-  optionText: { fontSize: 14, color: '#333', marginLeft: 10 },
+  optionText: { fontSize: px(14), color: '#333', marginLeft: px(10) },
   divider: {
-    height: 1,
+    height: px(1),
     backgroundColor: '#EAEAEA',
-    marginLeft: 32,
+    marginLeft: px(32),
   },
 
   footerGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginHorizontal: 25,
-    // padding:10,
-    width:'100%',
-    marginTop: 2,
+    marginHorizontal: px(25),
+    width: deviceWidth,
+    marginTop: px(25),
   },
   footerButton: {
-    width: (width - 60) / 2,
-    // backgroundColor: '#fff',
-    borderRadius: 8,
-    paddingVertical: 10,
+    width: FOOTER_BUTTON_WIDTH,
+    borderRadius: px(8),
+    paddingVertical: px(10),
     alignItems: 'center',
     justifyContent: 'center',
-    // marginBottom: 5,
-    borderWidth: 4,
+    borderWidth: px(4),
     borderColor: '#fff',
   },
-  footerText: { fontSize: 15, fontWeight: '600', color: '#000' },
-    optionIcon: {
-    width: 20,
-    height: 20,
+  footerText: { fontSize: px(15), fontWeight: '600', color: '#000' },
+
+  optionIcon: {
+    width: px(20),
+    height: px(20),
     tintColor: '#ff914d',
   },
-
-
 });
 
 export default styles;

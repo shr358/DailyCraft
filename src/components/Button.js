@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#fff',
-    fontWeight: '600',
+    fontWeight: '800',
     fontSize: width * 0.045,
   },
   disabledButton: {

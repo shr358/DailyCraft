@@ -1,75 +1,195 @@
-import { StyleSheet, Dimensions } from 'react-native';
-const { width, height } = Dimensions.get('window');
+// import { StyleSheet, Dimensions } from 'react-native';
+// const { width, height } = Dimensions.get('window');
+
+// export default StyleSheet.create({
+//   container: {
+//     flex: 1,
+//    backgroundColor: '#FFF0ED',
+//   },
+
+//   headerBackground: {
+//     width: '100%',
+//     height: height * 0.32,
+//   },
+
+//   header: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     paddingHorizontal: width * 0.06,
+//     paddingTop: height * 0.06,
+//   },
+
+//   backBtn: {
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     height: width * 0.1,
+//     width: width * 0.1,
+//     borderRadius: width * 0.03,
+//     backgroundColor: '#FF8C32',
+//     borderWidth: 2,
+//     borderColor: '#FFFFFF',
+//   },
+
+//   banner: {
+//     paddingHorizontal: width * 0.06,
+//     marginTop: height * 0.01,
+//   },
+
+//   title: {
+//   color: '#fff',
+//     fontSize: width * 0.080,
+//     fontWeight: '500',
+//      lineHeight: width * 0.08,
+//       marginTop: height * 0.01,
+//       // justifyContent:'center',
+//   },
+
+//   subtitle: {
+//     fontSize: width * 0.037,
+//     color: '#fff',
+//     marginTop: height * 0.02,
+//     lineHeight: width * 0.05,
+//   },
+
+//   cardsContainer: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-around',
+//     marginTop: height * 0.06,
+//     paddingHorizontal: width * 0.05,
+//   },
+
+//   card: {
+//     width: width * 0.4,
+//     height: height * 0.28,
+//     backgroundColor: '#FFFFFF',
+//     borderRadius: width * 0.03,
+//     borderWidth: 1.5,
+//     borderColor: '#E2E8F0',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     position: 'relative',
+//     paddingHorizontal: width * 0.03,
+//      borderStyle: 'dashed',
+//   },
+
+//   selectedCard: {
+//     borderColor: '#FF8C32',
+//   },
+
+//   circle: {
+//   width: width * 0.22,
+//   height: width * 0.22,
+//   borderRadius: width * 0.11,
+//   backgroundColor: '#E2E8F0',
+//   marginBottom: height * 0.018,
+// },
+
+
+//   cardTitle: {
+//     fontSize: width * 0.045,
+//     fontWeight: '600',
+//     color: '#1E293B',
+//   },
+
+//   cardDesc: {
+//     fontSize: width * 0.032,
+//     color: '#64748B',
+//     textAlign: 'center',
+//     marginTop: height * 0.01,
+//   },
+
+//   tickIcon: {
+//     position: 'absolute',
+//     top: width * 0.03,
+//     right: width * 0.03,
+//   },
+//   bottomContainer: {
+//     position: 'absolute',
+//     // bottom: 0,
+//     width: '100%',
+//     backgroundColor: '#FFF0ED',
+//     paddingHorizontal: width * 0.06,
+//     paddingTop: width * 0.04,
+//     paddingBottom: width * 0.017,
+//     borderTopWidth: 1,
+//     borderTopColor: '#eee',
+//      bottom: height * 0.09,
+//   },
+
+// });
+
+
+import { StyleSheet } from 'react-native';
+import { px, deviceWidth, deviceHeight } from '../../utils/dimensions';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-   backgroundColor: '#FFF0ED',
+    backgroundColor: '#FFF0ED',
   },
 
   headerBackground: {
     width: '100%',
-    height: height * 0.32,
+    height: deviceHeight * 0.32,
   },
 
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: width * 0.06,
-    paddingTop: height * 0.06,
+    paddingHorizontal: deviceWidth * 0.06,
+    paddingTop: deviceHeight * 0.06,
   },
 
   backBtn: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: width * 0.1,
-    width: width * 0.1,
-    borderRadius: width * 0.03,
+    height: deviceWidth * 0.1,
+    width: deviceWidth * 0.1,
+    borderRadius: deviceWidth * 0.03,
     backgroundColor: '#FF8C32',
-    borderWidth: 2,
+    borderWidth: px(2),
     borderColor: '#FFFFFF',
   },
 
   banner: {
-    paddingHorizontal: width * 0.06,
-    marginTop: height * 0.01,
+    paddingHorizontal: deviceWidth * 0.06,
+    marginTop: deviceHeight * 0.01,
   },
 
   title: {
-  color: '#fff',
-    fontSize: width * 0.080,
+    color: '#fff',
+    fontSize: deviceWidth * 0.080,
     fontWeight: '500',
-     lineHeight: width * 0.08,
-      marginTop: height * 0.01,
-      // justifyContent:'center',
+    lineHeight: deviceWidth * 0.08,
+    marginTop: deviceHeight * 0.01,
   },
 
   subtitle: {
-    fontSize: width * 0.037,
+    fontSize: deviceWidth * 0.037,
     color: '#fff',
-    marginTop: height * 0.02,
-    lineHeight: width * 0.05,
+    marginTop: deviceHeight * 0.02,
+    lineHeight: deviceWidth * 0.05,
   },
 
   cardsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: height * 0.06,
-    paddingHorizontal: width * 0.05,
+    marginTop: deviceHeight * 0.06,
+    paddingHorizontal: deviceWidth * 0.05,
   },
 
   card: {
-    width: width * 0.4,
-    height: height * 0.28,
+    width: deviceWidth * 0.4,
+    height: deviceHeight * 0.28,
     backgroundColor: '#FFFFFF',
-    borderRadius: width * 0.03,
-    borderWidth: 1.5,
+    borderRadius: deviceWidth * 0.03,
+    borderWidth: px(1.5),
     borderColor: '#E2E8F0',
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    paddingHorizontal: width * 0.03,
-     borderStyle: 'dashed',
+    paddingHorizontal: deviceWidth * 0.03,
+    borderStyle: 'dashed',
   },
 
   selectedCard: {
@@ -77,43 +197,42 @@ export default StyleSheet.create({
   },
 
   circle: {
-  width: width * 0.22,
-  height: width * 0.22,
-  borderRadius: width * 0.11,
-  backgroundColor: '#E2E8F0',
-  marginBottom: height * 0.018,
-},
-
+    width: deviceWidth * 0.22,
+    height: deviceWidth * 0.22,
+    borderRadius: deviceWidth * 0.11,
+    backgroundColor: '#E2E8F0',
+    marginBottom: deviceHeight * 0.018,
+  },
 
   cardTitle: {
-    fontSize: width * 0.045,
+    fontSize: deviceWidth * 0.045,
     fontWeight: '600',
     color: '#1E293B',
   },
 
   cardDesc: {
-    fontSize: width * 0.032,
+    fontSize: deviceWidth * 0.032,
     color: '#64748B',
     textAlign: 'center',
-    marginTop: height * 0.01,
+    marginTop: deviceHeight * 0.01,
   },
 
   tickIcon: {
     position: 'absolute',
-    top: width * 0.03,
-    right: width * 0.03,
-  },
-  bottomContainer: {
-    position: 'absolute',
-    // bottom: 0,
-    width: '100%',
-    backgroundColor: '#FFF0ED',
-    paddingHorizontal: width * 0.06,
-    paddingTop: width * 0.04,
-    paddingBottom: width * 0.017,
-    borderTopWidth: 1,
-    borderTopColor: '#eee',
-     bottom: height * 0.09,
+    top: deviceWidth * 0.03,
+    right: deviceWidth * 0.03,
   },
 
+  bottomContainer: {
+    position: 'absolute',
+    width: '100%',
+    backgroundColor: '#FFF0ED',
+    paddingHorizontal: deviceWidth * 0.06,
+    paddingTop: deviceWidth * 0.04,
+    paddingBottom: deviceWidth * 0.017,
+    borderTopWidth: px(1),
+    borderTopColor: '#eee',
+    bottom: deviceHeight * 0.09,
+  },
 });
+

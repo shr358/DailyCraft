@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
   height: '100%',
 },
 
-
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -22,7 +21,7 @@ const styles = StyleSheet.create({
         position: 'relative',
   },
   backBtn: {
-     position: 'absolute',
+  position: 'absolute',
   top: 20,
   left: 15,
   backgroundColor: '#FFFFFF',

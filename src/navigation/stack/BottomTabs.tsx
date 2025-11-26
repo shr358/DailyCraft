@@ -25,9 +25,9 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 
         const icons = {
           Home: require('../../assets/images/Homeicon.png'),
-          Recommend: require('../../assets/images/recommendicon.png'),
+          Recommended: require('../../assets/images/recommendicon.png'),
           Downloads: require('../../assets/images/DownLoad.png'),
-          Profile: require('../../assets/images/profileicon.png'),
+          Profile: require('../../assets/images/Profileicon.png'),
         };
 
         return (
@@ -77,7 +77,7 @@ const BottomTabs = () => {
       screenOptions={{ headerShown: false }}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Recommend" component={Recommend} />
+      <Tab.Screen name="Recommended" component={Recommend} />
       <Tab.Screen name="Downloads" component={Download} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>

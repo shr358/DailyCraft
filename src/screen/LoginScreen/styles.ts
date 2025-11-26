@@ -1,22 +1,20 @@
 
 
-
-import { StyleSheet, Dimensions } from 'react-native';
-
-const { width, height } = Dimensions.get('window');
+import { StyleSheet } from 'react-native';
+import { px, deviceWidth, deviceHeight } from '../../utils/dimensions';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    // marginTop:height * 0.01,
     backgroundColor: '#FFF0ED',
   },
 
   headerBackground: {
-    width: width,
-    height: height * 0.32,
-    paddingHorizontal: width * 0.06,
-    paddingTop: height * 0.07,
+    width: deviceWidth,
+    height: deviceHeight * 0.32,
+    paddingHorizontal: deviceWidth * 0.06,
+    paddingTop: deviceHeight * 0.07,
+      marginBottom: deviceWidth * 0.04,
   },
 
   header: {
@@ -28,101 +26,102 @@ export default StyleSheet.create({
   backBtn: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: width * 0.1,
-    width: width * 0.1,
-    borderRadius: width * 0.03,
+    height: deviceWidth * 0.1,
+    width: deviceWidth * 0.1,
+    borderRadius: deviceWidth * 0.03,
     backgroundColor: '#FF8C32',
     borderColor: '#FFFFFF',
-     borderWidth: 2,
-
+    borderWidth: px(2),
   },
 
   backArrow: {
-    fontSize: width * 0.07,
+    fontSize: deviceWidth * 0.07,
     color: '#FFFFFF',
- textAlign: 'center',
-  includeFontPadding: false,
-  textAlignVertical: 'center',
+    textAlign: 'center',
+    includeFontPadding: false,
+    textAlignVertical: 'center',
   },
 
   skip: {
     color: '#FFFFFF',
-    fontSize: width * 0.04,
+    fontSize: deviceWidth * 0.04,
     fontWeight: '500',
-    marginTop:height * 0.015,
-      marginBottom: width * 0.04,
+    marginTop: deviceHeight * 0.015,
+    marginBottom: deviceWidth * 0.04,
   },
 
   banner: {
-    marginTop: height * 0.015,
+    marginTop: deviceHeight * 0.015,
   },
 
   title: {
     color: '#fff',
-    fontSize: width * 0.065,
+    fontSize: deviceWidth * 0.065,
     fontWeight: '700',
-     lineHeight: width * 0.07,
-      marginTop: height * 0.01,
+    lineHeight: deviceWidth * 0.07,
+    marginTop: deviceHeight * 0.01,
   },
 
   subtitle: {
     color: '#fff',
-    fontSize: width * 0.035,
-    marginTop: width * 0.02,
+    fontSize: deviceWidth * 0.035,
+    marginTop: deviceWidth * 0.02,
     width: '90%',
-    lineHeight: width * 0.05,
+    lineHeight: deviceWidth * 0.05,
   },
 
   inputSection: {
-    paddingHorizontal: width * 0.06,
-    marginTop: width * 0.08,
+    paddingHorizontal: deviceWidth * 0.06,
+    marginTop: deviceWidth * 0.08,
   },
 
   label: {
     color: '#565656',
-    fontWeight: '600',
-    marginBottom: width * 0.02,
-    fontSize: width * 0.035,
+    fontWeight: '500',
+    marginBottom: deviceWidth * 0.02,
+    fontSize: deviceWidth * 0.035,
   },
 
   inputBox: {
-    borderWidth: 1,
+    borderWidth: px(1),
     borderColor: '#ccc',
-    borderRadius: width * 0.03,
+    borderRadius: deviceWidth * 0.03,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: width * 0.04,
+    paddingHorizontal: deviceWidth * 0.04,
     backgroundColor: '#fff',
   },
 
   flagIcon: {
-    width: width * 0.07,
-    height: width * 0.05,
-    marginRight: width * 0.02,
+    width: deviceWidth * 0.07,
+    height: deviceWidth * 0.05,
+    marginRight: deviceWidth * 0.02,
   },
 
   countryCode: {
     fontWeight: '600',
-    fontSize: width * 0.04,
-    marginRight: width * 0.02,
+    fontSize: deviceWidth * 0.04,
+    marginRight: deviceWidth * 0.02,
   },
 
   input: {
     flex: 1,
-    paddingVertical: width * 0.03,
-    fontSize: width * 0.045,
+    paddingVertical: deviceWidth * 0.03,
+    fontSize: deviceWidth * 0.045,
   },
 
   callIcon: {
-    width: width * 0.05,
-    height: width * 0.05,
+    width: deviceWidth * 0.05,
+    height: deviceWidth * 0.05,
     tintColor: '#FF8C32',
   },
 
   helperText: {
-    marginTop: width * 0.02,
+    marginTop: deviceWidth * 0.02,
     color: '#565656',
-    fontSize: width * 0.03,
+    fontSize: deviceWidth * 0.03,
+      marginLeft: deviceWidth * 0.01,
+      // lineHeight:11,
   },
 
   bottomContainer: {
@@ -130,49 +129,37 @@ export default StyleSheet.create({
     bottom: 0,
     width: '100%',
     backgroundColor: '#FFF0ED',
-    paddingHorizontal: width * 0.06,
-    paddingTop: width * 0.04,
-    paddingBottom: width * 0.06,
-    borderTopWidth: 1,
+    paddingHorizontal: deviceWidth * 0.06,
+    paddingTop: deviceWidth * 0.04,
+    paddingBottom: deviceWidth * 0.06,
+    borderTopWidth: px(1),
     borderTopColor: '#eee',
-
-  // width: '100%',
-  // backgroundColor: '#FFF0ED',
-  // paddingHorizontal: width * 0.06,
-  // paddingTop: width * 0.04,
-  // paddingBottom: width * 0.06,
-  // borderTopWidth: 1,
-  // borderTopColor: '#eee',
-  // marginTop: 20,
-
-
   },
 
   checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: width * 0.04,
+    marginBottom: deviceWidth * 0.04,
   },
 
   checkbox: {
-    width: width * 0.06,
-    height: width * 0.06,
-    borderRadius: 8,
-    borderWidth: 2,
-    borderColor: '#FF8C32',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: width * 0.03,
-    backgroundColor: '#FF8C32',
-
-  },
+  width: deviceWidth * 0.070,
+  height: deviceWidth * 0.070,
+  borderRadius: px(8),
+  borderWidth: px(2),
+  borderColor: '#FF8C32',
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: '#FF8C32',
+   marginRight: deviceWidth * 0.03,
+},
 
 
   checkboxLabel: {
     flex: 1,
     color: '#333',
-    fontSize: width * 0.033,
-    lineHeight: width * 0.045,
+    fontSize: deviceWidth * 0.033,
+    lineHeight: deviceWidth * 0.045,
   },
 
   link: {
@@ -183,26 +170,25 @@ export default StyleSheet.create({
   privacyText: {
     textAlign: 'center',
     color: '#0B6BE9',
-    marginTop: width * 0.05,
-    fontSize: width * 0.049,
+    marginTop: deviceWidth * 0.05,
+    fontSize: deviceWidth * 0.049,
     textDecorationLine: 'underline',
-      marginBottom: width * 0.05,
-      fontWeight: '500',
+    marginBottom: deviceWidth * 0.05,
+    fontWeight: '500',
   },
+
   waveBottom: {
-  width: '100%',
-  height: height * 0.05,
-  resizeMode: 'cover',
-  marginTop: -1,
+    width: '100%',
+    height: deviceHeight * 0.05,
+    resizeMode: 'cover',
+    marginTop: px(-1),
     borderColor: '#FFFFFF',
-},
+  },
 
-errorText: {
-  color: 'red',
-  fontSize: width * 0.033,
-  marginTop: width * 0.02,
-  fontWeight: '500',
-},
-
-
+  errorText: {
+    color: 'red',
+    fontSize: deviceWidth * 0.033,
+    marginTop: deviceWidth * 0.02,
+    fontWeight: '500',
+  },
 });

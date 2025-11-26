@@ -8,6 +8,7 @@ export type RootStackParamList = {
  EditPeronsalProfile:undefined,
  EditBusinessProfile:undefined
  UnlockPremiumFeatures:undefined,
+ SplashScreen:undefined,
  HomeScreen:undefined,
    EditProfile: {  profileId: string; profileType?: string  };
    MainTabs: undefined;

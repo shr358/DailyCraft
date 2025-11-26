@@ -23,12 +23,12 @@ type ProfileNavigationProp = NativeStackNavigationProp<
   'HomeScreen'
 >;
 
-
 const Profile = ({ navigation }: { navigation: ProfileNavigationProp }) => {
   const [profileData, setProfileData] = useState<ProfileDataType | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+
     const fetchProfile = async () => {
       try {
         const profile_id = await AsyncStorage.getItem('profile_id');
@@ -52,70 +52,67 @@ const Profile = ({ navigation }: { navigation: ProfileNavigationProp }) => {
     };
 
     fetchProfile();
-  }, []);
+
+    const unsubscribe = navigation.addListener("focus", () => {
+      fetchProfile();
+    });
+
+    return unsubscribe;
+
+  }, [navigation]);
 
 
-const handleLogout =  async () => {
-
-try{
-  await AsyncStorage.removeItem('token');
-  await AsyncStorage.removeItem('user_id');
-
- navigation.reset({
-        index: 0,
-        routes: [{ name: 'LoginScreen' }],
-      });
-
-} catch (error) {
-      console.log('Logout error:', error);
-    }
-
- };
-
-const handleDelete = async () => {
-  try {
-    const profileId = await AsyncStorage.getItem('profile_id');
-    if (!profileId) {
-      console.log('No profile ID found');
-      return;
-    }
-
-
-    const response = await DeleteProfile(profileId);
-    console.log('Delete Response:', response);
-
-    if (response?.status === true) {
-
-
-      await AsyncStorage.removeItem('profile_id');
-
-
-      const all = await getAllProfiles();
-
-      if (all?.status && Array.isArray(all.data) && all.data.length > 0) {
-
-        const newProfileId = all.data[0].id.toString();
-        await AsyncStorage.setItem('profile_id', newProfileId);
-      } else {
-
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'ChooseProfileType'}],
-        });
-        return;
-      }
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem('token');
+      await AsyncStorage.removeItem('user_id');
 
       navigation.reset({
         index: 0,
-        routes: [{ name: 'MainTabs' }],
+        routes: [{ name: 'LoginScreen' }],
+          // routes: [{ name: 'SplashScreen' }],
       });
+    } catch (error) {
+      console.log('Logout error:', error);
     }
-  } catch (error) {
-    console.log('Delete Error:', error);
-  }
-};
+  };
 
+  const handleDelete = async () => {
+    try {
+      const profileId = await AsyncStorage.getItem('profile_id');
+      if (!profileId) {
+        console.log('No profile ID found');
+        return;
+      }
 
+      const response = await DeleteProfile(profileId);
+      console.log('Delete Response:', response);
+
+      if (response?.status === true) {
+        await AsyncStorage.removeItem('profile_id');
+
+        const all = await getAllProfiles();
+
+        if (all?.status && Array.isArray(all.data) && all.data.length > 0) {
+          const newProfileId = all.data[0].id.toString();
+          await AsyncStorage.setItem('profile_id', newProfileId);
+        } else {
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'ChooseProfileType'}],
+          });
+          return;
+        }
+
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'MainTabs' }],
+        });
+      }
+    } catch (error) {
+      console.log('Delete Error:', error);
+    }
+  };
 
   return (
     <ImageBackground
@@ -163,13 +160,9 @@ const handleDelete = async () => {
                   <Text style={styles.editText}>Edit Profile</Text>
                 </TouchableOpacity>
 
-
-
-
               </>
             )}
           </View>
-
 
           <View style={styles.premiumCard}>
             <View style={styles.premiumLeft}>
@@ -192,7 +185,6 @@ const handleDelete = async () => {
             </TouchableOpacity>
           </View>
 
-
           <View style={styles.sectionOuter}>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Settings</Text>
@@ -200,7 +192,7 @@ const handleDelete = async () => {
               <TouchableOpacity style={styles.optionRow}>
                 <View style={styles.optionLeft}>
                   <Image
-                    source={require('../../assets/images/appupdate.png')}
+                    source={require('../../assets/images/updatapp.png')}
                     style={styles.optionIcon}
                   />
                   <Text style={styles.optionText}>App Update</Text>
@@ -213,7 +205,7 @@ const handleDelete = async () => {
               <TouchableOpacity style={styles.optionRow} onPress={handleDelete}>
                 <View style={styles.optionLeft}>
                   <Image
-                    source={require('../../assets/images/deleteacc.png')}
+                    source={require('../../assets/images/accdelete.png')}
                     style={styles.optionIcon}
                   />
                   <Text style={styles.optionText}>Delete Account</Text>
@@ -223,7 +215,6 @@ const handleDelete = async () => {
             </View>
           </View>
 
-
           <View style={styles.sectionOuter}>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Help & Support</Text>
@@ -231,7 +222,7 @@ const handleDelete = async () => {
               <TouchableOpacity style={styles.optionRow}>
                 <View style={styles.optionLeft}>
                   <Image
-                    source={require('../../assets/images/FAQ.png')}
+                    source={require('../../assets/images/faq.png')}
                     style={styles.optionIcon}
                   />
                   <Text style={styles.optionText}>FAQ</Text>
@@ -244,9 +235,9 @@ const handleDelete = async () => {
               <TouchableOpacity style={styles.optionRow}>
                 <View style={styles.optionLeft}>
                   <Image
-                    source={require('../../assets/images/callIcon.png')}
+                    source={require('../../assets/images/callicon.png')}
                     style={styles.optionIcon}
-                  />
+                   />
                   <Text style={styles.optionText}>Call us</Text>
                 </View>
                 <Ionicons name="chevron-forward" size={18} color="#999" />
@@ -257,7 +248,7 @@ const handleDelete = async () => {
               <TouchableOpacity style={styles.optionRow}>
                 <View style={styles.optionLeft}>
                   <Image
-                    source={require('../../assets/images/whtppicon.png')}
+                    source={require('../../assets/images/iconwhatpp.png')}
                     style={styles.optionIcon}
                   />
                   <Text style={styles.optionText}>Whatsapp Support</Text>
@@ -280,11 +271,8 @@ const handleDelete = async () => {
             <TouchableOpacity style={styles.footerButton} onPress={handleLogout}>
               <Text style={styles.footerText}>Log Out</Text>
             </TouchableOpacity>
-
-
-
-
           </View>
+
         </ScrollView>
       </SafeAreaView>
     </ImageBackground>
@@ -292,4 +280,3 @@ const handleDelete = async () => {
 };
 
 export default Profile;
-

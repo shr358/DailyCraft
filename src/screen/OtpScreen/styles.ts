@@ -1,74 +1,72 @@
 
-
-import { StyleSheet, Dimensions } from 'react-native';
-const { width, height } = Dimensions.get('window');
+import { StyleSheet } from 'react-native';
+import { px, deviceWidth, deviceHeight } from '../../utils/dimensions';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#F9F9F9',
-      backgroundColor: '#FFF0ED',
+    backgroundColor: '#FFF0ED',
   },
 
   headerBackground: {
     width: '100%',
-    height: height * 0.32,
+    height: deviceHeight * 0.32,
+       marginBottom: deviceWidth * 0.04,
   },
 
   header: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingHorizontal: width * 0.06,
-    paddingTop: height * 0.07,
+    paddingHorizontal: deviceWidth * 0.06,
+    paddingTop: deviceHeight * 0.07,
   },
 
   backBtn: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: width * 0.1,
-    width: width * 0.1,
-    borderRadius: width * 0.03,
+    height: deviceWidth * 0.1,
+    width: deviceWidth * 0.1,
+    borderRadius: deviceWidth * 0.03,
     backgroundColor: '#FF8C32',
-    borderWidth: 2,
+    borderWidth: px(2),
     borderColor: '#FFFFFF',
   },
 
   banner: {
-    paddingHorizontal: width * 0.06,
-    marginTop: height * 0.02,
+    paddingHorizontal: deviceWidth * 0.06,
+    marginTop: deviceHeight * 0.02,
   },
 
   title: {
-    fontSize: width * 0.065,
+    fontSize: deviceWidth * 0.065,
     fontWeight: '700',
     color: '#fff',
   },
 
   subtitle: {
-    fontSize: width * 0.039,
+    fontSize: deviceWidth * 0.039,
     color: '#fff',
-    marginTop: height * 0.01,
-    lineHeight: width * 0.05,
+    marginTop: deviceHeight * 0.01,
+    lineHeight: deviceWidth * 0.05,
   },
-
 
   otpContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginHorizontal: width * 0.15,
-    marginTop: height * 0.05,
+    marginHorizontal: deviceWidth * 0.15,
+    marginTop: deviceHeight * 0.05,
   },
 
   otpBox: {
-    width: width * 0.13,
-    height: width * 0.13,
-    borderRadius: width * 0.02,
-    borderWidth: 1.2,
+    width: deviceWidth * 0.13,
+    height: deviceWidth * 0.13,
+    borderRadius: deviceWidth * 0.02,
+    borderWidth: px(1.2),
     borderColor: '#E2E8F0',
     backgroundColor: '#FFFFFF',
     textAlign: 'center',
-    fontSize: width * 0.05,
+    fontSize: deviceWidth * 0.05,
     color: '#1E293B',
     fontWeight: '600',
   },
@@ -76,8 +74,8 @@ export default StyleSheet.create({
   resendText: {
     textAlign: 'center',
     color: '#64748B',
-    fontSize: width * 0.035,
-    marginTop: height * 0.02,
+    fontSize: deviceWidth * 0.035,
+    marginTop: deviceHeight * 0.02,
   },
 
   resendLink: {
@@ -86,31 +84,27 @@ export default StyleSheet.create({
   },
 
   verifyButton: {
-   position: 'absolute',
-  bottom: height * 0.09,
-  alignSelf: 'center',
-  width: width * 0.9,
-
-  backgroundColor: '#FF8C32',
-  // paddingVertical: height * 0.02,
-  paddingVertical: width * 0.035,
-  borderRadius: width * 0.02,
-
+    position: 'absolute',
+    bottom: deviceHeight * 0.09,
+    alignSelf: 'center',
+    width: deviceWidth * 0.9,
+    backgroundColor: '#FF8C32',
+    paddingVertical: deviceWidth * 0.035,
+    borderRadius: deviceWidth * 0.02,
   },
 
   verifyButtonText: {
     textAlign: 'center',
     color: '#FFFFFF',
-    fontSize: width * 0.045,
+    fontSize: deviceWidth * 0.045,
     fontWeight: '600',
   },
 
   errorText: {
-  color: 'red',
-  fontSize: width * 0.033,
-  marginTop: width * 0.03,
-  fontWeight: '500',
-
-  alignSelf:'center',
-},
+    color: 'red',
+    fontSize: deviceWidth * 0.033,
+    marginTop: deviceWidth * 0.03,
+    fontWeight: '500',
+    alignSelf: 'center',
+  },
 });

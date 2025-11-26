@@ -61,23 +61,24 @@ const OtpScreen = () => {
 
   }, []);
 
-  const handleChange = (text:string, index:number) => {
+  const handleChange = (text: string, index: number) => {
+  const char = text.replace(/[^0-9]/g, '').slice(-1);
+  const updatedOtp = [...otp];
+  updatedOtp[index] = char;
+  setOtp(updatedOtp);
 
-    const char = text.replace(/[^0-9]/g, '').slice(-1);
-    const newOtp = [...otp];
-    newOtp[index] = char;
-    setOtp(newOtp);
 
-    if (error) setError('');
+  if (char && index < 5) {
+    inputs.current[index + 1]?.focus();
+  }
 
-    if (char && index < 5) {
-      inputs.current[index + 1]?.focus();
-    }
+  if (!char && index > 0) {
+    inputs.current[index - 1]?.focus();
+  }
+};
 
-    if (!char && index > 0) {
-      inputs.current[index - 1]?.focus();
-    }
-  };
+
+
 
   const clearOtp = () => {
     setOtp(['', '', '', '', '', '']);
@@ -113,12 +114,6 @@ const OtpScreen = () => {
     const response = await verifyOtp(phoneNumber, otpValue);
     console.log('Verify OTP Response:', response);
 
-    // if (response?.status === true)
-    //   {
-    //   navigation.navigate('ChooseLanguage', { phone_number: phoneNumber });
-    // } else {
-    //   setError(response.message || 'Invalid OTP. Please try again.');
-    // }
 
     if (response?.status === true) {
       const token = response?.data?.accessToken;
@@ -154,6 +149,29 @@ const OtpScreen = () => {
 
   const isButtonDisabled = otpValue.length < 6 || loading;
 
+const handleKeyPress = (e, index) => {
+  if (e.nativeEvent.key === 'Backspace') {
+    const updatedOtp = [...otp];
+
+    if (updatedOtp[index] !== '') {
+
+      updatedOtp[index] = '';
+      setOtp(updatedOtp);
+      return;
+    }
+
+    // if (index > 0) {
+    //   inputs.current[index - 1]?.focus();
+
+    //   updatedOtp[index - 1] = '';
+    //   setOtp(updatedOtp);
+    // }
+  }
+};
+
+
+
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -177,7 +195,7 @@ const OtpScreen = () => {
         <View style={styles.banner}>
           <Text style={styles.title}>Welcome to the Creative Circle! 🤝</Text>
           <Text style={styles.subtitle}>
-            Enter the <Text style={{ color: '#fff', fontWeight: '600' }}>OTP</Text> sent to +91 {phoneNumber}
+            Enter the <Text style={{ color: '#fff', fontWeight: '600' }}>OTP</Text> to confirm your spot in the DailyCraft community.
           </Text>
         </View>
       </ImageBackground>
@@ -192,6 +210,7 @@ const OtpScreen = () => {
             maxLength={1}
             value={value}
             onChangeText={(text) => handleChange(text, index)}
+              onKeyPress={(e) => handleKeyPress(e, index)}
             returnKeyType="done"
             textContentType="oneTimeCode"
             autoFocus={index === 0}
