@@ -65,7 +65,7 @@ export default StyleSheet.create({
     borderRadius: px(16),
     paddingHorizontal: px(16),
     paddingVertical: px(10),
-    marginBottom: px(15),
+    marginBottom: px(10),
     marginLeft: px(15),
     marginRight: px(15),
     borderColor: '#ddd',
@@ -76,11 +76,14 @@ export default StyleSheet.create({
     marginLeft: px(8),
     color: '#000',
   },
-  tabs: {
+    tabs: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: px(10),
+       marginLeft: px(18),
+    // marginRight: px(15),
        borderRadius: px(6),
+       gap:px(5),
   },
   tab: {
     backgroundColor: '#fff',
@@ -110,11 +113,23 @@ export default StyleSheet.create({
     borderRadius: px(18),
     overflow: 'visible',
     marginBottom: px(15),
+
+
   },
   posterImg: {
     borderRadius: px(5),
     marginTop: px(10),
   },
+  fixedActionRow: {
+  position: 'absolute',
+  bottom: px(100),
+  left: 0,
+  right: 0,
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  paddingHorizontal: px(10),
+}
+,
   actionRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -258,12 +273,17 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: deviceWidth,
+      maxHeight: deviceHeight * 0.8,
+  minHeight: deviceHeight * 0.3,
     backgroundColor: 'rgba(255,255,255,0.95)',
     borderTopLeftRadius: px(20),
     borderTopRightRadius: px(20),
     paddingHorizontal: px(20),
     paddingTop: px(15),
     padding: px(60),
+
+paddingBottom: px(20),
+
   },
   modalHeader: {
     flexDirection: 'row',
@@ -283,6 +303,7 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: px(25),
     padding: px(10),
+      zIndex: 10,
     elevation: 5,
   },
   profileCard: {
@@ -337,7 +358,7 @@ export default StyleSheet.create({
     backgroundColor: '#FF984F',
     borderRadius: px(8),
     paddingVertical: px(16),
-    marginTop: px(90),
+    // marginTop: px(90),
     alignItems: 'center',
   },
   createProfileText: {
@@ -356,13 +377,15 @@ export default StyleSheet.create({
     color: '#666',
   },
   templateContainer: {
-    alignItems: 'center',
+    // alignItems: 'center',
+  // marginHorizontal: px(20),
   },
   templateImage: {
-    width: deviceWidth,
+    width: deviceWidth  - px(30),
     height: px(450),
     borderRadius: px(12),
     backgroundColor: '#f5f5f5',
+    marginLeft:px(5),
   },
   placeholderImage: {
     width: deviceWidth,

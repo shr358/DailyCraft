@@ -4,7 +4,7 @@ import axiosInstance from '../axiousInstances';
 import { ENDPOINTS } from './EndPoints';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Buffer } from 'buffer';
-
+import { adminAxios } from '../axiousInstances';
 
 export const sendOtp = async (phoneNumber) => {
   try {
@@ -178,4 +178,15 @@ export const gethomescreenTemplate = async (profile_id, template_id) => {
     console.log('Home Screen Template Error:>>>>>>>>', error);
     throw error;
   }
+};
+
+export const getallcategory = async() =>{
+try{
+  const response = await adminAxios.get(ENDPOINTS.getallcategory);
+  console.log('get all cateogories>>>>>>',response.data);
+  return response.data;
+}catch(error){
+  console.log('error in all categories>>>>>',error);
+  throw error;
+}
 };

@@ -56,7 +56,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
             <Text
               style={[
                 styles.navLabel,
-                { color: isFocused ? '#fff' : '#252525' },
+                { color: isFocused ? '#FF984F'  : '#252525' },
               ]}
             >
               {label}

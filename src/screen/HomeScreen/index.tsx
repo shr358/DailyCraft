@@ -22,14 +22,14 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getProfileDetails, getAllProfiles, gethomescreenTemplate, getTemplates } from '../services/Apiconfig';
+import { getProfileDetails, getAllProfiles, gethomescreenTemplate, getTemplates, getallcategory } from '../services/Apiconfig';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList, ProfileDataType } from '../../navigation/types';
 import RNFS from 'react-native-fs';
 import Share from 'react-native-share';
 import axios from 'axios';
 import { Buffer } from 'buffer';
-
+import { px } from '../../utils/dimensions';
 
 type HomeScreenprops = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'HomeScreen'>;
@@ -62,6 +62,9 @@ const HomeScreen = ({ navigation }: HomeScreenprops) => {
   const [templates, setTemplates] = useState<TemplateType[]>([]);
   const [renderTemplates, setRenderTemplates] = useState<TemplateType[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [categories ,setCategories] = useState([]);
+ const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
 
   const flatListRef = useRef<RNFlatList<TemplateType> | null>(null);
 
@@ -155,6 +158,8 @@ const HomeScreen = ({ navigation }: HomeScreenprops) => {
   };
 
 
+
+
   const downloadimage = async (item: TemplateType) => {
     try {
       if (!item?.image_url) {
@@ -195,6 +200,18 @@ const HomeScreen = ({ navigation }: HomeScreenprops) => {
 
 
 
+useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await getallcategory();
+        setCategories(res.data);
+      } catch (err) {
+        console.log('Category error:', err);
+      }
+    };
+    fetchCategories();
+  }, []);
+
 
   const fetchAllProfilesFn = async () => {
     try {
@@ -232,6 +249,7 @@ const HomeScreen = ({ navigation }: HomeScreenprops) => {
       await fetchAllTemplates();
       await fetchProfileData();
       await fetchAllProfilesFn();
+      // await fetchCategories();
       setLoading(false);
     };
     init();
@@ -273,7 +291,7 @@ const HomeScreen = ({ navigation }: HomeScreenprops) => {
     const isLoadingThisItem = templateLoading && !imageUrl;
 
     return (
-      <View style={{ height: SCREEN_HEIGHT }}>
+      <View style={{ height: SCREEN_HEIGHT,paddingLeft:px(10)}}>
         <View style={styles.posterCard}>
           <View style={styles.templateContainer}>
             {isLoadingThisItem ? (
@@ -293,15 +311,6 @@ const HomeScreen = ({ navigation }: HomeScreenprops) => {
           </View>
         </View>
 
-        <View style={styles.actionRow}>
-          <TouchableOpacity style={styles.downloadBtn} onPress={() => downloadimage(cached)}>
-            <Text style={styles.downloadText}>Download</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.nextBtn} onPress={handleNext}>
-            <Text style={styles.nextText}>Next</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     );
   };
@@ -312,171 +321,10 @@ const HomeScreen = ({ navigation }: HomeScreenprops) => {
     index,
   });
 
+  const currentTemplate = renderTemplates[currentIndex] ?? templates[currentIndex];
 
 
   return (
-    //   <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-    // <ImageBackground
-
-    //   source={require('../../assets/images/homebackground.png')}
-    //   style={styles.backgroundImage}
-    //   resizeMode="cover"
-    // >
-    //   <View style={styles.container}>
-
-    //     <View style={styles.header}>
-    //       <View style={styles.profileSection}>
-    //         {loading ? (
-    //           <ActivityIndicator size="small" color="#000" />
-    //         ) : (
-    //           <Image
-    //             source={
-    //               profileData?.avatar
-    //                 ? { uri: profileData.avatar }
-    //                 : require('../../assets/images/shubhamicon.png')
-    //             }
-    //             style={styles.profileImg}
-    //           />
-    //         )}
-
-    //         <TouchableOpacity onPress={() => setModalVisible(true)} activeOpacity={0.8}>
-    //           <Text style={styles.welcomeText}>Welcome Back</Text>
-    //           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-    //             <Text style={styles.userName}>{profileData?.name || 'User'}</Text>
-    //             <Ionicons name="chevron-down" size={18} color="#000" style={{ marginLeft: 4 }} />
-    //           </View>
-    //         </TouchableOpacity>
-    //       </View>
-
-    //       <View style={styles.iconContainer}>
-    //         <View style={styles.iconWrapper}>
-    //           <Image source={require('../../assets/images/crawn.png')} style={styles.crownIcon} />
-    //         </View>
-    //         <View style={styles.iconContainer2}>
-    //           <Image source={require('../../assets/images/iconbell.png')} style={styles.headericon} />
-    //         </View>
-    //       </View>
-    //     </View>
-
-
-    //     <View style={styles.searchBar}>
-    //       <Ionicons name="search" size={25} color="#252525" />
-    //       <TextInput style={styles.searchInput} placeholder="Search Posts, Reels, or GIFs..." placeholderTextColor="#888" />
-    //       <Image source={require('../../assets/images/filtericon.png')} style={{ width: 22, height: 22, tintColor: '#414141', backgroundColor: '#fff' }} />
-    //     </View>
-
-
-    //     <View style={styles.tabs}>
-    //       <TouchableOpacity style={styles.tabActive}>
-    //         <Text style={styles.tabActiveText}> Trending Now 🔥</Text>
-    //       </TouchableOpacity>
-    //       <TouchableOpacity style={styles.tab}>
-    //         <Text style={styles.tabText}>⬇️ Most Downloaded</Text>
-    //       </TouchableOpacity>
-    //       <TouchableOpacity style={styles.tab}>
-    //         <Text style={styles.tabText}>🎥 Viral Reels</Text>
-    //       </TouchableOpacity>
-    //     </View>
-
-
-    //     {templateLoading || templates.length === 0 ? (
-    //       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    //         <ActivityIndicator size="large" color="#000" />
-    //         <Text style={{ marginTop: 10, fontSize: 16 }}>Loading Template...</Text>
-    //       </View>
-    //     ) : (
-    //       <FlatList
-    //         ref={(r) => (flatListRef.current = r)}
-    //         data={templates}
-    //         renderItem={renderItem}
-    //         keyExtractor={(item, index) => item?.id?.toString() ?? index.toString()}
-    //         pagingEnabled
-    //         snapToInterval={SCREEN_HEIGHT}
-    //         decelerationRate="fast"
-    //         showsVerticalScrollIndicator={false}
-    //         onMomentumScrollEnd={(e) => {
-    //           const index = Math.round(e.nativeEvent.contentOffset.y / SCREEN_HEIGHT);
-    //           setCurrentIndex(index);
-    //           if (templates[index]?.id && !renderTemplates[index]?.image_url) {
-    //             fetchTemplateData(templates[index].id, index);
-    //           }
-    //         }}
-    //         getItemLayout={getItemLayout}
-    //         windowSize={3}
-    //         initialNumToRender={1}
-    //       />
-    //     )}
-
-
-    //     <Modal animationType="slide" transparent={true} visible={isModalVisible} onRequestClose={() => setModalVisible(false)}>
-    //       <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
-    //         <View style={styles.modalOverlay} />
-    //       </TouchableWithoutFeedback>
-
-    //       <View style={styles.modalContainer}>
-    //         <View style={styles.modalHeader}>
-    //           <Text style={styles.modalTitle}>Select Profile</Text>
-    //           <TouchableOpacity style={styles.closeBtn} onPress={() => setModalVisible(false)}>
-    //             <Ionicons name="close" size={24} color="#000" />
-    //           </TouchableOpacity>
-    //         </View>
-
-    //         <ScrollView showsVerticalScrollIndicator={false}>
-    //           {profilesLoading ? (
-    //             <ActivityIndicator size="large" color="#000" style={{ marginVertical: 20 }} />
-    //           ) : allProfiles.length > 0 ? (
-    //             allProfiles.map((item) => (
-    //               <TouchableOpacity
-    //                 key={item.id}
-    //                 style={styles.profileCard}
-    //                 activeOpacity={0.8}
-    //                 onPress={async () => {
-    //                   try {
-    //                      setModalVisible(false);
-    //                     await AsyncStorage.setItem('profile_id', item.id.toString());
-    //                     await fetchProfileData();
-    //                     if (templates[currentIndex]?.id) {
-    //                       await fetchTemplateData(templates[currentIndex].id, currentIndex);
-    //                     }
-    //          setModalVisible(false);
-    //                   } catch (err) {
-    //                     console.log('error selecting profile:', err);
-    //                   }
-    //                 }}
-    //               >
-    //                 <View style={styles.avatarBorderBox}>
-    //                   <Image source={item.avatar ? { uri: item.avatar } : require('../../assets/images/shubhamicon.png')} style={styles.profileAvatar} />
-    //                 </View>
-
-    //                 <View style={styles.profileInfo}>
-    //                   <Text style={styles.profileName}>{item.name || 'User'}</Text>
-    //                   <View style={styles.profileTag}>
-    //                     <Text style={styles.profileTagText}>{item.profile_type || 'Personal'}</Text>
-    //                   </View>
-    //                 </View>
-
-    //                 <Ionicons name="chevron-forward" size={20} color="#000" />
-    //               </TouchableOpacity>
-    //             ))
-    //           ) : (
-    //             <Text style={{ textAlign: 'center', color: '#999', marginTop: 15 }}>No profiles available</Text>
-    //           )}
-    //         </ScrollView>
-
-    //         <TouchableOpacity
-    //           style={styles.createProfileBtn}
-    //           onPress={() => {
-    //             setModalVisible(false);
-    //             navigation.navigate('ChooseProfileType');
-    //           }}
-    //         >
-    //           <Text style={styles.createProfileText}>Create New Profile</Text>
-    //         </TouchableOpacity>
-    //       </View>
-    //     </Modal>
-    //   </View>
-    // </ImageBackground>
-    // </TouchableWithoutFeedback>
 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
   <ImageBackground
@@ -485,7 +333,6 @@ const HomeScreen = ({ navigation }: HomeScreenprops) => {
     resizeMode="cover"
   >
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <View style={styles.profileSection}>
           {loading ? (
@@ -520,7 +367,6 @@ const HomeScreen = ({ navigation }: HomeScreenprops) => {
         </View>
       </View>
 
-      {/* Search Bar */}
       <View style={styles.searchBar}>
         <Ionicons name="search" size={25} color="#252525" />
         <TextInput
@@ -534,22 +380,53 @@ const HomeScreen = ({ navigation }: HomeScreenprops) => {
         />
       </View>
 
-      {/* Tabs */}
-      <View style={styles.tabs}>
-        <TouchableOpacity style={styles.tabActive}>
-          <Text style={styles.tabActiveText}> Trending Now 🔥</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tab}>
-          <Text style={styles.tabText}>⬇️ Most Downloaded</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tab}>
-          <Text style={styles.tabText}>🎥 Viral Reels</Text>
-        </TouchableOpacity>
-      </View>
 
-      {/* Templates */}
+<FlatList
+  data={categories}
+  horizontal
+  showsHorizontalScrollIndicator={false}
+  keyExtractor={(item) => item.id.toString()}
+  contentContainerStyle={{
+    paddingHorizontal: px(10),
+    paddingVertical: px(8),
+    marginTop: px(2),
+    marginBottom: px(12),
+  }}
+  renderItem={({ item }) => (
+    <TouchableOpacity
+      onPress={() => setActiveCategory(item.id)}
+      style={{
+        backgroundColor: activeCategory === item.id ? '#FF984F' : '#FFF',
+        paddingHorizontal: px(20),
+        height: px(33),
+        borderRadius: px(10),
+        marginRight: px(10),
+        marginLeft:px(5),
+        borderWidth: 1,
+        marginTop:px(1),
+        borderColor: '#686868',
+        justifyContent: 'center',
+      }}
+    >
+      <Text
+        style={{
+          color: activeCategory === item.id ? '#FFF' : '#000',
+          fontSize: px(12),
+          fontWeight: '600',
+        }}
+      >
+        {item.category_name}
+      </Text>
+    </TouchableOpacity>
+  )}
+/>
+
+
+
+
+
       {templates.length === 0 || templateLoading ? (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',position: 'absolute', top: 0, bottom: 0, left: 0, right: 0  }}>
           <ActivityIndicator size="large" color="#000" />
           <Text style={{ marginTop: 10, fontSize: 16 }}>Loading Template...</Text>
         </View>
@@ -576,7 +453,21 @@ const HomeScreen = ({ navigation }: HomeScreenprops) => {
         />
       )}
 
-      {/* Profile Modal */}
+
+          <View style={styles.fixedActionRow}>
+            <TouchableOpacity
+              style={styles.downloadBtn}
+              onPress={() => downloadimage(currentTemplate)}
+            >
+              <Text style={styles.downloadText}>Download</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.nextBtn} onPress={handleNext}>
+              <Text style={styles.nextText}>Next</Text>
+            </TouchableOpacity>
+          </View>
+
+
       <Modal
         animationType="slide"
         transparent={true}
@@ -595,7 +486,7 @@ const HomeScreen = ({ navigation }: HomeScreenprops) => {
             </TouchableOpacity>
           </View>
 
-          <ScrollView showsVerticalScrollIndicator={false}>
+          <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: px(20),flexGrow:1 }}>
             {profilesLoading ? (
               <ActivityIndicator size="large" color="#000" style={{ marginVertical: 20 }} />
             ) : allProfiles.length > 0 ? (

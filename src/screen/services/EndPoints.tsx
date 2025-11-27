@@ -10,4 +10,5 @@ export const ENDPOINTS = {
    downloadtemplate:'templates',
    getlanguage:'templates/get-all-language',
    homescreenloadtemplate:'template',
+   getallcategory:'templates/get-all-category',
 };
