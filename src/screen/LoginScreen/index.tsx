@@ -26,6 +26,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigation/types';
 import styles from './styles';
 import { deviceWidth } from '../../utils/dimensions';
+import Toast from 'react-native-toast-message';
+
 const { width } = Dimensions.get('window');
 const indianMobileRegex = /^(?!.*(\d)\1{9})[6-9]\d{9}$/;
 
@@ -89,6 +91,14 @@ useEffect(() => { const checkLoginStatus = async () => {
       setError('');
       const res = await sendOtp(mobile);
       console.log('OTP Response:', res);
+
+       Toast.show({
+        type: 'success',
+        text1: `OTP has been sent to +91${mobile}`,
+        position: 'top',
+        visibilityTime: 3000,
+      });
+
       navigation.navigate('OtpScreen', { phone_number: mobile, otp: res.otp });
         // navigation.navigate('MainTabs');
     } catch (err:any) {
@@ -119,6 +129,8 @@ useEffect(() => { const checkLoginStatus = async () => {
       </View>
     );
   }
+
+
 
 return (
   <SafeAreaView style={{ flex: 1, backgroundColor: '#FFF0ED' }}>
@@ -217,11 +229,6 @@ return (
             </View>
 
             {error ? <Text style={styles.errorText}>{error}</Text> : null}
-
-            {/* <Text style={styles.helperText}>
-              You will receive an SMS verification that may apply {"/n"} message and
-              data rates.
-            </Text> */}
 
             <Text style={styles.helperText}>
   You will receive an SMS verification that may apply{"\n"}

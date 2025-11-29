@@ -19,7 +19,7 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingHorizontal: deviceWidth * 0.06,
-    paddingTop: deviceHeight * 0.07,
+    paddingTop: deviceHeight * 0.05,
   },
 
   backBtn: {
@@ -56,6 +56,8 @@ export default StyleSheet.create({
     justifyContent: 'space-evenly',
     marginHorizontal: deviceWidth * 0.15,
     marginTop: deviceHeight * 0.05,
+    marginLeft:px(10),
+marginRight:px(10),
   },
 
   otpBox: {

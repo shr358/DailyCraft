@@ -17,6 +17,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList , ProfileDataType} from '../../navigation/types';
 import { DeleteProfile , getAllProfiles} from '../services/Apiconfig';
+import Toast from 'react-native-toast-message';
 
 type ProfileNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -77,42 +78,62 @@ const Profile = ({ navigation }: { navigation: ProfileNavigationProp }) => {
     }
   };
 
+
   const handleDelete = async () => {
-    try {
-      const profileId = await AsyncStorage.getItem('profile_id');
-      if (!profileId) {
-        console.log('No profile ID found');
-        return;
-      }
+  try {
+    const profileId = await AsyncStorage.getItem('profile_id');
+    if (!profileId) {
+      console.log('No profile ID found');
+      return;
+    }
 
-      const response = await DeleteProfile(profileId);
-      console.log('Delete Response:', response);
+    const allProfiles = await getAllProfiles();
+    if (!allProfiles?.status || !Array.isArray(allProfiles.data)) return;
 
-      if (response?.status === true) {
-        await AsyncStorage.removeItem('profile_id');
+    const currentProfile = allProfiles.data.find(p => p.id.toString() === profileId);
+    if (!currentProfile) return;
 
-        const all = await getAllProfiles();
+    if (currentProfile.is_primary) {
+ Toast.show({
+       type: 'error',
+  text1: 'Cannot delete primary profile',
+  text2: 'Please set another profile as primary first',
+  position: 'top',
+  visibilityTime: 3000,
+      });
 
-        if (all?.status && Array.isArray(all.data) && all.data.length > 0) {
-          const newProfileId = all.data[0].id.toString();
-          await AsyncStorage.setItem('profile_id', newProfileId);
-        } else {
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'ChooseProfileType'}],
-          });
-          return;
-        }
+      return;
+    }
+
+
+    const response = await DeleteProfile(profileId);
+    console.log('Delete Response:', response);
+
+    if (response?.status === true) {
+      await AsyncStorage.removeItem('profile_id');
+
+      const remainingProfiles = allProfiles.data.filter(p => p.id.toString() !== profileId);
+      if (remainingProfiles.length > 0) {
+        const newProfileId = remainingProfiles[0].id.toString();
+        await AsyncStorage.setItem('profile_id', newProfileId);
 
         navigation.reset({
           index: 0,
           routes: [{ name: 'MainTabs' }],
         });
+      } else {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'ChooseProfileType' }],
+        });
       }
-    } catch (error) {
-      console.log('Delete Error:', error);
     }
-  };
+  } catch (error) {
+    console.log('Delete Error:', error);
+  }
+};
+
+
 
   return (
     <ImageBackground

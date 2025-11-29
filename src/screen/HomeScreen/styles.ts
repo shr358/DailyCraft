@@ -85,30 +85,30 @@ export default StyleSheet.create({
        borderRadius: px(6),
        gap:px(5),
   },
-  tab: {
-    backgroundColor: '#fff',
-    paddingVertical: px(6),
-    paddingHorizontal: px(12),
-    borderRadius: px(8),
-    borderWidth: 1,
-    borderColor: '#686868',
-  },
-  tabActive: {
-    backgroundColor: '#FF984F',
-    paddingVertical: px(6),
-    paddingHorizontal: px(12),
-    borderRadius: px(8),
-  },
-  tabText: {
-    fontSize: px(16),
-    color: '#2F2F2F',
-     fontWeight: '500',
-  },
-  tabActiveText: {
-    fontSize: px(13),
-    fontWeight: '600',
-    color: '#FFFFFF',
-  },
+  // tab: {
+    // backgroundColor: '#fff',
+    // paddingVertical: px(6),
+    // paddingHorizontal: px(12),
+    // borderRadius: px(8),
+    // borderWidth: 1,
+    // borderColor: '#686868',
+  // },
+  // tabActive: {
+  //   backgroundColor: '#FF984F',
+  //   paddingVertical: px(6),
+  //   paddingHorizontal: px(12),
+  //   borderRadius: px(8),
+  // },
+  // tabText: {
+  //   fontSize: px(16),
+  //   color: '#2F2F2F',
+  //    fontWeight: '500',
+  // },
+  // tabActiveText: {
+  //   fontSize: px(13),
+  //   fontWeight: '600',
+  //   color: '#FFFFFF',
+  // },
   posterCard: {
     borderRadius: px(18),
     overflow: 'visible',
@@ -306,6 +306,7 @@ paddingBottom: px(20),
       zIndex: 10,
     elevation: 5,
   },
+
   profileCard: {
     flexDirection: 'row',
     alignItems: 'center',

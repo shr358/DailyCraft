@@ -1,5 +1,9 @@
-export const FONT = {
-    REGULAR :'ComingSoon-Regular',
-    BOLD:'Content-Bold',
-    LARGE:'Content-Regular'
-}
+
+    export const FONTS = {
+  EXTRABOLD: 'Gilroy-ExtraBold',
+  BOLD: 'Gilroy-Bold',
+  SEMIBOLD: 'Gilroy-SemiBold',
+  MEDIUM: 'Gilroy-Medium',
+  REGULAR: 'Gilroy-Regular',
+  HEAVYITALIC: 'Gilroy-HeavyItalic',
+};

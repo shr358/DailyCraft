@@ -64,7 +64,7 @@ const HomeScreen = ({ navigation }: HomeScreenprops) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [categories ,setCategories] = useState([]);
  const [activeCategory, setActiveCategory] = useState<string | null>(null);
-
+const [activeProfileId, setActiveProfileId] = useState<string | null>(null);
 
   const flatListRef = useRef<RNFlatList<TemplateType> | null>(null);
 
@@ -237,6 +237,7 @@ useEffect(() => {
       const response = await getProfileDetails(profileId);
       if (response?.status && response.data) {
         setProfileData(response.data);
+        setActiveProfileId(response.data.id?.toString());
       }
     } catch (err) {
       console.log('Error fetching profile data:', err);
@@ -389,38 +390,48 @@ useEffect(() => {
   contentContainerStyle={{
     paddingHorizontal: px(10),
     paddingVertical: px(8),
-    marginTop: px(2),
+     marginTop: px(2),
     marginBottom: px(12),
   }}
-  renderItem={({ item }) => (
-    <TouchableOpacity
-      onPress={() => setActiveCategory(item.id)}
-      style={{
-        backgroundColor: activeCategory === item.id ? '#FF984F' : '#FFF',
-        paddingHorizontal: px(20),
-        height: px(33),
-        borderRadius: px(10),
-        marginRight: px(10),
-        marginLeft:px(5),
-        borderWidth: 1,
-        marginTop:px(1),
-        borderColor: '#686868',
-        justifyContent: 'center',
-      }}
-    >
-      <Text
+  renderItem={({ item }) => {
+    const isActive = activeCategory === item.id;
+
+    return (
+      <TouchableOpacity
+        onPress={() => setActiveCategory(item.id)}
         style={{
-          color: activeCategory === item.id ? '#FFF' : '#000',
-          fontSize: px(12),
-          fontWeight: '600',
+          backgroundColor: isActive ? '#FF7F32' : '#FFFFFF',
+          paddingHorizontal: px(18),
+          height: px(34),
+          borderRadius: px(20),
+          marginTop:px(0),
+          marginRight: px(5),
+          marginLeft:px(8),
+          borderWidth: isActive ? 0 : 1,
+          borderColor: '#C5C5C5',
+          justifyContent: 'center',
+          alignItems: 'center',
+          shadowColor: '#000',
+          shadowOpacity: 0.08,
+          shadowRadius: 4,
+          shadowOffset: { width: 0, height: 2 },
+          elevation: 3,
+          marginBottom:5
         }}
       >
-        {item.category_name}
-      </Text>
-    </TouchableOpacity>
-  )}
+        <Text
+          style={{
+            color: isActive ? '#FFFFFF' : '#000000',
+            fontSize: px(12),
+            fontWeight: '700',
+          }}
+        >
+          {item.category_name}
+        </Text>
+      </TouchableOpacity>
+    );
+  }}
 />
-
 
 
 
@@ -499,6 +510,7 @@ useEffect(() => {
                     try {
                       setModalVisible(false);
                       await AsyncStorage.setItem('profile_id', item.id.toString());
+                      setActiveProfileId(item.id.toString());
                       await fetchProfileData();
                       if (templates[currentIndex]?.id) {
                         await fetchTemplateData(templates[currentIndex].id, currentIndex);
@@ -524,7 +536,30 @@ useEffect(() => {
                     </View>
                   </View>
 
-                  <Ionicons name="chevron-forward" size={20} color="#000" />
+
+<View
+  style={{
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    backgroundColor: activeProfileId === item.id.toString() ? "#FF7F32" : "#D9D9D9",
+    justifyContent: "center",
+    alignItems: "center",
+  }}
+>
+  <Ionicons
+    name="checkmark"
+    size={18}
+    color="#fff"
+    style={{
+      marginTop: 1,
+      transform: [{ scaleX: 1.35 }, { scaleY: 1.35 }],
+      textShadowColor: "#fff",
+      textShadowRadius: 3,
+    }}
+
+  />
+</View>
                 </TouchableOpacity>
               ))
             ) : (

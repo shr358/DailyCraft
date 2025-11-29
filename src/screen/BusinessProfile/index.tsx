@@ -215,10 +215,10 @@ useNativeDriver:true,
                     style={styles.uploadimageicon}
                     resizeMode="contain"
                   />
-
+<View style= {{justifyContent:'center',alignSelf:'center'}}>
                   <Text style={styles.logoText}>Please Upload A Profile Picture</Text>
 
-
+</View>
                     <View style={styles.pickButtons}>
                     <TouchableOpacity
                       style={styles.pickBtn}
@@ -339,7 +339,7 @@ width: '100%',
               value={shopName}
               onChangeText={text => setShopName(text.replace(/\s+/g, ' '))}
             />
-            {errors.shopName ? <Text>{errors.shopName}</Text> : null}
+            {errors.shopName ? ( <Text style={{marginLeft:5, color: 'red', fontSize: 10,fontWeight:500 }}>{errors.shopName}</Text> ) : null}
 
             <Text style={styles.label}>Enter Email</Text>
             <TextInput
@@ -349,7 +349,7 @@ width: '100%',
               value={email}
               onChangeText={text => setEmail(text.trim())}
             />
-            {errors.email ? <Text>{errors.email}</Text> : null}
+            {errors.email ? ( <Text style={{marginLeft:5, color: 'red', fontSize: 10,fontWeight:500 }}>{errors.email}</Text>) : null}
 
             <Text style={styles.label}>Contact Number</Text>
             <TextInput
@@ -359,25 +359,25 @@ width: '100%',
               value={contact}
               onChangeText={text => setContact(text.replace(/[^0-9]/g, ''))}
             />
-            {errors.contact ? <Text>{errors.contact}</Text> : null}
+            {errors.contact ? ( <Text style={{marginLeft:5, color: 'red', fontSize: 10,fontWeight:500 }}>{errors.contact}</Text> ): null}
 
             <Text style={styles.label}>Describe Your Business</Text>
             <TextInput
-              style={[styles.input, styles.textlarge, errors.bio ? { borderColor: 'red' } : null]}
+              style={[styles.input, styles.textlarge, errors.bio ? { borderColor: 'red', } : null]}
               multiline
               value={bio}
               onChangeText={text => setBio(text.replace(/\s{2,}/g, ' '))}
             />
-            {errors.bio ? <Text>{errors.bio}</Text> : null}
+            {errors.bio ? ( <Text style={{marginLeft:5, color: 'red', fontSize: 10,fontWeight:500 }}>{errors.bio}</Text> ) : null}
 
             <Text style={styles.label}>Address</Text>
             <TextInput
-              style={[styles.input, styles.textlarge, errors.address ? { borderColor: 'red' } : null]}
+              style={[styles.input, styles.textlarge, errors.address ? { borderColor: 'red'  } : null]}
               multiline
               value={address}
               onChangeText={text => setAddress(text.replace(/\s{2,}/g, ' '))}
             />
-            {errors.address ? <Text>{errors.address}</Text> : null}
+            {errors.address ? ( <Text style={{marginLeft:5, color: 'red', fontSize: 10,fontWeight:500 }}>{errors.address}</Text> ) : null}
 
             <View style={styles.bottomContainer}>
               <Button

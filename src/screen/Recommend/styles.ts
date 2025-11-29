@@ -2,7 +2,7 @@
 
 import { StyleSheet } from 'react-native';
 import { px, deviceWidth, deviceHeight } from '../../utils/dimensions';
-
+// import { FONTS } from '../../assets/constant/fonts';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   backgroundImage: {
     width: deviceWidth,
     height: deviceHeight,
-    borderRadius: px(10),
+    borderRadius: px(8),
   },
   contentContainer: {
     alignItems: 'center',
@@ -24,11 +24,12 @@ const styles = StyleSheet.create({
     marginBottom: px(20),
   },
   title: {
-    fontSize: px(26),
+    fontSize: px(30),
     fontWeight: '600',
     color: '#000',
     textAlign: 'center',
     lineHeight: px(31),
+
   },
   subtitle: {
     fontSize: px(16),
@@ -36,11 +37,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: px(10),
     lineHeight: px(26),
+    //  fontFamily:FONTS.REGULAR,
   },
   imageWrapper: {
     borderRadius: px(15),
     overflow: 'hidden',
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
+
+
   },
   posterImage: {
     marginTop: px(20),
@@ -49,12 +53,13 @@ const styles = StyleSheet.create({
     borderRadius: px(15),
     marginLeft: px(20),
     marginRight: px(20),
+
   },
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: deviceWidth * 1, // '110%' equivalent
-    marginTop: px(20),
+    width: deviceWidth * 1,
+    marginTop: px(15),
   },
   downloadBtn: {
     flex: 1,

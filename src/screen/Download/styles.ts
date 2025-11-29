@@ -83,7 +83,7 @@ const ITEM_SIZE = (deviceWidth - ITEM_MARGIN * 3) / 2;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
   },
   backgroundImage: {
     width: deviceWidth,
@@ -114,6 +114,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     paddingHorizontal: ITEM_MARGIN,
     marginTop: px(10),
+    //  width: deviceWidth  - px(20),
+    marginLeft:px(10),
   },
   gridItem: {
     width: ITEM_SIZE,
@@ -136,7 +138,7 @@ const styles = StyleSheet.create({
     borderRadius: px(8),
   },
   noDataText: {
-    // You can add px-based styling here if needed
+
   },
 });
 

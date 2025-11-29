@@ -58,11 +58,11 @@ const Download = () => {
       resizeMode="cover"
     >
       <SafeAreaView style={styles.container}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 160 }} >
           <View style={styles.header}>
             <Text style={styles.title}>All Downloads</Text>
             <Text style={styles.subtitle}>
-              From flirty moments to heartfelt stories, explore love in every color.
+              Browse all your saved posters and download them anytime.
             </Text>
           </View>
 
@@ -124,7 +124,7 @@ const Download = () => {
             onPress={() => selectedImage && downloadImage(selectedImage)}
             style={{
               marginTop: 20,
-              backgroundColor: '#fff',
+              backgroundColor: '#FF984F',
               paddingVertical: 10,
               paddingHorizontal: 40,
               borderRadius: 10,
@@ -132,8 +132,8 @@ const Download = () => {
               alignItems: 'center',
             }}
           >
-            <Ionicons name="download-outline" size={24} color="#000" />
-            <Text style={{ marginLeft: 10, fontSize: 18, fontWeight: '600' }}>
+            <Ionicons name="download-outline" size={24} color="#fff" />
+            <Text style={{ marginLeft: 10, fontSize: 18, fontWeight: '600',color:"#fff" }}>
               Download
             </Text>
           </TouchableOpacity>

@@ -18,6 +18,7 @@ import { verifyOtp, sendOtp } from '../services/Apiconfig';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigation/types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 const { width } = Dimensions.get('window');
 
 type OtpRouteProp = RouteProp<RootStackParamList, 'Otpscreen'>;
@@ -61,19 +62,56 @@ const OtpScreen = () => {
 
   }, []);
 
-  const handleChange = (text: string, index: number) => {
-  const char = text.replace(/[^0-9]/g, '').slice(-1);
+
+useEffect(() => {
+  if (backendOtp) {
+    Toast.show({
+      type: 'success',
+      text1: `Your OTP is 🎉 : ${backendOtp}`,
+      position: 'top',
+      visibilityTime: 6000,
+    });
+  }
+}, [backendOtp]);
+
+
+
+
+const handleChange = (text: string, index: number) => {
+  const onlyNum = text.replace(/[^0-9]/g, '').slice(-1);
   const updatedOtp = [...otp];
-  updatedOtp[index] = char;
+  updatedOtp[index] = onlyNum;
   setOtp(updatedOtp);
 
-
-  if (char && index < 5) {
+  if (onlyNum !== '' && index < 5) {
     inputs.current[index + 1]?.focus();
   }
 
-  if (!char && index > 0) {
+
+  if (onlyNum === '' && index > 0) {
     inputs.current[index - 1]?.focus();
+  }
+};
+
+
+const handleKeyPress = (e, index) => {
+  if (e.nativeEvent.key === "Backspace") {
+    const updated = [...otp];
+
+
+    if (updated[index] !== '') {
+      updated[index] = '';
+      setOtp(updated);
+      inputs.current[index]?.focus();
+      return;
+    }
+
+
+    if (index > 0) {
+      updated[index - 1] = '';
+      setOtp(updated);
+      inputs.current[index - 1]?.focus();
+    }
   }
 };
 
@@ -149,25 +187,6 @@ const OtpScreen = () => {
 
   const isButtonDisabled = otpValue.length < 6 || loading;
 
-const handleKeyPress = (e, index) => {
-  if (e.nativeEvent.key === 'Backspace') {
-    const updatedOtp = [...otp];
-
-    if (updatedOtp[index] !== '') {
-
-      updatedOtp[index] = '';
-      setOtp(updatedOtp);
-      return;
-    }
-
-    // if (index > 0) {
-    //   inputs.current[index - 1]?.focus();
-
-    //   updatedOtp[index - 1] = '';
-    //   setOtp(updatedOtp);
-    // }
-  }
-};
 
 
 

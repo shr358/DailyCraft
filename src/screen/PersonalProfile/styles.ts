@@ -55,6 +55,7 @@ marginTop: width * 0.06,
       fontSize: width * 0.030,
       alignSelf:'center',
       alignItems:'center',
+      justifyContent:'center'
   },
 
   textlarge:{
