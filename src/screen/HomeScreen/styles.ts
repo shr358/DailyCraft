@@ -22,17 +22,22 @@ export default StyleSheet.create({
     marginRight: px(19),
     marginLeft: px(10),
 
+
   },
   profileSection: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingRight: px(10),
+    // backgroundColor:'red',
+
+
   },
   profileImg: {
     width: px(40),
     height: px(40),
     borderRadius: px(10),
     marginRight: px(10),
+
   },
   welcomeText: {
     fontSize: px(12),
@@ -85,30 +90,6 @@ export default StyleSheet.create({
        borderRadius: px(6),
        gap:px(5),
   },
-  // tab: {
-    // backgroundColor: '#fff',
-    // paddingVertical: px(6),
-    // paddingHorizontal: px(12),
-    // borderRadius: px(8),
-    // borderWidth: 1,
-    // borderColor: '#686868',
-  // },
-  // tabActive: {
-  //   backgroundColor: '#FF984F',
-  //   paddingVertical: px(6),
-  //   paddingHorizontal: px(12),
-  //   borderRadius: px(8),
-  // },
-  // tabText: {
-  //   fontSize: px(16),
-  //   color: '#2F2F2F',
-  //    fontWeight: '500',
-  // },
-  // tabActiveText: {
-  //   fontSize: px(13),
-  //   fontWeight: '600',
-  //   color: '#FFFFFF',
-  // },
   posterCard: {
     borderRadius: px(18),
     overflow: 'visible',
@@ -320,8 +301,8 @@ paddingBottom: px(20),
     borderRightWidth: px(3),
     borderBottomWidth: px(3),
     borderColor: '#FF984F',
-    borderRadius: px(10),
-    padding: px(2),
+    borderRadius: px(8),
+    // padding: px(2),
     marginRight: px(12),
   },
   profileAvatarContainer: {

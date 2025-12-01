@@ -205,7 +205,6 @@ const handleUpdateProfile = async () => {
 
 
           <View style={styles.bottomContainer}>
-            {/* <Button title="Continue" onPress={() => navigation.navigate('SplashScreen')} /> */}
               <Button title="Continue" onPress={handleUpdateProfile} />
           </View>
 

@@ -158,7 +158,7 @@ pickButtons: {
   alignItems: 'center',
   gap: 3,
   marginTop: width * 0.01,
-width:  width * 0.2,
+width:  width * 0.3,
 },
 
 pickBtn: {
@@ -172,7 +172,7 @@ pickBtn: {
 
 pickTxt: {
   color: '#FFF',
-  marginLeft: 6,
+  marginLeft: 4,
   fontSize: width * 0.03,
   fontWeight: '500',
 },

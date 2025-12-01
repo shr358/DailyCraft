@@ -33,9 +33,9 @@ export default StyleSheet.create({
   },
 
   logoBox: {
-    marginTop: px(dw * 0.04),
+    // marginTop: px(dw * 0.04),
     alignSelf: 'center',
-    width: '45%',
+    // width: '30%',
     aspectRatio: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -43,10 +43,11 @@ export default StyleSheet.create({
     borderStyle: 'dashed',
     borderColor: '#ccc',
     borderRadius: px(dw * 0.05),
-    padding: px(dw * 0.01),
+    // padding: px(dw * 0.01),
     marginVertical: px(dw * 0.055),
     marginBottom: px(dw * 0.01),
-    height: px(dw * 0.37),
+    height: px(dw * 0.34),
+    // backgroundColor:'red',
   },
 
   logoText: {
@@ -65,7 +66,8 @@ export default StyleSheet.create({
   uploadBtn: {},
 
   uploadimageicon: {
-    paddingTop: px(dw * 0.01),
+    paddingTop: px(dw * 0.02),
+    // backgroundColor:'red',
   },
 
   uploadIcon: {

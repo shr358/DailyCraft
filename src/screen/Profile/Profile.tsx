@@ -17,6 +17,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList , ProfileDataType} from '../../navigation/types';
 import { DeleteProfile , getAllProfiles} from '../services/Apiconfig';
+
 import Toast from 'react-native-toast-message';
 
 type ProfileNavigationProp = NativeStackNavigationProp<
@@ -27,6 +28,7 @@ type ProfileNavigationProp = NativeStackNavigationProp<
 const Profile = ({ navigation }: { navigation: ProfileNavigationProp }) => {
   const [profileData, setProfileData] = useState<ProfileDataType | null>(null);
   const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
 
@@ -54,7 +56,7 @@ const Profile = ({ navigation }: { navigation: ProfileNavigationProp }) => {
 
     fetchProfile();
 
-    const unsubscribe = navigation.addListener("focus", () => {
+    const unsubscribe = navigation.addListener('focus', () => {
       fetchProfile();
     });
 
@@ -71,7 +73,7 @@ const Profile = ({ navigation }: { navigation: ProfileNavigationProp }) => {
       navigation.reset({
         index: 0,
         routes: [{ name: 'LoginScreen' }],
-          // routes: [{ name: 'SplashScreen' }],
+
       });
     } catch (error) {
       console.log('Logout error:', error);
@@ -200,7 +202,8 @@ const Profile = ({ navigation }: { navigation: ProfileNavigationProp }) => {
             </View>
             <TouchableOpacity
               style={styles.upgradeButton}
-              onPress={() => navigation.navigate('UnlockPremiumFeatures')}
+              onPress={() => navigation.navigate('SubscriptionModal')}
+
             >
               <Text style={styles.upgradeText}>Upgrade Now</Text>
             </TouchableOpacity>

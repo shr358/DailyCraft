@@ -216,7 +216,7 @@ useNativeDriver:true,
                     resizeMode="contain"
                   />
 <View style= {{justifyContent:'center',alignSelf:'center'}}>
-                  <Text style={styles.logoText}>Please Upload A Profile Picture</Text>
+                  <Text style={styles.logoText}>  Please Upload {"\n"}A Profile Picture</Text>
 
 </View>
                     <View style={styles.pickButtons}>
@@ -225,7 +225,7 @@ useNativeDriver:true,
                       onPress={openPickerSheet}
                     >
                       <Ionicons name="image-outline" size={22} color="#FFF" />
-                      <Text style={styles.pickTxt}>Gallery</Text>
+                      <Text style={styles.pickTxt}>Upload Logo</Text>
                     </TouchableOpacity>
                   </View>
                   <Modal

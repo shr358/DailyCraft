@@ -230,14 +230,14 @@ const handleCameraPick = () => {
       />
 
 
-      <Text style={styles.logoText}>Please Upload A Profile Picture</Text>
+      <Text style={styles.logoText}>  Please Upload {"\n"}A Profile Picture</Text>
 
 
       <View style={styles.pickButtons}>
   <TouchableOpacity
     style={styles.pickBtn} onPress={openPickerSheet}>
     <Ionicons name="image-outline" size={22} color="#FFF" />
-    <Text style={styles.pickTxt}>Gallery</Text>
+    <Text style={styles.pickTxt}>Upload Logo</Text>
   </TouchableOpacity>
 </View>
 

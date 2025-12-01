@@ -194,7 +194,7 @@ const handleKeyPress = (e, index) => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ImageBackground
         source={require('../../assets/images/wavyheader.png')}

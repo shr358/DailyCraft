@@ -86,6 +86,24 @@ const [activeProfileId, setActiveProfileId] = useState<string | null>(null);
     }
   };
 
+const autoSelectFirstProfile = async (profiles: any[]) => {
+    const savedId = await AsyncStorage.getItem('profile_id');
+
+    if (!savedId && profiles.length > 0) {
+      const first = profiles[0].id.toString();
+
+      await AsyncStorage.setItem('profile_id', first);
+      setActiveProfileId(first);
+
+      await fetchProfileData();
+
+      if (templates[0]?.id) {
+        await fetchTemplateData(templates[0].id, 0);
+      }
+    }
+  };
+
+
 
   const fetchTemplateData = async (templateId?: string, index?: number) => {
     try {
@@ -219,6 +237,8 @@ useEffect(() => {
       const response = await getAllProfiles();
       if (response?.status && Array.isArray(response.data)) {
         setAllProfiles(response.data);
+         await autoSelectFirstProfile(response.data);
+
       } else {
         setAllProfiles([]);
       }
@@ -248,9 +268,14 @@ useEffect(() => {
     const init = async () => {
       setLoading(true);
       await fetchAllTemplates();
+          await fetchAllProfilesFn();
+
       await fetchProfileData();
-      await fetchAllProfilesFn();
-      // await fetchCategories();
+       if (templates[0]?.id) {
+      await fetchTemplateData(templates[0].id, 0);
+    }
+
+
       setLoading(false);
     };
     init();
@@ -339,6 +364,7 @@ useEffect(() => {
           {loading ? (
             <ActivityIndicator size="small" color="#000" />
           ) : (
+
             <Image
               source={
                 profileData?.avatar
