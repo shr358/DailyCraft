@@ -15,7 +15,6 @@ import Profile from '../../screen/Profile/Profile';
 import EditProfile from '../../screen/EditProfile';
 import SplashScreen from '../../screen/SplashScreen';
 import SubscriptionModal from '../../components/Subscriptionmodal';
-
 import Recommend from '../../screen/Recommend';
 import BottomTabNavigator from './BottomTabs';
 export type RootNavigationprop = NativeStackNavigationProp<RootStackParamList>
@@ -24,9 +23,9 @@ const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
   return (
  <NavigationContainer>
-<Stack.Navigator screenOptions={{ headerShown: false }}  initialRouteName="SplashScreen">
-
-   <Stack.Screen name="SplashScreen" component={SplashScreen}/>
+  <Stack.Navigator screenOptions={{ headerShown: false }}  initialRouteName="MainTabs">
+{/* <Stack.Navigator screenOptions={{ headerShown: false }}  initialRouteName="SplashScreen"> */}
+<Stack.Screen name="SplashScreen" component={SplashScreen}/>
 <Stack.Screen name="LoginScreen" component={LoginScreen} />
 <Stack.Screen name="OtpScreen" component={OtpScreen} />
 <Stack.Screen name="ChooseProfileType" component={ChooseProfileType} />
@@ -39,14 +38,12 @@ const AppNavigator = () => {
 <Stack.Screen name="Profile" component={Profile} />
 <Stack.Screen name="Recommend" component={Recommend} />
 <Stack.Screen name="EditProfile" component={EditProfile} />
-
 <Stack.Screen name="MainTabs" component={BottomTabNavigator} />
 <Stack.Screen name="SubscriptionModal" component={SubscriptionModal} />
 
+
 </Stack.Navigator>
 </NavigationContainer>
-
-
   );
 };
 

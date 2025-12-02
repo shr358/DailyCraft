@@ -11,7 +11,7 @@ export default StyleSheet.create({
 
   headerBackground: {
     width: deviceWidth,
-    height: deviceHeight * 0.32,
+    height: deviceHeight * 0.35,
     paddingHorizontal: deviceWidth * 0.06,
     paddingTop: deviceHeight * 0.07,
       marginBottom: deviceWidth * 0.04,
@@ -131,7 +131,7 @@ export default StyleSheet.create({
     backgroundColor: '#FFF0ED',
     paddingHorizontal: deviceWidth * 0.06,
     paddingTop: deviceWidth * 0.04,
-    paddingBottom: deviceWidth * 0.06,
+    paddingBottom: deviceWidth * 0.02,
     borderTopWidth: px(1),
     borderTopColor: '#eee',
   },

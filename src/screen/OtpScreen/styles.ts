@@ -10,7 +10,7 @@ export default StyleSheet.create({
 
   headerBackground: {
     width: '100%',
-    height: deviceHeight * 0.32,
+    height: deviceHeight * 0.35,
        marginBottom: deviceWidth * 0.04,
   },
 
@@ -19,7 +19,7 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingHorizontal: deviceWidth * 0.06,
-    paddingTop: deviceHeight * 0.05,
+    paddingTop: deviceHeight * 0.03,
   },
 
   backBtn: {
@@ -31,6 +31,8 @@ export default StyleSheet.create({
     backgroundColor: '#FF8C32',
     borderWidth: px(2),
     borderColor: '#FFFFFF',
+    top:1,
+
   },
 
   banner: {
@@ -83,16 +85,18 @@ marginRight:px(10),
   resendLink: {
     color: '#FF8C32',
     fontWeight: '600',
+
   },
 
   verifyButton: {
     position: 'absolute',
-    bottom: deviceHeight * 0.09,
+    bottom: deviceHeight * 0.04,
     alignSelf: 'center',
     width: deviceWidth * 0.9,
     backgroundColor: '#FF8C32',
     paddingVertical: deviceWidth * 0.035,
     borderRadius: deviceWidth * 0.02,
+     marginBottom: deviceHeight * 0.02,
   },
 
   verifyButtonText: {

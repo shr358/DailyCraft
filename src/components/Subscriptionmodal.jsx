@@ -9,6 +9,8 @@ import {
   Image,
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
+import { px, deviceWidth, deviceHeight } from '../utils/dimensions';
+
 const SubscriptionModal = () => {
   const [isVisible, setVisible] = useState(true);
 
@@ -103,11 +105,10 @@ const SubscriptionModal = () => {
           </Text>
 
 
-<TouchableOpacity style={styles.closebtw}  onPress={() => setVisible(false)}>
+        </View>
+        <TouchableOpacity style={styles.closebtw}  onPress={() => setVisible(false)}>
     <Text>  X Close </Text>
 </TouchableOpacity>
-
-        </View>
       </View>
     </Modal>
 
@@ -115,29 +116,30 @@ const SubscriptionModal = () => {
 };
 
 const styles = StyleSheet.create({
-
-  overlay: {
+overlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
 
   centerWrap: {
     position: 'absolute',
-    top: '10%',
-    width: '90%',
+    top: deviceHeight * 0.1,
+    width: deviceWidth * 0.93,
     alignSelf: 'center',
   },
 
   card: {
     backgroundColor: '#fff',
-    borderRadius: 18,
-    padding: 20,
+    borderRadius: px(18),
+    padding: px(1),
+    paddingHorizontal:px(29),
     elevation: 8,
     shadowColor: '#000',
   },
 
   heading: {
-    fontSize: 22,
+    marginTop:px(5),
+    fontSize: px(22),
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#000',
@@ -148,51 +150,52 @@ const styles = StyleSheet.create({
   },
 
   subHeading: {
-    fontSize: 20,
+    fontSize: px(20),
     fontWeight: 'bold',
     textAlign: 'center',
-    marginTop: 4,
+    marginTop: px(2),
   },
 
   description: {
     textAlign: 'center',
-    marginTop: 10,
+    marginTop: px(10),
     color: '#555',
+    fontSize: px(12),
   },
 
   featuresBox: {
-    marginTop: 18,
-    borderWidth: 1,
+    marginTop: px(10),
+    borderWidth: px(1),
     borderStyle: 'dashed',
     borderColor: '#ccc',
-    borderRadius: 12,
-    padding: 15,
+    borderRadius: px(12),
+    padding: px(15),
   },
-featuretitle:{
-    textAlign:'center',
-    fontSize:18,
-    fontWeight:'500',
-    marginBottom:20,
 
-},
+  featuretitle: {
+    textAlign: 'center',
+    fontSize: px(18),
+    fontWeight: '500',
+    marginBottom: px(20),
+  },
+
   featureRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent:'center',
-    marginBottom: 8,
+    justifyContent: 'center',
+    marginBottom: px(8),
   },
 
   featureText: {
-    marginLeft: 10,
+    marginLeft: px(10),
     color: '#333',
-    fontSize: 14,
-    alignItems:'center',
-    textAlign:'center',
+    fontSize: px(14),
+    textAlign: 'center',
   },
 
   payHeading: {
-    marginTop: 20,
-    fontSize: 16,
+    marginTop: px(18),
+    fontSize: px(16),
     fontWeight: '600',
     textAlign: 'center',
     color: '#000',
@@ -201,61 +204,80 @@ featuretitle:{
   paymentWrap: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 12,
+    marginTop: px(12),
   },
 
+  payOptionRow: {
+  width: '48%',
+  borderWidth: px(1),
+  borderColor: '#ccc',
+  paddingVertical: px(10),
+  borderRadius: px(8),
+  borderStyle: 'dashed',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+
+payIcon: {
+  width: px(22),
+  height: px(22),
+  marginRight: px(8),
+},
   payOption: {
     width: '48%',
-    borderWidth: 1,
+    borderWidth: px(1),
     borderColor: '#ccc',
-    paddingVertical: 10,
-    borderRadius: 8,
+    paddingVertical: px(10),
+    borderRadius: px(8),
     alignItems: 'center',
-     borderStyle: 'dashed',
+    borderStyle: 'dashed',
   },
 
   payText: {
     color: '#000',
-    fontSize: 13,
+    fontSize: px(13),
     fontWeight: '600',
   },
 
   subscribeBtn: {
-    marginTop: 20,
+    marginTop: px(18),
     backgroundColor: '#FF7F32',
-    paddingVertical: 14,
-    borderRadius: 10,
+    paddingVertical: px(14),
+    borderRadius: px(10),
     alignItems: 'center',
   },
 
   btnText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: px(16),
     fontWeight: 'bold',
   },
 
   footerNote: {
-    marginTop: 10,
-    fontSize: 11,
+    // marginTop: px(10),
+    fontSize: px(11),
     textAlign: 'center',
     color: '#888',
   },
- closebtw: {
-  marginTop: 15,
-  paddingVertical: 8,
-  borderRadius: 10,
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: '#f2f2f2',
-  alignSelf:'center',
-  width:'20%',
-},
 
-closeText: {
-  fontSize: 14,
-  fontWeight: '600',
-  color: '#333',
-},
+  closebtw: {
+    marginTop: px(5),
+    paddingVertical: px(5),
+    paddingHorizontal:px(4),
+    borderRadius: px(10),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#f2f2f2',
+    alignSelf: 'center',
+    width: deviceWidth * 0.20,
+  },
+
+  closeText: {
+    fontSize: px(14),
+    fontWeight: '600',
+    color: '#333',
+  },
 
 });
 

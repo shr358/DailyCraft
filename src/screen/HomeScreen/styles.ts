@@ -12,6 +12,7 @@ export default StyleSheet.create({
   flex: 1,
    width: deviceWidth,
     height: deviceHeight,
+
 },
 
   header: {

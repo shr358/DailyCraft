@@ -46,7 +46,7 @@ const OtpScreen = () => {
 
   useEffect(() => {
     setTimer(60);
-    let interval = null;
+    let interval:any = null;
     if (timer > 0) {
       interval = setInterval(() => {
         setTimer(prev => {
@@ -94,7 +94,7 @@ const handleChange = (text: string, index: number) => {
 };
 
 
-const handleKeyPress = (e, index) => {
+const handleKeyPress = (e:any, index:number) => {
   if (e.nativeEvent.key === "Backspace") {
     const updated = [...otp];
 

@@ -66,20 +66,19 @@ export default StyleSheet.create({
   uploadBtn: {},
 
   uploadimageicon: {
-    paddingTop: px(dw * 0.02),
-    // backgroundColor:'red',
+     marginTop: px(dw * 0.08),
   },
 
   uploadIcon: {
-    marginRight: px(dw * 0.01),
+
   },
 
   uploadText: {
     color: '#FFFFFF',
-    marginTop: px(dw * 0.01),
     fontWeight: '600',
     fontSize: px(dw * 0.03),
     marginLeft: px(dw * 0.02),
+    marginBottom: px(dw * 0.03),
   },
 
   logoImage: {
@@ -151,8 +150,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: px(3),
-    marginTop: px(dw * 0.01),
-    width: px(dw * 0.2),
+    // marginTop: px(dw * 0.01),
+    width: px(dw * 0.3),
+        marginBottom: px(dw * 0.03),
   },
 
   pickBtn: {
@@ -160,13 +160,14 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FF8C32',
     paddingVertical: px(dw * 0.02),
-    paddingHorizontal: px(dw * 0.01),
+    paddingHorizontal: px(dw * 0.02),
     borderRadius: px(dw * 0.02),
+      marginBottom: px(dw * 0.05),
   },
 
   pickTxt: {
     color: '#FFF',
-    marginLeft: px(6),
+    // marginLeft: px(1),
     fontSize: px(dw * 0.03),
     fontWeight: '500',
   },

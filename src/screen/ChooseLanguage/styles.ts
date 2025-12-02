@@ -12,13 +12,15 @@ export default StyleSheet.create({
   headerBackground: {
     width: '100%',
     height: dh * 0.32,
+      // marginTop:px(5),
+    // marginBottom:px(20),
   },
 
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: dw * 0.06,
-    paddingTop: dh * 0.05,
+    paddingTop: dh * 0.04,
   },
 
   backBtn: {

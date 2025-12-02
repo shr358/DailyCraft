@@ -405,7 +405,7 @@ const handleCameraPick = () => {
                 styles.textlarge,
                 errors.bio ? { borderColor: 'red' } : null,
               ]}
-              placeholder="Type Here"
+              placeholder=""
               placeholderTextColor="#777"
               multiline
               value={bio}

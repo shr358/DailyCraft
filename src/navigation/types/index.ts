@@ -14,6 +14,8 @@ export type RootStackParamList = {
    EditProfile: {  profileId: string; profileType?: string  };
    MainTabs: undefined;
 
+
+
 };
 export type ProfileDataType = {
   avatar?: string;
@@ -26,7 +28,6 @@ export type TemplateItem = {
   file_path: string;
   template_name?: string;
 };
-
 
 
 

@@ -130,14 +130,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 10,
-    padding: 15,
+    padding: 10,
     marginBottom: 15,
     backgroundColor: '#fff',
     marginLeft:10,
   },
   textArea: {
-    height: 80,
+    height: 60,
     textAlignVertical: 'top',
+    color:'#424242',
   },
 
   bottomContainer: {
@@ -145,10 +146,10 @@ const styles = StyleSheet.create({
     marginLeft:10,
     // paddingLeft:30,
     // paddingRight:35,
-    marginTop: 10,
+    // marginTop: 10,
     // marginLeft:10,
     // marginRight:10,
-    // width:'90%',
+    // width:'80%',
   },
 
   switchContainer: {

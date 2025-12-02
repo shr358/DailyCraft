@@ -22,6 +22,7 @@ const EditProfile = ({ navigation } : EditProfileProps) => {
   const [email, setEmail] = useState('');
   const [contact, setContact] = useState('');
   const [bio, setBio] = useState('');
+  const [address,setAddress] = useState('');
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -43,6 +44,7 @@ const EditProfile = ({ navigation } : EditProfileProps) => {
           setEmail(data.email || '');
           setContact(data.mobile || '');
           setBio(data.bio || '');
+          setAddress(data.address || '');
           setSelectedImage(data.avatar || null);
         } else {
           Alert.alert('Error', response.message || 'Unable to fetch profile details');
@@ -87,6 +89,7 @@ const handleUpdateProfile = async () => {
     formData.append('email', email);
     formData.append('mobile', contact);
     formData.append('bio', bio);
+    formData.append('address',address);
     formData.append('profile_type', _profiletype);
 
     if (selectedImage) {
@@ -199,6 +202,15 @@ const handleUpdateProfile = async () => {
               onChangeText={setBio}
               placeholder="Type Here"
               multiline
+              placeholderTextColor="#777"
+            />
+
+             <Text style={styles.label}>Address</Text>
+            <TextInput
+              style={[styles.input, styles.textArea]}
+              value={address}
+              onChangeText={setAddress}
+              placeholder="Enter Here"
               placeholderTextColor="#777"
             />
           </View>
