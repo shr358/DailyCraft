@@ -11,4 +11,5 @@ export const ENDPOINTS = {
    getlanguage:'templates/get-all-language',
    homescreenloadtemplate:'template',
    getallcategory:'templates/get-all-category',
+   makeprimary:'profileMakePrimary',
 };

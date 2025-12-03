@@ -18,6 +18,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList , ProfileDataType} from '../../navigation/types';
 import { DeleteProfile , getAllProfiles} from '../services/Apiconfig';
 
+
 import Toast from 'react-native-toast-message';
 
 type ProfileNavigationProp = NativeStackNavigationProp<
@@ -134,6 +135,8 @@ const Profile = ({ navigation }: { navigation: ProfileNavigationProp }) => {
     console.log('Delete Error:', error);
   }
 };
+
+
 
 
 

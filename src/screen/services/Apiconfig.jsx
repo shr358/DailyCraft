@@ -189,3 +189,20 @@ try{
   throw error;
 }
 };
+
+
+export const makePrimaryProfile = async (profile_id) => {
+  try {
+    const response = await axiosInstance.post(
+      ENDPOINTS.makeprimary,
+      { profile_id }
+    );
+
+    console.log('Make Primary Response:>>>>>>>', response.data);
+    return response.data;
+
+  } catch (error) {
+    console.log('Make Primary Error:>>>>>>>', error.response?.data || error.message);
+    throw error.response?.data || error;
+  }
+};
