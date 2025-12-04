@@ -30,6 +30,10 @@ import Share from 'react-native-share';
 import axios from 'axios';
 import { Buffer } from 'buffer';
 import { px } from '../../utils/dimensions';
+import { useSelector,useDispatch } from 'react-redux';
+import { RootState } from '../../screen/Redux/store';
+
+
 
 type HomeScreenprops = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'HomeScreen'>;
@@ -52,6 +56,9 @@ export type TemplateType = {
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 const HomeScreen = ({ navigation }: HomeScreenprops) => {
+  const dispatch = useDispatch();
+  const isPremium = useSelector((state: RootState) => state.membership.isPremium);
+
   const [isModalVisible, setModalVisible] = useState(false);
   const [profileData, setProfileData] = useState<ProfileDataType | null>(null);
   const [allProfiles, setAllProfiles] = useState<ProfileItemType[]>([]);
@@ -361,20 +368,26 @@ const HomeScreen = ({ navigation }: HomeScreenprops) => {
               {loading ? (
                 <ActivityIndicator size="small" color="#000" />
               ) : (
+
+
+                <View style={styles.profileImageContainer}>
                 <Image
                   source={
                     profileData?.avatar ? { uri: profileData.avatar } : require('../../assets/images/shubhamicon.png')
                   }
                   style={styles.profileImg}
                 />
+                </View>
               )}
 
               <TouchableOpacity onPress={() => setModalVisible(true)} activeOpacity={0.8}>
+
                 <Text style={styles.welcomeText}>Welcome Back</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Text style={styles.userName}>{profileData?.name || 'User'}</Text>
                   <Ionicons name="chevron-down" size={18} color="#000" style={{ marginLeft: 4 }} />
                 </View>
+
               </TouchableOpacity>
             </View>
 
@@ -483,15 +496,31 @@ const HomeScreen = ({ navigation }: HomeScreenprops) => {
             />
           )}
 
-          <View style={styles.fixedActionRow}>
-            <TouchableOpacity style={styles.downloadBtn} onPress={() => downloadimage(currentTemplate)}>
-              <Text style={styles.downloadText}>Download</Text>
-            </TouchableOpacity>
 
-            <TouchableOpacity style={styles.nextBtn} onPress={handleNext}>
-              <Text style={styles.nextText}>Next</Text>
-            </TouchableOpacity>
-          </View>
+<View style={styles.fixedActionRow}>
+
+  {!isPremium ? (
+    <TouchableOpacity
+      style={[styles.downloadBtn, { backgroundColor: '#FF984F' }]}
+      onPress={() => navigation.navigate('SubscriptionModal')}
+    >
+      <Text style={styles.downloadText}>Get Membership</Text>
+    </TouchableOpacity>
+  ) : (
+    <TouchableOpacity
+      style={styles.downloadBtn}
+      onPress={() => downloadimage(currentTemplate)}
+    >
+      <Text style={styles.downloadText}>Download</Text>
+    </TouchableOpacity>
+  )}
+
+  <TouchableOpacity style={styles.nextBtn} onPress={handleNext}>
+    <Text style={styles.nextText}>Next</Text>
+  </TouchableOpacity>
+
+</View>
+
 
           <Modal animationType="slide" transparent={true} visible={isModalVisible} onRequestClose={() => setModalVisible(false)}>
             <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
@@ -532,6 +561,8 @@ const HomeScreen = ({ navigation }: HomeScreenprops) => {
                       <View style={styles.avatarBorderBox}>
                         <Image source={item.avatar ? { uri: item.avatar } : require('../../assets/images/shubhamicon.png')} style={styles.profileAvatar} />
                       </View>
+
+
 
                       <View style={styles.profileInfo}>
                         <Text style={styles.profileName}>{item.name || 'User'}</Text>

@@ -69,14 +69,14 @@ export default StyleSheet.create({
     marginTop: px(20),
     marginBottom: px(5),
     color: '#444',
-    marginLeft: px(10),
+    marginLeft: px(12),
   },
 
   input: {
     borderWidth: px(1),
     borderColor: '#ddd',
     borderRadius: px(12),
-    // padding: px(15),
+    padding: px(13),
     fontSize: px(16),
     color: '#000',
   },

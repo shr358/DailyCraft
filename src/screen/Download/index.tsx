@@ -13,7 +13,6 @@ import {
 import { getTemplates } from '../services/Apiconfig';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
-
 import { downloadImage } from '../services/Downloadhelper';
 
 type TemplateItem = {

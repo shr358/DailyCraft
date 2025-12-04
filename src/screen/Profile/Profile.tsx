@@ -17,7 +17,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList , ProfileDataType} from '../../navigation/types';
 import { DeleteProfile , getAllProfiles} from '../services/Apiconfig';
-
+import { useSelector } from 'react-redux';
+import { RootState } from '../../screen/Redux/store';
 
 import Toast from 'react-native-toast-message';
 
@@ -30,7 +31,7 @@ const Profile = ({ navigation }: { navigation: ProfileNavigationProp }) => {
   const [profileData, setProfileData] = useState<ProfileDataType | null>(null);
   const [loading, setLoading] = useState(true);
 
-
+const isPremium = useSelector((state: RootState) => state.membership.isPremium);
   useEffect(() => {
 
     const fetchProfile = async () => {
@@ -97,15 +98,14 @@ const Profile = ({ navigation }: { navigation: ProfileNavigationProp }) => {
     if (!currentProfile) return;
 
     if (currentProfile.is_primary) {
+
  Toast.show({
-       type: 'error',
-  text1: 'Cannot delete primary profile',
-  text2: 'Please set another profile as primary first',
+       type: 'success',
+  text1: 'delete successfully',
   position: 'top',
   visibilityTime: 3000,
       });
-
-      return;
+  return;
     }
 
 
@@ -113,6 +113,11 @@ const Profile = ({ navigation }: { navigation: ProfileNavigationProp }) => {
     console.log('Delete Response:', response);
 
     if (response?.status === true) {
+          Toast.show({
+        type: 'success',
+        text1: 'Profile deleted successfully',
+        position: 'top',
+      });
       await AsyncStorage.removeItem('profile_id');
 
       const remainingProfiles = allProfiles.data.filter(p => p.id.toString() !== profileId);
@@ -135,10 +140,6 @@ const Profile = ({ navigation }: { navigation: ProfileNavigationProp }) => {
     console.log('Delete Error:', error);
   }
 };
-
-
-
-
 
   return (
     <ImageBackground
@@ -190,6 +191,7 @@ const Profile = ({ navigation }: { navigation: ProfileNavigationProp }) => {
             )}
           </View>
 
+{!isPremium && (
           <View style={styles.premiumCard}>
             <View style={styles.premiumLeft}>
               <Image
@@ -211,7 +213,7 @@ const Profile = ({ navigation }: { navigation: ProfileNavigationProp }) => {
               <Text style={styles.upgradeText}>Upgrade Now</Text>
             </TouchableOpacity>
           </View>
-
+)}
           <View style={styles.sectionOuter}>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Settings</Text>

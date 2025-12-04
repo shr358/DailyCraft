@@ -47,6 +47,8 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
                 style={[
                   styles.navIcon,
                   isFocused && { tintColor: '#fff' },
+
+
                 ]}
                 resizeMode="contain"
               />

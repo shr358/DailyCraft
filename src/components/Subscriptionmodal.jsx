@@ -123,7 +123,7 @@ overlay: {
 
   centerWrap: {
     position: 'absolute',
-    top: deviceHeight * 0.1,
+    top: deviceHeight * 0.07,
     width: deviceWidth * 0.93,
     alignSelf: 'center',
   },
@@ -132,7 +132,7 @@ overlay: {
     backgroundColor: '#fff',
     borderRadius: px(18),
     padding: px(1),
-    paddingHorizontal:px(29),
+    paddingHorizontal:px(20),
     elevation: 8,
     shadowColor: '#000',
   },

@@ -24,20 +24,36 @@ export default StyleSheet.create({
     marginLeft: px(10),
 
 
+
   },
   profileSection: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingRight: px(10),
-    // backgroundColor:'red',
-
-
   },
-  profileImg: {
-    width: px(40),
-    height: px(40),
-    borderRadius: px(10),
+
+profileImageContainer:{
+width: px(46),
+    height: px(46),
+    borderColor:'#FF984F',
+    borderRightWidth: px(4),
+    borderBottomWidth: px(4),
+    borderTopRightRadius: px(12),
+    borderBottomRightRadius: px(15),
+    borderTopLeftRadius: px(8),
+    borderBottomLeftRadius: px(12),
     marginRight: px(10),
+    // overflow: 'hidden',
+
+},
+
+
+  profileImg: {
+    width: px(42),
+    height: px(42),
+    borderRadius: px(10),
+    // marginRight: px(10),
+
 
   },
   welcomeText: {
@@ -87,7 +103,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: px(10),
        marginLeft: px(18),
-    // marginRight: px(15),
+
        borderRadius: px(6),
        gap:px(5),
   },
@@ -228,8 +244,6 @@ export default StyleSheet.create({
   headericon: {
     width: px(20),
     height: px(20),
-    // backgroundColor: '#fff',
-    // padding: px(13),
   },
   navIconWrapper: {
     justifyContent: 'center',
@@ -246,6 +260,7 @@ export default StyleSheet.create({
     width: px(50),
     height: px(50),
   },
+
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.3)',
@@ -299,18 +314,36 @@ paddingBottom: px(20),
     elevation: 3,
   },
   avatarBorderBox: {
-    borderRightWidth: px(3),
-    borderBottomWidth: px(3),
+       width: px(48),
+    height: px(48),
     borderColor: '#FF984F',
-    borderRadius: px(8),
-    // padding: px(2),
-    marginRight: px(12),
+    borderRightWidth: px(4),
+    borderBottomWidth: px(4),
+    borderTopRightRadius: px(12),
+    borderBottomRightRadius: px(15),
+    borderTopLeftRadius: px(8),
+    borderBottomLeftRadius: px(12),
+    marginRight: px(10),
+    overflow: 'hidden',
   },
   profileAvatarContainer: {
     borderLeftWidth: px(4),
     borderBottomWidth: px(4),
     borderColor: '#FF984F',
     borderRadius: px(12),
+  },
+  proimage:{
+width: px(48),
+    height: px(48),
+    borderColor: '#FF984F',
+    borderRightWidth: px(5),
+    borderBottomWidth: px(5),
+    borderTopRightRadius: px(12),
+    borderBottomRightRadius: px(15),
+    borderTopLeftRadius: px(8),
+    borderBottomLeftRadius: px(12),
+    marginRight: px(10),
+    overflow: 'hidden',
   },
   profileAvatar: {
     width: px(50),
@@ -341,7 +374,6 @@ paddingBottom: px(20),
     backgroundColor: '#FF984F',
     borderRadius: px(8),
     paddingVertical: px(16),
-    // marginTop: px(90),
     alignItems: 'center',
   },
   createProfileText: {

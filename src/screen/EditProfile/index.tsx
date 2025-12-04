@@ -221,7 +221,7 @@ const handleUpdateProfile = async () => {
           </View>
 
 
-          <TouchableOpacity style={styles.switchContainer}>
+          <TouchableOpacity style={styles.switchContainer} onPress={() => navigation.navigate('PersonalProfile')}>
             <Text style={styles.switchText}>
               Switch to <Text style={styles.switchHighlight}>Personal Profile</Text>
             </Text>
